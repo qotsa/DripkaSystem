@@ -1,0 +1,4 @@
+<ns:GetIncomingQueueStatisticsResponse xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1">
+    <!--Zero or more repetitions:-->
+    <ns:QueueStatistics queueName="?" pendingMessageNumber="?"/>
+</ns:GetIncomingQueueStatisticsResponse>

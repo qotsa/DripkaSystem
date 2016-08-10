@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<typ:GetIncomingQueueStatisticsRequest xmlns:typ="http://otr.ru/irs/services/message-exchange/types" xmlns:bas="http://otr.ru/irs/services/message-exchange/types/basic">
+    <!--Optional:-->
+    <typ:NodeID>string</typ:NodeID>
+    <bas:Timestamp Id="string">2008-09-29T05:49:45</bas:Timestamp>
+    <!--Optional:-->
+    <typ:CallerInformationSystemSignature>
+        <!--You may enter ANY elements at this point-->
+        <AnyElement/>
+    </typ:CallerInformationSystemSignature>
+</typ:GetIncomingQueueStatisticsRequest>

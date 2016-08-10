@@ -1,0 +1,20 @@
+spring:
+ profiles: test
+server:
+   port: 8090
+
+operations:
+      - Ack
+      - GetIncomingQueueStatistics
+      - GetRequest
+      - GetStatus
+      - SendRequest
+      - SendResponse
+smevServiceNamespace: urn://x-artefacts-smev-gov-ru/services/message-exchange/1.1
+namespaceMappings:
+        http://otr.ru/irs/services/message-exchange/types : urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1
+        http://otr.ru/irs/services/message-exchange/types/basic : urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1
+
+activemq:
+        username: "admin"
+        password: "admin"

@@ -1,0 +1,4 @@
+<ns:GetIncomingQueueStatisticsResponse xmlns:ns="http://otr.ru/irs/services/message-exchange/types" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <!--Zero or more repetitions:-->
+    <ns:QueueStatistics queueName="?" pendingMessageNumber="?"/>
+</ns:GetIncomingQueueStatisticsResponse>

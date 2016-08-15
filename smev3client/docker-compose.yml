@@ -28,7 +28,8 @@ services:
    smev3mock:
       image: smev3client/smev3mock
       restart: always
-      ports: 8181:8181
+      ports:
+         - 8181:8181
       logging:
           options:
             max-size: "10m"

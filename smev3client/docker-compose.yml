@@ -1,36 +1,39 @@
 version: '2'
+
 services:
-   activemq:
-      image: webcenter/activemq:latest
-      restart: always
-      ports:
-         - 8161:8161
-         - 61616:61616
-         - 61613:61613
-   configserver:
-     image: smev3client/configserver
-     restart: always
-     logging:
+  activemq:
+    image: webcenter/activemq:latest
+    restart: always
+    ports:
+      - 8161:8161
+      - 61616:61616
+      - 61613:61613
+
+  configserver:
+    image: smev3client/configserver
+    restart: always
+    logging:
       options:
         max-size: "10m"
         max-file: "10"
 
-   smev3adapter:
-      image: smev3client/smev3adapter
-      restart: always
-      ports:
-         - 8090:8090
-      logging:
-         options:
-           max-size: "10m"
-           max-file: "10"
+  smev3adapter:
+    image: smev3client/smev3adapter
+    restart: always
+    ports:
+      - 8090:8090
+#      - 5005:5005
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
-   smev3mock:
-      image: smev3client/smev3mock
-      restart: always
-      ports:
-         - 8181:8181
-      logging:
-          options:
-            max-size: "10m"
-            max-file: "10"
+  smev3mock:
+    image: smev3client/smev3mock
+    restart: always
+    ports:
+      - 8181:8181
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"

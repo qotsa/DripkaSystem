@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Configures the Camel Context-->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:cxf="http://camel.apache.org/schema/cxf"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring
-       http://camel.apache.org/schema/spring/camel-spring.xsd
-       http://camel.apache.org/schema/cxf
-       http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd
+                           http://camel.apache.org/schema/cxf          http://camel.apache.org/schema/cxf/camel-cxf.xsd">
 
     <cxf:cxfEndpoint id="smevMessageExchangeService"
                      address="http://smev3mock:8181/soap-api/SmevMessageExchangeService"
@@ -19,20 +13,11 @@
                      endpointName="s:SMEVMessageExchangeEndpoint"
                      xmlns:s="urn://x-artefacts-smev-gov-ru/services/message-exchange/1.1">
         <cxf:inInterceptors>
-            <bean class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor" />
+            <bean class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor"/>
         </cxf:inInterceptors>
         <cxf:properties>
-            <entry key="dataFormat" value="PAYLOAD" />
+            <entry key="dataFormat" value="PAYLOAD"/>
         </cxf:properties>
     </cxf:cxfEndpoint>
 
-    <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent" >
-        <property name="connectionFactory">
-            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
-                <property name="brokerURL" value="tcp://activemq:61616"/>
-                <property name="userName" value="${activemq.username}"/>
-                <property name="password" value="${activemq.password}"/>
-            </bean>
-        </property>
-    </bean>
 </beans>

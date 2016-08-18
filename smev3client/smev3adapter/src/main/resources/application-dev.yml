@@ -33,10 +33,10 @@ camel:
     allow-use-original-message: true
     stream-caching: true
 
-#logging:
-#  level:
-#    ROOT: INFO
-#    org.springframework: INFO
-#    app: DEBUG
-#  pattern:
-#    console: "%d{\"yyyy-MM-dd'T'HH:mm:ss,SSS\", UTC} [%thread] %-5level %logger{36} - %msg%n"
+logging:
+  level:
+    ROOT: INFO
+    org.springframework: INFO
+    app: DEBUG
+  pattern:
+    console: "%d{\"yyyy-MM-dd'T'HH:mm:ss,SSS\", UTC} [%thread] %-5level %logger{36} - %msg%n"

@@ -19,14 +19,15 @@ services:
 
   smev3adapter:
     image: smev3client/smev3adapter
-    restart: always
+    restart: never
     ports:
       - 8090:8090
 #      - 5005:5005
     logging:
+      driver: "gelf"
       options:
-        max-size: "10m"
-        max-file: "10"
+        gelf-address: "udp://localhost:12201"
+        tag: "smev3adapter"
 
   smev3mock:
     image: smev3client/smev3mock
@@ -37,3 +38,64 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+
+  # ELK-based LOGGING
+
+  elasticsearch:
+    image: elasticsearch
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 9200:9200
+
+  logstash:
+    build: logstash
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    command: logstash -f /config-dir/logstash.conf
+    expose:
+      - 12201
+    ports:
+      - 12201:12201
+      - 12201:12201/udp
+    links:
+      - elasticsearch
+
+  kibana:
+    image: kibana
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 5601:5601
+    links:
+      - elasticsearch
+
+  curator:
+    build: curator
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    links:
+      - elasticsearch
+
+  cadvisor:
+    image: google/cadvisor:latest
+    ports:
+      - 8080:8080
+    volumes:
+    #    - /:/rootfs:ro # this WILL NOT work on windows host
+        - /../:/rootfs:ro # this WILL work on windows host
+        - /var/run:/var/run:rw
+        - /sys:/sys:ro
+        - /var/lib/docker/:/var/lib/docker:ro

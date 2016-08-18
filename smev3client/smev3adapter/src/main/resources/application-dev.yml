@@ -1,5 +1,13 @@
 spring:
   profiles: dev
+  activemq:
+    brokerUrl: "tcp://activemq:61616"
+    inMemory: false
+    user: "admin"
+    password: "admin"
+  devtools:
+    remote:
+      secret: "thisismysecret"
 server:
   port: 8090
 
@@ -16,16 +24,6 @@ smevServiceNamespace: urn://x-artefacts-smev-gov-ru/services/message-exchange/1.
 namespaceMappings:
   http://otr.ru/irs/services/message-exchange/types : urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1
   http://otr.ru/irs/services/message-exchange/types/basic : urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1
-
-spring:
-  activemq:
-    brokerUrl: "tcp://activemq:61616"
-    inMemory: false
-    user: "admin"
-    password: "admin"
-  devtools:
-    remote:
-      secret: "thisismysecret"
 
 camel:
   springboot:

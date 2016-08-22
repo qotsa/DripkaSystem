@@ -42,7 +42,7 @@
 
     <logger name="org.springframework" level="INFO" additivity="true"/>
 
-    <logger name="app" level="DEBUG" additivity="false">
+    <logger name="ru.otr.integration.smev3client" level="DEBUG" additivity="false">
         <!--<appender-ref ref="CONSOLE"/>-->
         <appender-ref ref="LOGSTASH"/>
     </logger>

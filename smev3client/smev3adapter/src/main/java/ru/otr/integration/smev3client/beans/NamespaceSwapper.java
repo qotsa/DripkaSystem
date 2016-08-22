@@ -5,7 +5,7 @@ import com.google.common.collect.HashBiMap;
 import org.apache.camel.Exchange;
 
 import org.apache.camel.Header;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.otr.integration.smev3client.config.AppProperties;

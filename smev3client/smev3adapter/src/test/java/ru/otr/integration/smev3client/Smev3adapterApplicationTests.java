@@ -82,7 +82,7 @@ public class Smev3adapterApplicationTests  extends XMLTestCase {
 					@Override
 					public void configure() throws Exception {
 						weaveAddLast().to("mock:result");
-						weaveById("activemqnode").remove();
+						//weaveById("activemqnode").remove();
 					}
 				}
 		);

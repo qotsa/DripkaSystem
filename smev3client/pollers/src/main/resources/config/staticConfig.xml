@@ -12,20 +12,6 @@
        http://camel.apache.org/schema/cxf
        http://camel.apache.org/schema/cxf/camel-cxf.xsd">
 
-    <cxf:cxfEndpoint id="smevMessageExchangeService"
-                     address="http://smev3mock:8091/soap-api/SmevMessageExchangeService"
-                     wsdlURL="wsdl/smev-message-exchange-service-1.1.wsdl"
-                     serviceName="s:SMEVMessageExchangeService"
-                     endpointName="s:SMEVMessageExchangeEndpoint"
-                     xmlns:s="urn://x-artefacts-smev-gov-ru/services/message-exchange/1.1">
-        <cxf:inInterceptors>
-            <bean class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor" />
-        </cxf:inInterceptors>
-        <cxf:properties>
-            <entry key="dataFormat" value="PAYLOAD" />
-        </cxf:properties>
-    </cxf:cxfEndpoint>
-
     <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent" >
         <property name="connectionFactory">
             <bean class="org.apache.activemq.ActiveMQConnectionFactory">

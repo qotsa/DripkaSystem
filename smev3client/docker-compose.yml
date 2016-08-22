@@ -33,7 +33,18 @@ services:
     image: smev3client/smev3mock
     restart: always
     ports:
-      - 8181:8181
+      - 8091:8091
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  pollers:
+    image: smev3client/pollers
+    restart: always
+    ports:
+      - 8092:8092
+      - 5701:5701
     logging:
       options:
         max-size: "10m"
@@ -52,7 +63,7 @@ services:
       - 9200:9200
 
   logstash:
-    build: logstash
+    image: smev3client/logstash
     restart: never
     logging:
       options:
@@ -80,7 +91,7 @@ services:
       - elasticsearch
 
   curator:
-    build: curator
+    image: smev3client/curator
     restart: never
     logging:
       options:

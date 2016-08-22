@@ -1,0 +1,8 @@
+spring:
+ profiles: dev
+server:
+   port: 8092
+
+activemq:
+       username: "admin"
+       password: "admin"

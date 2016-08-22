@@ -70,11 +70,10 @@ services:
         max-size: "10m"
         max-file: "10"
     command: logstash -f /config-dir/logstash.conf
-    expose:
-      - 12201
     ports:
       - 12201:12201
       - 12201:12201/udp
+      - 4560:4560
     links:
       - elasticsearch
 

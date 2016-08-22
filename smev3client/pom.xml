@@ -262,7 +262,6 @@
                 <artifactId>camel-http</artifactId>
                 <version>${camel.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -308,8 +307,6 @@
             <artifactId>camel-test-spring</artifactId>
         </dependency>
 
-
-
         <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
@@ -320,12 +317,7 @@
             <artifactId>activemq-camel</artifactId>
         </dependency>
 
-
-
     </dependencies>
-
-
-
 
     <build>
         <pluginManagement>

@@ -8,7 +8,7 @@
     </appender>
 
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>logstash:4560</destination>
+        <destination>${logstash.url}</destination>
 
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
@@ -21,8 +21,8 @@
                 <pattern>
                     <pattern>
                         {
-                            "appName": "smev3adapter",
-                            "appVersion": "0.0.1-SNAPSHOT"
+                            "appName": ${artifactId},
+                            "appVersion": ${version}
                         }
                     </pattern>
                 </pattern>
@@ -40,10 +40,7 @@
         <appender-ref ref="CONSOLE"/>
     </logger>
 
-    <logger name="org.springframework" level="INFO" additivity="true"/>
-
-    <logger name="ru.otr.integration.smev3client" level="DEBUG" additivity="false">
-        <!--<appender-ref ref="CONSOLE"/>-->
+    <logger name="ru.otr.integration.smev3client" level="${logging.level}" additivity="true">
         <appender-ref ref="LOGSTASH"/>
     </logger>
 </configuration>

@@ -33,7 +33,6 @@
             <artifactId>camel-cxf</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -60,16 +59,19 @@
         </dependency>
     </dependencies>
 
-     <build>
-         <plugins>
-             <plugin>
-                 <groupId>org.springframework.boot</groupId>
-                 <artifactId>spring-boot-maven-plugin</artifactId>
-             </plugin>
-             <plugin>
-                 <groupId>com.spotify</groupId>
-                 <artifactId>docker-maven-plugin</artifactId>
-             </plugin>
-         </plugins>
-   </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 </project>

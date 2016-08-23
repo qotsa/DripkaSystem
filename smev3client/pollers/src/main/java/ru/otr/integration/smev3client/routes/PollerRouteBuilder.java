@@ -29,9 +29,9 @@ public class PollerRouteBuilder extends RouteBuilder {
 
 
             camelContext.setStreamCaching(true);
-        from("scheduler://foo?initialDelay=130s&delay=70s").routeId("GetRequestPoller")
+        from("scheduler://foo?initialDelay=70s&delay=70s").routeId("GetRequestPoller")
                 .to("velocity:velocity/GetRequestRequest.vm")
-                .to("http://smev3adapter:8090/camel/request")
+                .to("http://smev3adapter:{{smev3adapter.host.port}}/camel/request")
                 .to("activemq:GetRequestResponseQueue");
 
   /*      from("scheduler://foo1?initialDelay=120s&delay=60s").routeId("GetResponsePoller")
@@ -39,9 +39,9 @@ public class PollerRouteBuilder extends RouteBuilder {
                 .to("http://smev3adapter:8090/camel/request")
                 .to("activemq:GetResponseResponseQueue");
 */
-        from("scheduler://foo2?initialDelay=120s&delay=15s").routeId("GetStatusPoller")
+        from("scheduler://foo2?initialDelay=60s&delay=15s").routeId("GetStatusPoller")
                 .to("velocity:velocity/GetStatusRequest.vm")
-                .to("http://smev3adapter:8090/camel/request")
+                .to("http://smev3adapter:{{smev3adapter.host.port}}/camel/request")
                 .idempotentConsumer(xpath("//ns2:OriginalMessageId").resultType(String.class).namespaces(ns2), repository)
                 .skipDuplicate(false)
                 .filter(exchangeProperty(Exchange.DUPLICATE_MESSAGE).isEqualTo(true))

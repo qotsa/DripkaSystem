@@ -1,4 +1,4 @@
 spring:
  profiles: dev
 server:
-   port: 8091
+   port: ${smev3mock.host.port}

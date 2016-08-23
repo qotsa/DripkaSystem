@@ -1,5 +1,7 @@
 package ru.otr.integration.smev3client.config;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -12,6 +14,7 @@ import ru.otr.integration.smev3client.beans.OperationSetter;
 @Configuration
 @Profile("dev")
 public class BeansConfig {
+
     @Bean
     public OperationSetter operationSetter()    {
         return new OperationSetter();
@@ -22,4 +25,17 @@ public class BeansConfig {
         return new NamespaceSwapper();
     }
 
+    @Bean
+    public CamelContextConfiguration contextConfiguration() {
+        return new CamelContextConfiguration() {
+            @Override
+            public void beforeApplicationStart(CamelContext context) {
+                context.setUseMDCLogging(true);
+            }
+
+            @Override
+            public void afterApplicationStart(CamelContext camelContext) {
+            }
+        };
+    }
 }

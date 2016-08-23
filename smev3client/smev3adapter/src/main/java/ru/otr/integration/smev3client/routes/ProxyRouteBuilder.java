@@ -14,11 +14,11 @@ public class ProxyRouteBuilder extends RouteBuilder {
     public void configure() throws Exception {
         from("servlet:///request")
             .routeId("smevProxyService")
-                .to("log:ru.otr.integration.smev3client?level=DEBUG&logger=ru.otr.integration.smev3client&showAll=true")
+                .to("log:ru.otr.integration.smev3client?level=DEBUG&logger=ru.otr.integration.smev3client&showAll=true&multiline=true")
             .setHeader("Direction", simple(NamespaceSwapper.Direction.TO_SMEV))
             .to("bean:namespaceSwapper")
             .to("bean:operationSetter")
-                .to("log:ru.otr.integration.smev3client?level=DEBUG&logger=ru.otr.integration.smev3client&showAll=true")
+                .to("log:ru.otr.integration.smev3client?level=DEBUG&logger=ru.otr.integration.smev3client&showAll=true&multiline=true")
             .to("cxf:bean:smevMessageExchangeService")
             .setHeader("Direction", simple(NamespaceSwapper.Direction.FROM_SMEV))
             .to("bean:namespaceSwapper");

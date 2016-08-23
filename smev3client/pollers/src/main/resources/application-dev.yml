@@ -12,10 +12,14 @@ spring:
        secret: ${devtools.secret}
 
 server:
-   port: 8092
+   port: ${pollers.host.port}
 
 camel:
   springboot:
     jmxEnabled: true
     allow-use-original-message: true
     stream-caching: true
+
+smev3adapter:
+   host:
+     port: ${smev3adapter.host.port}

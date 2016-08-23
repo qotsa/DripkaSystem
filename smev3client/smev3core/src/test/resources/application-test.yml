@@ -1,0 +1,6 @@
+spring:
+ profiles: test
+
+activemq:
+        username: "admin"
+        password: "admin"

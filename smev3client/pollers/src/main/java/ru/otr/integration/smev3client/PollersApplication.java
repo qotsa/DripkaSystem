@@ -7,7 +7,6 @@ import org.springframework.context.annotation.ImportResource;
 
 @EnableConfigurationProperties
 @SpringBootApplication
-@ImportResource("classpath:/config/staticConfig.xml")
 public class PollersApplication {
 
 	public static void main(String[] args) {

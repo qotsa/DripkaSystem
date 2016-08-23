@@ -21,8 +21,8 @@
                 <pattern>
                     <pattern>
                         {
-                            "appName": ${artifactId},
-                            "appVersion": ${version}
+                            "appName": "${artifactId}",
+                            "appVersion": "${version}"
                         }
                     </pattern>
                 </pattern>

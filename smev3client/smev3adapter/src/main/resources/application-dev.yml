@@ -11,6 +11,9 @@ spring:
     remote:
       secret: ${devtools.secret}
 
+server:
+   port: 8090
+
 operations:
   - Ack
   - GetIncomingQueueStatistics

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import ru.otr.integration.smev3client.beans.NamespaceSwapper;
 import ru.otr.integration.smev3client.beans.OperationSetter;
+import ru.otr.integration.smev3client.config.camel.CustomMDCUnitOfWorkFactory;
 
 /**
  * Created by tartanov.mikhail on 03.08.2016.
@@ -31,6 +32,7 @@ public class BeansConfig {
             @Override
             public void beforeApplicationStart(CamelContext context) {
                 context.setUseMDCLogging(true);
+                context.setUnitOfWorkFactory(new CustomMDCUnitOfWorkFactory());
             }
 
             @Override

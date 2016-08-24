@@ -6,6 +6,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.test.spring.CamelSpringBootRunner;
 import org.apache.camel.test.spring.MockEndpointsAndSkip;
 import org.apache.camel.test.spring.UseAdviceWith;
@@ -38,9 +39,6 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @Value("classpath:RequestBody1.xml")
     private Resource requestBody;
 
-    @Value("classpath:MockResponse1.xml")
-    private Resource mockResponse;
-
     @EndpointInject(uri = "mock:activemq:queue:output1")
     protected MockEndpoint out1Endpoint;
 
@@ -56,23 +54,35 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @Test
     public void testRoutes() throws Exception {
 
-        //set adivces and start context
-//        context.getRouteDefinitions().get(0).adviceWith(context, new AdviceWithRouteBuilder() {
-//                    @Override
-//                    public void configure() throws Exception {
-//                        weaveAddLast().to("mock:result");
-//                        //weaveById("activemqnode").remove();
-//                    }
-//                }
-//        );
+        context.getRouteDefinitions().get(0).adviceWith(context, new AdviceWithRouteBuilder() {
+                    @Override
+                    public void configure() throws Exception {
+                        weaveAddLast().to("mock:activemq:queue:output1");
+                    }
+                }
+        );
+
+        context.getRouteDefinitions().get(0).adviceWith(context, new AdviceWithRouteBuilder() {
+                    @Override
+                    public void configure() throws Exception {
+                        weaveAddLast().to("mock:activemq:queue:output2");
+                    }
+                }
+        );
+
         context.start();
 
         input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBody));
+        input2Endpoint.sendBody(TestUtils.getResourceAsString(requestBody));
 
         out1Endpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBody));
         out1Endpoint.expectedMessageCount(1);
 
+        out2Endpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBody));
+        out2Endpoint.expectedMessageCount(1);
+
         out1Endpoint.assertIsSatisfied();
+        out2Endpoint.assertIsSatisfied();
 
 
     }

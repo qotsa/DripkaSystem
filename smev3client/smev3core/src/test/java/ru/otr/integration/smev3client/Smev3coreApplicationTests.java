@@ -1,6 +1,7 @@
 package ru.otr.integration.smev3client;
 
 
+import org.apache.camel.EndpointInject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -10,12 +11,10 @@ import org.apache.camel.test.spring.MockEndpointsAndSkip;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.apache.commons.io.IOUtils;
 import org.custommonkey.xmlunit.XMLTestCase;
-import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.test.annotation.DirtiesContext;
@@ -27,28 +26,67 @@ import java.io.InputStream;
 import static org.apache.camel.builder.Builder.simple;
 
 @RunWith(CamelSpringBootRunner.class)
-@MockEndpointsAndSkip("cxf:*")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@MockEndpointsAndSkip("activemq:*")
 @ActiveProfiles("test")
 @UseAdviceWith
 public class Smev3coreApplicationTests extends XMLTestCase {
 
-	@Autowired
-	private ModelCamelContext context;
+    @Autowired
+    private ModelCamelContext context;
 
-	@Test
-	public void testRoute() throws Exception {
+    @Value("classpath:RequestBody1.xml")
+    private Resource requestBody;
 
-	}
+    @Value("classpath:MockResponse1.xml")
+    private Resource mockResponse;
 
-	private static class TestUtils {
-		static String getResourceAsString(Resource resource) throws IOException {
-			try(InputStream is = resource.getInputStream())	{
-				return IOUtils.toString(is, "utf-8");
-			}
-		}
-		private TestUtils() {}
-	}
+    @EndpointInject(uri = "mock:activemq:queue:output1")
+    protected MockEndpoint out1Endpoint;
+
+    @EndpointInject(uri = "mock:activemq:queue:output2")
+    protected MockEndpoint out2Endpoint;
+
+    @EndpointInject(uri = "activemq:queue:input1")
+    protected ProducerTemplate input1Endpoint;
+
+    @EndpointInject(uri = "activemq:queue:input2")
+    protected ProducerTemplate input2Endpoint;
+
+    @Test
+    public void testRoutes() throws Exception {
+
+        //set adivces and start context
+//        context.getRouteDefinitions().get(0).adviceWith(context, new AdviceWithRouteBuilder() {
+//                    @Override
+//                    public void configure() throws Exception {
+//                        weaveAddLast().to("mock:result");
+//                        //weaveById("activemqnode").remove();
+//                    }
+//                }
+//        );
+        context.start();
+
+        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBody));
+
+        out1Endpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBody));
+        out1Endpoint.expectedMessageCount(1);
+
+        out1Endpoint.assertIsSatisfied();
+
+
+    }
+
+    private static class TestUtils {
+        static String getResourceAsString(Resource resource) throws IOException {
+            try (InputStream is = resource.getInputStream()) {
+                return IOUtils.toString(is, "utf-8");
+            }
+        }
+
+        private TestUtils() {
+        }
+    }
 }
 

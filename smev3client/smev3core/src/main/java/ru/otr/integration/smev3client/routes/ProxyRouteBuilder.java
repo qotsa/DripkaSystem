@@ -12,8 +12,8 @@ public class ProxyRouteBuilder extends RouteBuilder {
                 .routeId("smevToVisPreprocessor")
                 .to("activemq:queue:output1");
 
-        from("activemq:queue:input3")
+        from("activemq:queue:input2")
                 .routeId("smevToVisPostprocessor")
-                .to("activemq:queue:input4");
+                .to("activemq:queue:output2");
     }
 }

@@ -28,7 +28,6 @@ import static org.apache.camel.builder.Builder.simple;
 @RunWith(CamelSpringBootRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@MockEndpointsAndSkip("activemq:*")
 @ActiveProfiles("test")
 @UseAdviceWith
 public class Smev3coreApplicationTests extends XMLTestCase {

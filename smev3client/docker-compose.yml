@@ -36,10 +36,12 @@ services:
     image: smev3client/smev3core
     restart: never
     logging:
-      driver: "gelf"
+#      driver: "gelf"
       options:
-        gelf-address: "udp://localhost:12201"
-        tag: "smev3core"
+#        gelf-address: "udp://localhost:12201"
+#        tag: "smev3core"
+        max-size: "10m"
+        max-file: "10"
 
   smev3mock:
     image: smev3client/smev3mock

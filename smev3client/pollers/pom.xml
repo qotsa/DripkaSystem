@@ -65,6 +65,12 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-hazelcast</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

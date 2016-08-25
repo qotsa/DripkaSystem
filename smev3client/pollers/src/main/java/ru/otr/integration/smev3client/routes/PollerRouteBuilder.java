@@ -30,6 +30,7 @@ public class PollerRouteBuilder extends RouteBuilder {
 
             camelContext.setStreamCaching(true);
         from("scheduler://foo?initialDelay=70s&delay=70s").routeId("GetRequestPoller")
+                .transacted()
                 .to("velocity:velocity/GetRequestRequest.vm")
                 .to("http://smev3adapter:{{smev3adapter.host.port}}/camel/request")
                 .to("activemq:GetRequestResponseQueue");
@@ -40,6 +41,7 @@ public class PollerRouteBuilder extends RouteBuilder {
                 .to("activemq:GetResponseResponseQueue");
 */
         from("scheduler://foo2?initialDelay=60s&delay=15s").routeId("GetStatusPoller")
+                .transacted()
                 .to("velocity:velocity/GetStatusRequest.vm")
                 .to("http://smev3adapter:{{smev3adapter.host.port}}/camel/request")
                 .idempotentConsumer(xpath("//ns2:OriginalMessageId").resultType(String.class).namespaces(ns2), repository)

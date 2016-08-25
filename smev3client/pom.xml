@@ -36,8 +36,11 @@
         <module>configserver</module>
         <module>smev3mock</module>
         <module>pollers</module>
+
+        <module>elasticsearch</module>
         <module>curator</module>
         <module>logstash</module>
+        <module>kibana</module>
     </modules>
 
     <profiles>

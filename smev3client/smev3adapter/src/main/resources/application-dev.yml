@@ -32,4 +32,4 @@ camel:
   springboot:
     jmxEnabled: true
     allow-use-original-message: true
-    stream-caching: true
+    stream-caching: false

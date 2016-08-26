@@ -1,3 +1,4 @@
 #!/bin/sh
 
 /usr/bin/curator --host elasticsearch --port 9200 delete indices --older-than 2 --time-unit days --prefix logstash --timestring '%Y.%m.%d'
+/usr/bin/curator --host elasticsearch --port 9200 delete indices --older-than 2 --time-unit days --prefix logback --timestring '%Y.%m.%d'

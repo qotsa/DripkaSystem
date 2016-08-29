@@ -18,7 +18,7 @@ spring:
   jta:
     atomikos:
       connectionfactory:
-        ignore-session-transacted-flag: true
+        ignore-session-transacted-flag: false
         max-pool-size: 100
         local-transaction-mode: false
       properties:

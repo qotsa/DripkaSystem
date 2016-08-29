@@ -19,9 +19,10 @@ spring:
     atomikos:
       connectionfactory:
         ignore-session-transacted-flag: false
+        max-pool-size: 100
       properties:
         console-log-level: WARN
-#        local-transaction-mode: true
+        local-transaction-mode: false
 
 camel:
   springboot:

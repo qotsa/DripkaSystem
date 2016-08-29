@@ -23,7 +23,7 @@ spring:
         local-transaction-mode: false
       properties:
         console-log-level: INFO
-        threaded-two-phase-commit: false
+        threaded-two-phase-commit: true
 
 camel:
   springboot:

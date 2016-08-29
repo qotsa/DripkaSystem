@@ -18,11 +18,12 @@ spring:
   jta:
     atomikos:
       connectionfactory:
-        ignore-session-transacted-flag: false
+        ignore-session-transacted-flag: true
         max-pool-size: 100
-      properties:
-        console-log-level: WARN
         local-transaction-mode: false
+      properties:
+        console-log-level: INFO
+        threaded-two-phase-commit: false
 
 camel:
   springboot:

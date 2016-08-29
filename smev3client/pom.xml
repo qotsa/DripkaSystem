@@ -36,6 +36,7 @@
         <module>configserver</module>
         <module>smev3mock</module>
         <module>pollers</module>
+        <module>ufosadapter</module>
 
         <module>elasticsearch</module>
         <module>curator</module>
@@ -153,7 +154,6 @@
                 <artifactId>spring-boot-starter-jta-atomikos</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
-
 
 
             <dependency>
@@ -339,9 +339,6 @@
     </dependencyManagement>
 
     <dependencies>
-
-
-
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
@@ -366,7 +363,7 @@
         <!--<dependency>
            <groupId>org.springframework.boot</groupId>
            <artifactId>spring-boot-devtools</artifactId>
-       </dependency>-->
+        </dependency>-->
 
         <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -377,6 +374,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.jolokia</groupId>
             <artifactId>jolokia-spring</artifactId>
@@ -407,7 +405,6 @@
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-camel</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>

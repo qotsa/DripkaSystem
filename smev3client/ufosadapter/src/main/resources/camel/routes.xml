@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns="http://camel.apache.org/schema/spring">
+
+    <route id="toUfos">
+        <from uri="activemq:queue:ufosAdapterInboundQueue"/>
+        <transacted />
+        <to uri="activemq:queue:ufosAdapterOutboundQueue"/>
+    </route>
+
+    <route id="test">
+        <from uri="scheduler://foo?initialDelay=70s&amp;delay=70s"/>
+        <transacted />
+        <to uri="activemq:queue:ufosAdapterInboundQueue"/>
+    </route>
+
+</routes>

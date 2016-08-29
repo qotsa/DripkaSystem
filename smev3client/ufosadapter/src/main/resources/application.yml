@@ -1,0 +1,27 @@
+server:
+  port: ${ufosAdapter.host.port}
+
+spring:
+  activemq:
+    brokerUrl: ${activemq.url}
+    inMemory: false
+    user: ${activemq.username}
+    password: ${activemq.password}
+    pool:
+      enabled: true
+  devtools:
+    remote:
+      secret: ${devtools.secret}
+  jta:
+    atomikos:
+      connectionfactory:
+        ignore-session-transacted-flag: false
+      properties:
+        console-log-level: WARN
+#        local-transaction-mode: true
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: false

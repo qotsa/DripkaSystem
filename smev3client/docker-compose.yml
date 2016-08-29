@@ -31,6 +31,18 @@ services:
 #        max-size: "10m"
 #        max-file: "10"
 
+  ufosadapter:
+    image: smev3client/ufosadapter
+    restart: never
+    ports:
+      - 8083:8083
+#      - 5005:5005
+#    logging:
+#      driver: "gelf"
+#      options:
+#        gelf-address: "udp://localhost:12201"
+#        tag: "ufosadapter"
+
   smev3mock:
     image: smev3client/smev3mock
     restart: always

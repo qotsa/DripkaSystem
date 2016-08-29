@@ -50,7 +50,7 @@
         <profile>
             <id>debug</id>
             <properties>
-                <jvm.args>"java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005","-jar","/smev3adapter.jar"</jvm.args>
+                <jvm.args>"java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005","-jar"</jvm.args>
                 <debug.port>5005</debug.port>
             </properties>
             <build>

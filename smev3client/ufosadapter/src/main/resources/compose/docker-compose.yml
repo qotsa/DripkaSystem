@@ -14,7 +14,7 @@ services:
     restart: never
     ports:
       - 8083:8083
-#      - 5005:5005
+      - 5005:5005
 #    logging:
 #      driver: "gelf"
 #      options:

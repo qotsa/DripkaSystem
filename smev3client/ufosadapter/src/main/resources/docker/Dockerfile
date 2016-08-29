@@ -4,6 +4,6 @@ ADD ${artifactId}-${version}.jar ${artifactId}.jar
 RUN sh -c 'touch /${artifactId}.jar'
 
 #ENTRYPOINT ["java","-jar","/${artifactId}.jar"]
-ENTRYPOINT [${jvm.args}]
+ENTRYPOINT [${jvm.args}, "${artifactId}.jar"]
 
 EXPOSE ${ufosAdapter.host.port} ${debug.port}

@@ -12,6 +12,13 @@ Contains:
 - tested @adviceWith and @MockEndpoints
 
 
+##How to build
+Maven profiles:
+- build-docker-images - use in activation mode, builds images
+- debug - adds jvm debug flags to entrypoin in docker image
+- env - local  - uses filtering from env/local.properties for docker images and configuration files filtering
+
+
 ##How to run
 Use spring boot plugin to run each service independently.
 Use 

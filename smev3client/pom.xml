@@ -25,6 +25,8 @@
         <java.version>1.8</java.version>
 
         <docker.image.prefix>smev3client</docker.image.prefix>
+        <jvm.args>"java","-jar","/smev3adapter.jar"</jvm.args>
+        <debug.port></debug.port>
 
         <springboot.version>1.4.0.RELEASE</springboot.version>
         <camel.version>2.18-SNAPSHOT</camel.version>
@@ -46,7 +48,11 @@
 
     <profiles>
         <profile>
-            <id>debug-local</id>
+            <id>debug</id>
+            <properties>
+                <jvm.args>"java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005","-jar","/smev3adapter.jar"</jvm.args>
+                <debug.port>5005</debug.port>
+            </properties>
             <build>
                 <plugins>
                     <plugin>

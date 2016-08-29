@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  activemq:
+    image: webcenter/activemq:latest
+    restart: always
+    ports:
+      - 8161:8161
+      - 61616:61616
+      - 61613:61613
+
+  smev3adapter:
+    image: smev3client/smev3adapter
+    restart: never
+    ports:
+      - 8090:8090
+      - 5005:5005
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://localhost:12201"
+        tag: "smev3adapter"
+#        max-size: "10m"
+#        max-file: "10"
+
+  smev3mock:
+    image: smev3client/smev3mock
+    restart: always
+    ports:
+      - 8091:8091
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"

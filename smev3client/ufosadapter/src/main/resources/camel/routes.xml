@@ -3,13 +3,15 @@
 
     <route id="toUfos">
         <from uri="activemq:queue:ufosAdapterInboundQueue"/>
-        <transacted />
+        <transacted/>
+        <to uri="log:ru.otr.integration.smev3client.ufosadapter?level=DEBUG&amp;showAll=true&amp;multiline=true"/>
         <to uri="activemq:queue:ufosAdapterOutboundQueue"/>
     </route>
 
     <route id="test">
-        <from uri="scheduler://foo?initialDelay=70s&amp;delay=70s"/>
-        <transacted />
+        <from uri="scheduler://foo?initialDelay=10s&amp;delay=10s"/>
+        <transacted/>
+        <!--<to uri="log:ru.otr.integration.smev3client.ufosadapter?level=DEBUG&amp;showAll=true&amp;multiline=true"/>-->
         <to uri="activemq:queue:ufosAdapterInboundQueue"/>
     </route>
 

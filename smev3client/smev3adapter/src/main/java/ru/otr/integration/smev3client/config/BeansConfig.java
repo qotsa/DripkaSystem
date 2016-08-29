@@ -32,7 +32,7 @@ public class BeansConfig {
             @Override
             public void beforeApplicationStart(CamelContext context) {
                 context.setUseMDCLogging(true);
-                context.setUnitOfWorkFactory(new CustomMDCUnitOfWorkFactory());
+                //context.setUnitOfWorkFactory(new CustomMDCUnitOfWorkFactory());
             }
 
             @Override

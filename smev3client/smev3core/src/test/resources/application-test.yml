@@ -1,5 +1,25 @@
 spring:
  profiles: test
 
-activemq:
-        inMemory: true
+smevToVisPreprocessor:
+  queue:
+    in:
+      seda:queue:input1
+    out:
+      default:
+        mock:seda:queue:output1
+      stub:
+        mock:seda:queue:ep-stub-1
+      replication:
+        mock:seda:queue:replication1
+
+smevToVisPostprocessor:
+  queue:
+    in:
+      seda:queue:input2
+    out:
+      mock:seda:queue:output2
+
+metadataEndpoints:
+  STUB : mock:seda:queue:ep-stub-1
+  test : mock:seda:queue:output-test-ep

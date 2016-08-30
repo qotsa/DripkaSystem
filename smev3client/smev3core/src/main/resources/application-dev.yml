@@ -1,9 +1,12 @@
 spring:
   profiles: dev
   activemq:
+#    brokerUrl: tcp://localhost:61616
     brokerUrl: ${activemq.url}
     inMemory: false
+#    user: admin
     user: ${activemq.username}
+#    password: admin
     password: ${activemq.password}
     pool:
       enabled: true
@@ -16,3 +19,24 @@ camel:
     jmxEnabled: true
     allow-use-original-message: true
     stream-caching: true
+
+smevToVisPreprocessor:
+  queue:
+    in:
+      activemq:queue:input1
+    out:
+      default:
+        activemq:queue:output1
+    replication:
+      activemq:queue:replication1
+
+smevToVisPostprocessor:
+  queue:
+    in:
+      activemq:queue:input2
+    out:
+      activemq:queue:output2
+
+metadataEndpoints:
+  STUB : activemq:queue:ep-stub-1
+  test : activemq:queue:output-test-ep

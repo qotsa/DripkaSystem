@@ -1,21 +1,30 @@
 package ru.otr.integration.smev3client.routes;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.xml.Namespaces;
 import org.springframework.stereotype.Component;
+import ru.otr.integration.smev3client.routers.PreprocessorRouter;
 
 @Component
 public class ProxyRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("activemq:queue:input1")
+        Namespaces ns = new Namespaces("bas", "http://otr.ru/irs/services/message-exchange/types/basic")
+                .add("typ2", "http://otr.ru/irs/services/message-exchange/types");
+
+        from("{{smevToVisPreprocessor.queue.in}}")
                 .transacted()
                 .routeId("smevToVisPreprocessor")
-                .to("activemq:queue:output1");
+                .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
+                .choice().when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
+                .to("{{smevToVisPreprocessor.queue.replication}}")
+                .otherwise()
+                .dynamicRouter(method(PreprocessorRouter.class, "route"));
 
-        from("activemq:queue:input2")
+        from("{{smevToVisPostprocessor.queue.in}}")
                 .transacted()
                 .routeId("smevToVisPostprocessor")
-                .to("activemq:queue:output2");
+                .to("{{smevToVisPostprocessor.queue.out}}");
     }
 }

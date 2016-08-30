@@ -27,8 +27,8 @@ smevToVisPreprocessor:
     out:
       default:
         activemq:queue:output1
-    replication:
-      activemq:queue:replication1
+      replication:
+        activemq:queue:replication1
 
 smevToVisPostprocessor:
   queue:

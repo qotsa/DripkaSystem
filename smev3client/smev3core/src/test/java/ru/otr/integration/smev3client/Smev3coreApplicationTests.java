@@ -3,7 +3,6 @@ package ru.otr.integration.smev3client;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 
@@ -36,13 +35,25 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @Autowired
     private ModelCamelContext context;
 
-    @Value("classpath:RequestBody1.xml")
-    private Resource requestBody;
+    @Value("classpath:RequestBodyAttach.xml")
+    private Resource requestBodyAttach;
 
-    @EndpointInject(uri = "mock:{{smevToVisPreprocessor.queue.out}}")
-    protected MockEndpoint out1Endpoint;
+    @Value("classpath:RequestBodyNoAttach.xml")
+    private Resource requestBodyNoAttach;
 
-    @EndpointInject(uri = "mock:{{smevToVisPostprocessor.queue.out}}")
+    @Value("classpath:RequestBodyNoAttachStub.xml")
+    private Resource requestBodyNoAttachStub;
+
+    @EndpointInject(uri = "{{smevToVisPreprocessor.queue.out.default}}")
+    protected MockEndpoint preOutDefEndpoint;
+
+    @EndpointInject(uri = "{{smevToVisPreprocessor.queue.out.stub}}")
+    protected MockEndpoint preOutStubEndpoint;
+
+    @EndpointInject(uri = "{{smevToVisPreprocessor.queue.out.replication}}")
+    protected MockEndpoint preOutRepEndpoint;
+
+    @EndpointInject(uri = "{{smevToVisPostprocessor.queue.out}}")
     protected MockEndpoint out2Endpoint;
 
     @EndpointInject(uri = "{{smevToVisPreprocessor.queue.in}}")
@@ -54,35 +65,38 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @Test
     public void testRoutes() throws Exception {
 
-        context.getRouteDefinitions().get(0).adviceWith(context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        weaveAddLast().to("mock:{{smevToVisPreprocessor.queue.out}}");
-                    }
-                }
-        );
+//        context.getRouteDefinitions().get(0).adviceWith(context, new AdviceWithRouteBuilder() {
+//                    @Override
+//                    public void configure() throws Exception {
+//                        weaveAddLast().to("mock:{{smevToVisPreprocessor.queue.out}}");
+//                    }
+//                }
+//        );
 
-        context.getRouteDefinitions().get(1).adviceWith(context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        weaveAddLast().to("mock:{{smevToVisPostprocessor.queue.out}}");
-                    }
-                }
-        );
+//        context.getRouteDefinitions().get(1).adviceWith(context, new AdviceWithRouteBuilder() {
+//                    @Override
+//                    public void configure() throws Exception {
+//                        weaveAddLast().to("mock:{{smevToVisPostprocessor.queue.out}}");
+//                    }
+//                }
+//        );
 
         context.start();
 
-        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBody));
-        input2Endpoint.sendBody(TestUtils.getResourceAsString(requestBody));
+        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyAttach));
+        preOutRepEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyAttach));
+        preOutRepEndpoint.expectedMessageCount(1);
+        preOutRepEndpoint.assertIsSatisfied();
 
-        out1Endpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBody));
-        out1Endpoint.expectedMessageCount(1);
+        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyNoAttachStub));
+        preOutStubEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyNoAttachStub));
+        preOutStubEndpoint.expectedMessageCount(1);
+        preOutStubEndpoint.assertIsSatisfied();
 
-        out2Endpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBody));
-        out2Endpoint.expectedMessageCount(1);
-
-        out1Endpoint.assertIsSatisfied();
-        out2Endpoint.assertIsSatisfied();
+        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyNoAttach));
+        preOutDefEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyNoAttach));
+        preOutDefEndpoint.expectedMessageCount(1);
+        preOutDefEndpoint.assertIsSatisfied();
 
 
     }

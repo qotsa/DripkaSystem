@@ -1,0 +1,9 @@
+<ns:GetIncomingQueueStatisticsRequest xmlns:ns="http://otr.ru/irs/services/message-exchange/types" xmlns:ns1="http://otr.ru/irs/services/message-exchange/types/basic">
+    <!--Optional:-->
+    <ns:NodeID>?</ns:NodeID>
+    <ns1:Timestamp Id="?">?</ns1:Timestamp>
+    <!--Optional:-->
+    <ns:CallerInformationSystemSignature>
+        <!--You may enter ANY elements at this point-->
+    </ns:CallerInformationSystemSignature>
+</ns:GetIncomingQueueStatisticsRequest>

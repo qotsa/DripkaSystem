@@ -1,0 +1,5 @@
+spring:
+ profiles: test
+
+activemq:
+        inMemory: true

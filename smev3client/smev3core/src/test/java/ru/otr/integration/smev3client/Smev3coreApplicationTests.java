@@ -39,16 +39,16 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @Value("classpath:RequestBody1.xml")
     private Resource requestBody;
 
-    @EndpointInject(uri = "mock:activemq:queue:output1")
+    @EndpointInject(uri = "mock:{{smevToVisPreprocessor.queue.out}}")
     protected MockEndpoint out1Endpoint;
 
-    @EndpointInject(uri = "mock:activemq:queue:output2")
+    @EndpointInject(uri = "mock:{{smevToVisPostprocessor.queue.out}}")
     protected MockEndpoint out2Endpoint;
 
-    @EndpointInject(uri = "activemq:queue:input1")
+    @EndpointInject(uri = "{{smevToVisPreprocessor.queue.in}}")
     protected ProducerTemplate input1Endpoint;
 
-    @EndpointInject(uri = "activemq:queue:input2")
+    @EndpointInject(uri = "{{smevToVisPostprocessor.queue.in}}")
     protected ProducerTemplate input2Endpoint;
 
     @Test
@@ -57,15 +57,15 @@ public class Smev3coreApplicationTests extends XMLTestCase {
         context.getRouteDefinitions().get(0).adviceWith(context, new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() throws Exception {
-                        weaveAddLast().to("mock:activemq:queue:output1");
+                        weaveAddLast().to("mock:{{smevToVisPreprocessor.queue.out}}");
                     }
                 }
         );
 
-        context.getRouteDefinitions().get(0).adviceWith(context, new AdviceWithRouteBuilder() {
+        context.getRouteDefinitions().get(1).adviceWith(context, new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() throws Exception {
-                        weaveAddLast().to("mock:activemq:queue:output2");
+                        weaveAddLast().to("mock:{{smevToVisPostprocessor.queue.out}}");
                     }
                 }
         );

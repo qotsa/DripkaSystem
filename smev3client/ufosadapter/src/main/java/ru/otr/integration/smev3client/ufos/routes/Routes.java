@@ -11,15 +11,15 @@ public class Routes extends SpringRouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("activemq:queue:ufosAdapterInboundQueue")
-            .routeId("toUfos")
+        /*from("{{routes.toUfos.inboundQueue}}")
             .transacted("PROPAGATION_REQUIRED")
-            .to("log:ru.otr.integration.smev3client.ufosadapter?level=DEBUG&showAll=true&multiline=true")
-            .to("activemq:queue:ufosAdapterOutboundQueue");
+            .routeId("toUfos")
+            .to("{{routes.toUfos.log}}")
+            .to("{{routes.toUfos.outboundQueue}}");
 
         from("scheduler://foo?initialDelay=10s&delay=10s")
-            .routeId("test")
             .transacted("PROPAGATION_REQUIRES_NEW")
-            .to("activemq:queue:ufosAdapterInboundQueue");
+            .routeId("test")
+            .to("{{routes.toUfos.inboundQueue}}");*/
     }
 }

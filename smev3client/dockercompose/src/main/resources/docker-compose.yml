@@ -1,0 +1,129 @@
+version: '2'
+
+services:
+  activemq:
+    image: webcenter/activemq:latest
+    restart: always
+    ports:
+      - 8161:8161
+      - 61616:61616
+      - 61613:61613
+
+  configserver:
+    image: smev3client/configserver
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  smev3adapter:
+    image: smev3client/smev3adapter
+    restart: never
+    ports:
+      - 8090:8090
+#      - 5005:5005
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://localhost:12201"
+        tag: "smev3adapter"
+#        max-size: "10m"
+#        max-file: "10"
+
+  ufosadapter:
+    image: smev3client/ufosadapter
+    restart: ${ufosadapter.docker.compose.restart}
+#    logging:
+#      driver: "gelf"
+#      options:
+#        gelf-address: "udp://localhost:12201"
+#        tag: "ufosadapter"
+    ports:
+      ${ufosadapter.docker.compose.ports}
+      ${debug.port.compose}
+
+  smev3mock:
+    image: smev3client/smev3mock
+    restart: always
+    ports:
+      - 8091:8091
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  pollers:
+    image: smev3client/pollers
+    restart: always
+    ports:
+      - 8092:8092
+      - 5701:5701
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  # ELK-based LOGGING
+
+  elasticsearch:
+    build: elasticsearch
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 9200:9200
+
+  logstash:
+    image: smev3client/logstash
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    command: logstash -f /config-dir/logstash.conf
+    ports:
+      - 12201:12201
+      - 12201:12201/udp
+      - 4560:4560
+    links:
+      - elasticsearch
+
+  kibana:
+    build: kibana
+    restart: never
+    environment:
+      NODE_OPTIONS: "--max-old-space-size=250"
+    #volumes:
+    #  - ./kibana/config/:/opt/kibana/config/
+    ports:
+      - 5601:5601
+    links:
+      - elasticsearch
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  curator:
+    image: smev3client/curator
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    links:
+      - elasticsearch
+
+  cadvisor:
+    image: google/cadvisor:latest
+    ports:
+      - 8080:8080
+    volumes:
+    #    - /:/rootfs:ro # this WILL NOT work on windows host
+        - /../:/rootfs:ro # this WILL work on windows host
+        - /var/run:/var/run:rw
+        - /sys:/sys:ro
+        - /var/lib/docker/:/var/lib/docker:ro

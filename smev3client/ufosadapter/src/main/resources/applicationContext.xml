@@ -12,4 +12,18 @@
         <property name="propagationBehaviorName" value="PROPAGATION_REQUIRES_NEW"/>
     </bean>
 
+    <bean id="transactionErrorHandlerBuilder" class="org.apache.camel.spring.spi.TransactionErrorHandlerBuilder">
+        <property name="redeliveryPolicy" ref="redeliveryPolicy"/>
+    </bean>
+
+    <bean id="redeliveryPolicy" class="org.apache.camel.processor.RedeliveryPolicy">
+        <property name="maximumRedeliveries" value="3"/>
+        <property name="redeliveryDelay" value="250"/>
+        <property name="logStackTrace" value="true"/>
+    </bean>
+
+    <bean id="zombieApocalipse" class="java.lang.IllegalArgumentException">
+        <constructor-arg index="0" value="aaaaaaaaaaaaaaaa"/>
+    </bean>
+
 </beans>

@@ -16,14 +16,16 @@ spring:
     remote:
       secret: ${devtools.secret}
   jta:
-    atomikos:
+    bitronix:
       connectionfactory:
-        ignore-session-transacted-flag: false
+        min-pool-size: 10
         max-pool-size: 100
-        local-transaction-mode: false
-      properties:
-        console-log-level: INFO
-        threaded-two-phase-commit: true
+#    atomikos:
+#      connectionfactory:
+#        min-pool-size: 10
+#        max-pool-size: 100
+#      properties:
+#        console-log-level: debug
 
 camel:
   springboot:

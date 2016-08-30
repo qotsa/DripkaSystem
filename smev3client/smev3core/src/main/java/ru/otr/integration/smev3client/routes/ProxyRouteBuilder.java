@@ -3,7 +3,7 @@ package ru.otr.integration.smev3client.routes;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
 import org.springframework.stereotype.Component;
-import ru.otr.integration.smev3client.routers.PreprocessorRouter;
+import ru.otr.integration.smev3client.routes.routers.MetadataRouter;
 
 @Component
 public class ProxyRouteBuilder extends RouteBuilder {
@@ -20,11 +20,16 @@ public class ProxyRouteBuilder extends RouteBuilder {
                 .choice().when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
                 .to("{{smevToVisPreprocessor.queue.replication}}")
                 .otherwise()
-                .dynamicRouter(method(PreprocessorRouter.class, "route"));
+                .dynamicRouter(method(MetadataRouter.class, "route"));
 
         from("{{smevToVisPostprocessor.queue.in}}")
                 .transacted()
                 .routeId("smevToVisPostprocessor")
-                .to("{{smevToVisPostprocessor.queue.out}}");
+                .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
+                .choice().when(simple("${in.header.messageReplicationAndVerification} != &#39;OK&#39;"))
+                .to("log:ru.otr.integration.smev3client.smevToVisPostprocessor?level=DEBUG&showAll=true&multiline=true")
+                .stop()
+                .otherwise()
+                .dynamicRouter(method(MetadataRouter.class, "route"));
     }
 }

@@ -1,4 +1,4 @@
-package ru.otr.integration.smev3client.routers;
+package ru.otr.integration.smev3client.routes.routers;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.EndpointInject;
@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by dez on 30/08/16.
  */
 @Component
-public class PreprocessorRouter {
+public class MetadataRouter {
 
     @Autowired
     private AppProperties appProperties;
@@ -28,7 +28,7 @@ public class PreprocessorRouter {
         if (!isRouted) {
             properties.put("isRouted", true);
 
-            String ep = appProperties.getMetadataEndpoints().get(recipient);
+            String ep = appProperties.getMetadataEndpointsImmutable().get(recipient);
 
             if (null != ep) {
                 return ep;

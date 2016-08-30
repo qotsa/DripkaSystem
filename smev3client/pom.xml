@@ -27,6 +27,7 @@
         <docker.image.prefix>smev3client</docker.image.prefix>
         <jvm.args>"java","-jar"</jvm.args>
         <debug.port></debug.port>
+        <debug.port.compose></debug.port.compose>
 
         <springboot.version>1.4.0.RELEASE</springboot.version>
         <camel.version>2.18-SNAPSHOT</camel.version>
@@ -45,6 +46,8 @@
         <module>curator</module>
         <module>logstash</module>
         <module>kibana</module>
+
+        <module>dockercompose</module>
     </modules>
 
     <profiles>
@@ -53,6 +56,7 @@
             <properties>
                 <jvm.args>"java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005","-jar"</jvm.args>
                 <debug.port>5005</debug.port>
+                <debug.port.compose>- 5005:5005</debug.port.compose>
             </properties>
             <build>
                 <plugins>

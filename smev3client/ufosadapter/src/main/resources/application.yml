@@ -1,5 +1,5 @@
 server:
-  port: ${ufosAdapter.host.port}
+  port: ${ufosadapter.http.port}
 
 spring:
   activemq:
@@ -32,3 +32,9 @@ camel:
     jmxEnabled: true
     allow-use-original-message: true
     stream-caching: false
+
+routes:
+  toUfos:
+    inboundQueue: ${ufosadapter.routes.toUfos.inboundQueue}
+    outboundQueue: ${ufosadapter.routes.toUfos.outboundQueue}
+    log: ${ufosadapter.routes.toUfos.log}

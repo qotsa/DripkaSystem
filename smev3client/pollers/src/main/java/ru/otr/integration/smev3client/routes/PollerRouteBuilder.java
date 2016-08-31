@@ -38,7 +38,7 @@ public class PollerRouteBuilder extends RouteBuilder {
                 .to("http://smev3adapter:8090/camel/request")
                 .to("{{routes.GetResponsePoller.GetResponseResponseQueue}}activemq:GetResponseResponseQueue");*/
 
-        from("scheduler://foo2?initialDelay=60s&delay=15s").routeId("GetStatusPoller")
+        /*from("scheduler://foo2?initialDelay=60s&delay=15s").routeId("GetStatusPoller")
                 .transacted()
                 .to("velocity:velocity/GetStatusRequest.vm")
                 .to("http://smev3adapter:{{smev3adapter.http.port}}/camel/request")
@@ -48,6 +48,6 @@ public class PollerRouteBuilder extends RouteBuilder {
                 .to("activemq:queue:DuplicatesQueue")
                 .stop()
                 .end()
-                .to("{{routes.GetStatusPoller.GetStatusResponseQueue}}");
+                .to("{{routes.GetStatusPoller.GetStatusResponseQueue}}");*/
     }
 }

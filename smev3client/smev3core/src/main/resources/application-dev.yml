@@ -1,3 +1,6 @@
+server:
+  port: ${smev3core.http.port}
+
 spring:
   profiles: dev
   activemq:

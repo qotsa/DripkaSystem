@@ -24,7 +24,8 @@ services:
     image: smev3client/smev3core
     restart: ${smev3core.docker.compose.restart}
     ports:
-      - 5005:5005
+      ${smev3core.docker.compose.ports}
+      ${debug.port.compose}
     logging:
 #      driver: "gelf"
       options:

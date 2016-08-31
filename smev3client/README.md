@@ -20,6 +20,10 @@ Maven profiles:
 
 
 ##How to run
+
+There are main compose file in root project and compose files per each project, having only current service and 
+its dependencies
+
 Use spring boot plugin to run each service independently.
 Use 
 ```

@@ -58,19 +58,6 @@
                 <debug.port>5005</debug.port>
                 <debug.port.compose>- 5005:5005</debug.port.compose>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <jvmArguments>
-                                -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
-                            </jvmArguments>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
 
         <profile>

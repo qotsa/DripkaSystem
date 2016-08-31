@@ -8,8 +8,6 @@ smevToVisPreprocessor:
     out:
       default:
         mock:seda:queue:output1
-      stub:
-        mock:seda:queue:ep-stub-1
       replication:
         mock:seda:queue:replication1
 

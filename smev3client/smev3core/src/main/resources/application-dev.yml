@@ -35,7 +35,7 @@ smevToVisPostprocessor:
     in:
       activemq:queue:input2
     out:
-      activemq:queue:output2
+      log:ru.otr.integration.smev3client.smevToVisPostprocessor?level=DEBUG&showAll=true&multiline=true
 
 metadataEndpoints:
   STUB : activemq:queue:ep-stub-1

@@ -35,26 +35,23 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @Autowired
     private ModelCamelContext context;
 
+    //сообщение с аттачем -- уходит на сервис репликации
     @Value("classpath:RequestBodyAttach.xml")
     private Resource requestBodyAttach;
 
+    //сообщение без аттача с получателем для которого не определен ендпоинт
     @Value("classpath:RequestBodyNoAttach.xml")
     private Resource requestBodyNoAttach;
 
+    //сообщение без аттача с получателем STUB
     @Value("classpath:RequestBodyNoAttachStub.xml")
     private Resource requestBodyNoAttachStub;
 
     @EndpointInject(uri = "{{smevToVisPreprocessor.queue.out.default}}")
     protected MockEndpoint preOutDefEndpoint;
 
-    @EndpointInject(uri = "{{smevToVisPreprocessor.queue.out.stub}}")
-    protected MockEndpoint preOutStubEndpoint;
-
     @EndpointInject(uri = "{{smevToVisPreprocessor.queue.out.replication}}")
     protected MockEndpoint preOutRepEndpoint;
-
-    @EndpointInject(uri = "{{smevToVisPostprocessor.queue.out}}")
-    protected MockEndpoint out2Endpoint;
 
     @EndpointInject(uri = "{{smevToVisPreprocessor.queue.in}}")
     protected ProducerTemplate input1Endpoint;
@@ -62,43 +59,55 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @EndpointInject(uri = "{{smevToVisPostprocessor.queue.in}}")
     protected ProducerTemplate input2Endpoint;
 
+    @EndpointInject(uri = "{{smevToVisPostprocessor.queue.out}}")
+    protected MockEndpoint postOutDefEndpoint;
+
+    @EndpointInject(uri = "{{metadataEndpoints.STUB}}")
+    protected MockEndpoint outStubEndpoint;
+
     @Test
     public void testRoutes() throws Exception {
 
-//        context.getRouteDefinitions().get(0).adviceWith(context, new AdviceWithRouteBuilder() {
-//                    @Override
-//                    public void configure() throws Exception {
-//                        weaveAddLast().to("mock:{{smevToVisPreprocessor.queue.out}}");
-//                    }
-//                }
-//        );
-
-//        context.getRouteDefinitions().get(1).adviceWith(context, new AdviceWithRouteBuilder() {
-//                    @Override
-//                    public void configure() throws Exception {
-//                        weaveAddLast().to("mock:{{smevToVisPostprocessor.queue.out}}");
-//                    }
-//                }
-//        );
-
         context.start();
 
-        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyAttach));
+//        есть вложения
         preOutRepEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyAttach));
         preOutRepEndpoint.expectedMessageCount(1);
-        preOutRepEndpoint.assertIsSatisfied();
 
-        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyNoAttachStub));
-        preOutStubEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyNoAttachStub));
-        preOutStubEndpoint.expectedMessageCount(1);
-        preOutStubEndpoint.assertIsSatisfied();
-
-        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyNoAttach));
+//        нет вложений и не определен маршрут в маппинге
         preOutDefEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyNoAttach));
         preOutDefEndpoint.expectedMessageCount(1);
+
+//        нет вложений, определен маршрут
+        postOutDefEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyNoAttachStub));
+        postOutDefEndpoint.expectedMessageCount(1);
+
+//        выходная очередь для постпроцессора и препроцессора из маппинга
+        outStubEndpoint.expectedBodiesReceived(
+                TestUtils.getResourceAsString(requestBodyNoAttachStub),
+                TestUtils.getResourceAsString(requestBodyNoAttachStub));
+        outStubEndpoint.expectedMessageCount(2);
+
+        //preprocessor tests
+        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyAttach));
+        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyNoAttachStub));
+        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyNoAttach));
+
+
+        //postprocessor tests
+        input2Endpoint.sendBodyAndHeader(
+                TestUtils.getResourceAsString(requestBodyNoAttachStub),
+                "messageReplicationAndVerification",
+                "OK");
+
+        input2Endpoint.sendBodyAndHeader(TestUtils.getResourceAsString(requestBodyNoAttachStub),
+                "messageReplicationAndVerification", "FAILED");
+
+
+        preOutRepEndpoint.assertIsSatisfied();
         preOutDefEndpoint.assertIsSatisfied();
-
-
+        postOutDefEndpoint.assertIsSatisfied();
+        outStubEndpoint.assertIsSatisfied();
     }
 
     private static class TestUtils {

@@ -20,18 +20,19 @@ public class ProxyRouteBuilder extends RouteBuilder {
                 .routeId("smevToVisPreprocessor")
                 .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
                 .choice().when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
-                .to("{{smevToVisPreprocessor.queue.out.replication}}")
+                .to("{{smevToVisPreprocessor.queue.out.replication}}").stop()
                 .otherwise()
-                .dynamicRouter(method(PreprocessorMetadataRouter.class, "route"));
+                .dynamicRouter(method(PreprocessorMetadataRouter.class, "route"))
+                .end();
 
         from("{{smevToVisPostprocessor.queue.in}}")
                 .transacted()
                 .routeId("smevToVisPostprocessor")
                 .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
-                .choice().when(simple("${in.header.messageReplicationAndVerification} != 'OK'"))
-                .to("log:ru.otr.integration.smev3client.smevToVisPostprocessor?level=DEBUG&showAll=true&multiline=true")
-                .stop()
+                .choice().when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
+                .to("{{smevToVisPostprocessor.queue.out}}").stop()
                 .otherwise()
-                .dynamicRouter(method(PostprocessorMetadataRouter.class, "route"));
+                .dynamicRouter(method(PostprocessorMetadataRouter.class, "route"))
+                .end();
     }
 }

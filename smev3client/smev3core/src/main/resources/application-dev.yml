@@ -20,23 +20,23 @@ camel:
     allow-use-original-message: true
     stream-caching: true
 
-smevToVisPreprocessor:
-  queue:
-    in:
-      activemq:queue:input1
-    out:
+routes:
+  preprocessor:
+    inbound:
+      ${smev3core.routes.preprocessor.inbound}
+    outbound:
       default:
-        activemq:queue:output1
+        ${smev3core.routes.preprocessor.outbound.default}
       replication:
-        activemq:queue:replication1
-
-smevToVisPostprocessor:
-  queue:
-    in:
-      activemq:queue:input2
-    out:
-      log:ru.otr.integration.smev3client.smevToVisPostprocessor?level=DEBUG&showAll=true&multiline=true
-
-metadataEndpoints:
-  STUB : activemq:queue:ep-stub-1
-  test : activemq:queue:output-test-ep
+        ${smev3core.routes.preprocessor.outbound.replication}
+  postprocessor:
+    inbound:
+      ${smev3core.routes.postprocessor.inbound}
+    outbound:
+      default:
+        ${smev3core.routes.postprocessor.outbound.default}
+  metadata:
+    STUB:
+      ${smev3core.routes.STUB.outbound}
+    test:
+      ${smev3core.routes.STUB.outbound}

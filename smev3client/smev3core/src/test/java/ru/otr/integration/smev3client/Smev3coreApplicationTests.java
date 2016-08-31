@@ -47,22 +47,22 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @Value("classpath:RequestBodyNoAttachStub.xml")
     private Resource requestBodyNoAttachStub;
 
-    @EndpointInject(uri = "{{smevToVisPreprocessor.queue.out.default}}")
-    protected MockEndpoint preOutDefEndpoint;
-
-    @EndpointInject(uri = "{{smevToVisPreprocessor.queue.out.replication}}")
-    protected MockEndpoint preOutRepEndpoint;
-
-    @EndpointInject(uri = "{{smevToVisPreprocessor.queue.in}}")
+    @EndpointInject(uri = "{{routes.preprocessor.inbound}}")
     protected ProducerTemplate input1Endpoint;
 
-    @EndpointInject(uri = "{{smevToVisPostprocessor.queue.in}}")
+    @EndpointInject(uri = "{{routes.postprocessor.inbound}}")
     protected ProducerTemplate input2Endpoint;
 
-    @EndpointInject(uri = "{{smevToVisPostprocessor.queue.out}}")
+    @EndpointInject(uri = "{{routes.preprocessor.outbound.default}}")
+    protected MockEndpoint preOutDefEndpoint;
+
+    @EndpointInject(uri = "{{routes.preprocessor.outbound.replication}}")
+    protected MockEndpoint preOutRepEndpoint;
+
+    @EndpointInject(uri = "{{routes.postprocessor.outbound.default}}")
     protected MockEndpoint postOutDefEndpoint;
 
-    @EndpointInject(uri = "{{metadataEndpoints.STUB}}")
+    @EndpointInject(uri = "{{routes.metadata.STUB}}")
     protected MockEndpoint outStubEndpoint;
 
     @Test

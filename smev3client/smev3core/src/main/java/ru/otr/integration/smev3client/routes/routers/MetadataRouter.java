@@ -3,7 +3,7 @@ package ru.otr.integration.smev3client.routes.routers;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Header;
 import org.apache.camel.Properties;
-import ru.otr.integration.smev3client.config.AppProperties;
+import ru.otr.integration.smev3client.config.RoutesMetadataProperties;
 
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public abstract class MetadataRouter {
         if (!isRouted) {
             properties.put("isRouted", true);
 
-            String ep = getAppProperties().getMetadataEndpointsImmutable().get(recipient);
+            String ep = getMetadataProperties().getMetadataImmutable().get(recipient);
 
             if (null != ep) {
                 return ep;
@@ -32,6 +32,6 @@ public abstract class MetadataRouter {
 
     protected abstract Endpoint getOutEndpoint();
 
-    protected abstract AppProperties getAppProperties();
+    protected abstract RoutesMetadataProperties getMetadataProperties();
 
 }

@@ -4,7 +4,7 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.EndpointInject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.otr.integration.smev3client.config.AppProperties;
+import ru.otr.integration.smev3client.config.RoutesMetadataProperties;
 
 /**
  * Created by dez on 30/08/16.
@@ -13,14 +13,14 @@ import ru.otr.integration.smev3client.config.AppProperties;
 public class PostprocessorMetadataRouter extends MetadataRouter {
 
     @Autowired
-    private AppProperties appProperties;
+    private RoutesMetadataProperties metadataProperties;
 
-    @EndpointInject(uri = "{{smevToVisPostprocessor.queue.out}}")
+    @EndpointInject(uri = "{{routes.postprocessor.outbound.default}}")
     protected Endpoint outEndpoint;
 
     @Override
-    public AppProperties getAppProperties() {
-        return appProperties;
+    public RoutesMetadataProperties getMetadataProperties() {
+        return metadataProperties;
     }
 
     @Override

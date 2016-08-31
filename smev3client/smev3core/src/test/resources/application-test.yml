@@ -1,23 +1,23 @@
 spring:
  profiles: test
 
-smevToVisPreprocessor:
-  queue:
-    in:
+routes:
+  preprocessor:
+    inbound:
       seda:queue:input1
-    out:
+    outbound:
       default:
         mock:seda:queue:output1
       replication:
         mock:seda:queue:replication1
-
-smevToVisPostprocessor:
-  queue:
-    in:
+  postprocessor:
+    inbound:
       seda:queue:input2
-    out:
-      mock:seda:queue:output2
-
-metadataEndpoints:
-  STUB : mock:seda:queue:ep-stub-1
-  test : mock:seda:queue:output-test-ep
+    outbound:
+      default:
+        mock:seda:queue:output2
+  metadata:
+    STUB:
+      mock:seda:queue:ep-stub-1
+    test:
+      mock:seda:queue:output-test-ep

@@ -35,6 +35,6 @@ camel:
 
 routes:
   toUfos:
-    inboundQueue: ${ufosadapter.inbound.queue}
-    outboundQueue: ${ufosadapter.routes.toUfos.outboundQueue}
+    inboundQueue: ${ufosadapter.routes.toUfos.inbound.queue}
+    outboundQueue: ${ufosadapter.routes.toUfos.outbound.queue}
     log: ${ufosadapter.routes.toUfos.log}

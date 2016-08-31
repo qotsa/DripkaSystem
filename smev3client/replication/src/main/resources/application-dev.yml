@@ -20,3 +20,9 @@ camel:
     jmxEnabled: true
     allow-use-original-message: true
     stream-caching: false
+
+routes:
+  replicationService:
+    inboundQueue: ${replication.routes.replicationService.inbound.queue}
+    outboundQueue: ${replication.routes.replicationService.outbound.queue}
+    log: ${replication.routes.replicationService.log}

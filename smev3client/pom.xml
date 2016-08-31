@@ -48,6 +48,7 @@
         <module>kibana</module>
 
         <module>dockercompose</module>
+        <module>replication</module>
     </modules>
 
     <profiles>

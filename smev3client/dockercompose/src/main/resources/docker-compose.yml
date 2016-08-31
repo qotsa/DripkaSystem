@@ -29,7 +29,7 @@ services:
 #      driver: "gelf"
       options:
 #        gelf-address: ${logging.gelf.address}
-        tag: "smev3adapter"
+#        tag: "smev3adapter"
         max-size: "10m"
         max-file: "10"
 

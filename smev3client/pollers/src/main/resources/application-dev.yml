@@ -12,7 +12,7 @@ spring:
        secret: ${devtools.secret}
 
 server:
-   port: ${pollers.host.port}
+   port: ${pollers.http.port}
 
 camel:
   springboot:

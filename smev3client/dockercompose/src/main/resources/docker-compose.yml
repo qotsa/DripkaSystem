@@ -13,16 +13,16 @@ services:
     image: smev3client/configserver
     restart: ${configserver.docker.compose.restart}
     logging:
-      driver: "gelf"
+#      driver: "gelf"
       options:
-        gelf-address: ${logging.gelf.address}
-        tag: "configserver"
-#        max-size: "10m"
-#        max-file: "10"
+#        gelf-address: ${logging.gelf.address}
+#        tag: "configserver"
+        max-size: "10m"
+        max-file: "10"
 
   smev3core:
     image: smev3client/smev3core
-    restart: always
+    restart: ${smev3core.docker.compose.restart}
     ports:
       - 5005:5005
     logging:
@@ -40,12 +40,12 @@ services:
       ${smev3adapter.docker.compose.ports}
       ${debug.port.compose}
     logging:
-      driver: "gelf"
+#      driver: "gelf"
       options:
-        gelf-address: ${logging.gelf.address}
-        tag: "smev3adapter"
-#        max-size: "10m"
-#        max-file: "10"
+#        gelf-address: ${logging.gelf.address}
+#        tag: "smev3adapter"
+        max-size: "10m"
+        max-file: "10"
 
   ufosadapter:
     image: smev3client/ufosadapter
@@ -54,12 +54,12 @@ services:
       ${ufosadapter.docker.compose.ports}
       ${debug.port.compose}
     logging:
-      driver: "gelf"
+#      driver: "gelf"
       options:
-        gelf-address: ${logging.gelf.address}
-        tag: "ufosadapter"
-#        max-size: "10m"
-#        max-file: "10"
+#        gelf-address: ${logging.gelf.address}
+#        tag: "ufosadapter"
+        max-size: "10m"
+        max-file: "10"
 
   smev3mock:
     image: smev3client/smev3mock
@@ -78,12 +78,12 @@ services:
       ${pollers.docker.compose.ports}
       ${debug.port.compose}
     logging:
-      driver: "gelf"
+#      driver: "gelf"
       options:
-        gelf-address: ${logging.gelf.address}
-        tag: "pollers"
-#        max-size: "10m"
-#        max-file: "10"
+#        gelf-address: ${logging.gelf.address}
+#        tag: "pollers"
+        max-size: "10m"
+        max-file: "10"
 
   # ELK-based LOGGING
 

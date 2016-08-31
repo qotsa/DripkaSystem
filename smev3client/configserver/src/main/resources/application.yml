@@ -8,7 +8,7 @@ spring:
      active: native
 
 server:
-  port: ${configserver.host.port}
+  port: ${configserver.http.port}
 
 security:
   user:

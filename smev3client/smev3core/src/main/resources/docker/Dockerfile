@@ -1,8 +1,8 @@
 FROM frolvlad/alpine-oraclejdk8:slim
 
-ADD smev3core-${version}.jar smev3core.jar
+ADD ${artifactId}-${version}.jar ${artifactId}.jar
 RUN sh -c 'touch /{artifactId}.jar'
 
 ENTRYPOINT [${jvm.args}, "${artifactId}.jar"]
 
-EXPOSE ${debug.port}
+EXPOSE 5005

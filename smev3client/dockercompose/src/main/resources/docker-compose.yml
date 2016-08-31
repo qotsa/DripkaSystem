@@ -17,12 +17,25 @@ services:
         max-size: "10m"
         max-file: "10"
 
+  smev3core:
+    image: smev3client/smev3core
+    restart: always
+    ports:
+      ${debug.port.compose}
+    logging:
+#      driver: "gelf"
+      options:
+#        gelf-address: "udp://localhost:12201"
+        tag: "smev3adapter"
+        max-size: "10m"
+        max-file: "10"
+
   smev3adapter:
     image: smev3client/smev3adapter
-    restart: never
+    restart: ${smev3adapter.docker.compose.restart}
     ports:
-      - 8090:8090
-#      - 5005:5005
+      ${smev3adapter.docker.compose.ports}
+      ${debug.port.compose}
     logging:
       driver: "gelf"
       options:
@@ -34,11 +47,13 @@ services:
   ufosadapter:
     image: smev3client/ufosadapter
     restart: ${ufosadapter.docker.compose.restart}
-#    logging:
+    logging:
 #      driver: "gelf"
-#      options:
+      options:
 #        gelf-address: "udp://localhost:12201"
-#        tag: "ufosadapter"
+        tag: "ufosadapter"
+        max-size: "10m"
+        max-file: "10"
     ports:
       ${ufosadapter.docker.compose.ports}
       ${debug.port.compose}

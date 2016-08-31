@@ -1,5 +1,9 @@
 FROM frolvlad/alpine-oraclejdk8:slim
-ADD configserver-${version}.jar configserver.jar
-RUN sh -c 'touch /configserver.jar'
-ENTRYPOINT ["java","-jar","/configserver.jar"]
-EXPOSE ${configserver.host.port}
+
+ADD ${artifactId}-${version}.jar ${artifactId}.jar
+
+RUN sh -c 'touch /${artifactId}.jar'
+
+ENTRYPOINT ["java","-jar","/${artifactId}.jar"]
+
+EXPOSE ${configserver.http.port}

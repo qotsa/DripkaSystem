@@ -9,10 +9,10 @@
         <to uri="{{routes.toUfos.outboundQueue}}"/>
     </route>
 
-    <route id="test" errorHandlerRef="transactionErrorHandlerBuilder">
+    <!--<route id="test" errorHandlerRef="transactionErrorHandlerBuilder">
         <from uri="scheduler://foo?initialDelay=10s&amp;delay=10s"/>
         <transacted ref="PROPAGATION_REQUIRES_NEW"/>
         <to uri="{{routes.toUfos.inboundQueue}}"/>
-    </route>
+    </route>-->
 
 </routes>

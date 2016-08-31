@@ -3,21 +3,17 @@ spring:
 
 routes:
   preprocessor:
-    inbound:
-      seda:queue:input1
+    inbound: seda:queue:input1
+    GetRequestResponseQueue: seda:queue:GetRequestResponseQueue
+    GetResponseResponseQueue: seda::queue:GetResponseResponseQueue
     outbound:
-      default:
-        mock:seda:queue:output1
-      replication:
-        mock:seda:queue:replication1
+      default: mock:seda:queue:output1
+      replication: mock:seda:queue:replication1
   postprocessor:
-    inbound:
-      seda:queue:input2
+    inbound: seda:queue:input2
     outbound:
-      default:
-        mock:seda:queue:output2
+      default: mock:seda:queue:output2
   metadata:
-    STUB:
-      mock:seda:queue:ep-stub-1
-    test:
-      mock:seda:queue:output-test-ep
+    STUB: mock:seda:queue:ep-stub-1
+    test: mock:seda:queue:output-test-ep
+  GetStatusResponseQueue: mock:seda:queue:GetStatusResponseQueue

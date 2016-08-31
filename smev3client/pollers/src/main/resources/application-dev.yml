@@ -23,3 +23,11 @@ camel:
 smev3adapter:
    http:
      port: ${smev3adapter.http.port}
+
+routes:
+  GetRequestPoller:
+    GetRequestResponseQueue: ${smev3core.routes.preprocessor.inbound.GetRequestResponseQueue}
+  GetResponsePoller:
+    GetResponseResponseQueue: ${smev3core.routes.preprocessor.inbound.GetResponseResponseQueue}
+  GetStatusPoller:
+    GetStatusResponseQueue: ${smev3core.routes.preprocessor.inbound.GetStatusResponseQueue}

@@ -1,12 +1,9 @@
 spring:
   profiles: dev
   activemq:
-#    brokerUrl: tcp://localhost:61616
     brokerUrl: ${activemq.url}
     inMemory: false
-#    user: admin
     user: ${activemq.username}
-#    password: admin
     password: ${activemq.password}
     pool:
       enabled: true
@@ -22,21 +19,17 @@ camel:
 
 routes:
   preprocessor:
-    inbound:
-      ${smev3core.routes.preprocessor.inbound}
+    inbound: ${smev3core.routes.preprocessor.inbound}
+    GetRequestResponseQueue: ${smev3core.routes.preprocessor.inbound.GetRequestResponseQueue}
+    GetResponseResponseQueue: ${smev3core.routes.preprocessor.inbound.GetResponseResponseQueue}
     outbound:
-      default:
-        ${smev3core.routes.preprocessor.outbound.default}
-      replication:
-        ${smev3core.routes.preprocessor.outbound.replication}
+      default: ${smev3core.routes.preprocessor.outbound.default}
+      replication: ${smev3core.routes.preprocessor.outbound.replication}
   postprocessor:
-    inbound:
-      ${smev3core.routes.postprocessor.inbound}
+    inbound: ${smev3core.routes.postprocessor.inbound}
     outbound:
-      default:
-        ${smev3core.routes.postprocessor.outbound.default}
+      default: ${smev3core.routes.postprocessor.outbound.default}
   metadata:
-    STUB:
-      ${smev3core.routes.STUB.outbound}
-    test:
-      ${smev3core.routes.STUB.outbound}
+    STUB: ${smev3core.routes.STUB.outbound}
+    test: ${smev3core.routes.STUB.outbound}
+  GetStatusResponseQueue: ${smev3core.routes.preprocessor.inbound.GetStatusResponseQueue}

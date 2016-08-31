@@ -1,0 +1,22 @@
+spring:
+  profiles: dev
+  activemq:
+    brokerUrl: ${activemq.url}
+    inMemory: false
+    user: ${activemq.username}
+    password: ${activemq.password}
+    pool:
+      enabled: true
+
+  devtools:
+    remote:
+      secret: ${devtools.secret}
+
+server:
+   port: ${replication.http.port}
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: false

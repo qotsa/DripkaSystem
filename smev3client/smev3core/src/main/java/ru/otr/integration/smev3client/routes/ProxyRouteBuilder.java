@@ -18,20 +18,20 @@ public class ProxyRouteBuilder extends RouteBuilder {
                 .transacted()
                 .routeId("smevToVisPreprocessor")
                 .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
-                .choice().when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
-                .to("{{routes.preprocessor.outbound.replication}}").stop()
-                .otherwise()
-                .dynamicRouter(method(PreprocessorMetadataRouter.class, "route"))
-                .end();
+                .choice()
+                    .when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
+                        .to("{{routes.preprocessor.outbound.replication}}").stop()
+                    .otherwise()
+                        .dynamicRouter(method(PreprocessorMetadataRouter.class, "route"));
 
         from("{{routes.postprocessor.inbound}}")
                 .transacted()
                 .routeId("smevToVisPostprocessor")
                 .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
-                .choice().when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
-                .to("{{routes.postprocessor.outbound.default}}").stop()
-                .otherwise()
-                .dynamicRouter(method(PostprocessorMetadataRouter.class, "route"))
-                .end();
+                .choice().
+                    when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
+                        .to("{{routes.postprocessor.outbound.default}}").stop()
+                    .otherwise()
+                        .dynamicRouter(method(PostprocessorMetadataRouter.class, "route"));
     }
 }

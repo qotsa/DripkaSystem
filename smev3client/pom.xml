@@ -73,7 +73,7 @@
                         <groupId>com.spotify</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
                         <configuration>
-                            <dockerDirectory>${build.directory}/classes/docker</dockerDirectory>
+                            <dockerDirectory>${project.build.directory}/classes/docker</dockerDirectory>
                         </configuration>
                         <executions>
                             <execution>

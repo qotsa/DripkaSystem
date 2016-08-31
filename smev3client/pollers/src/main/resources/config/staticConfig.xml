@@ -12,13 +12,4 @@
        http://camel.apache.org/schema/cxf
        http://camel.apache.org/schema/cxf/camel-cxf.xsd">
 
-    <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent" >
-        <property name="connectionFactory">
-            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
-                <property name="brokerURL" value="tcp://activemq:61616"/>
-                <property name="userName" value="${activemq.username}"/>
-                <property name="password" value="${activemq.password}"/>
-            </bean>
-        </property>
-    </bean>
 </beans>

@@ -12,4 +12,4 @@ server:
 
 security:
   user:
-    password: ${CONFIG_SERVICE_PASSWORD}
+    password: ${configserver.password}

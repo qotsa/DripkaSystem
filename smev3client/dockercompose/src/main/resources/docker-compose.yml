@@ -11,21 +11,24 @@ services:
 
   configserver:
     image: smev3client/configserver
-    restart: always
+    restart: ${configserver.docker.compose.restart}
     logging:
+      driver: "gelf"
       options:
-        max-size: "10m"
-        max-file: "10"
+        gelf-address: ${logging.gelf.address}
+        tag: "configserver"
+#        max-size: "10m"
+#        max-file: "10"
 
   smev3core:
     image: smev3client/smev3core
     restart: always
     ports:
-      ${debug.port.compose}
+      - 5005:5005
     logging:
 #      driver: "gelf"
       options:
-#        gelf-address: "udp://localhost:12201"
+#        gelf-address: ${logging.gelf.address}
         tag: "smev3adapter"
         max-size: "10m"
         max-file: "10"
@@ -39,7 +42,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://localhost:12201"
+        gelf-address: ${logging.gelf.address}
         tag: "smev3adapter"
 #        max-size: "10m"
 #        max-file: "10"
@@ -47,16 +50,16 @@ services:
   ufosadapter:
     image: smev3client/ufosadapter
     restart: ${ufosadapter.docker.compose.restart}
-    logging:
-#      driver: "gelf"
-      options:
-#        gelf-address: "udp://localhost:12201"
-        tag: "ufosadapter"
-        max-size: "10m"
-        max-file: "10"
     ports:
       ${ufosadapter.docker.compose.ports}
       ${debug.port.compose}
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: ${logging.gelf.address}
+        tag: "ufosadapter"
+#        max-size: "10m"
+#        max-file: "10"
 
   smev3mock:
     image: smev3client/smev3mock
@@ -70,14 +73,17 @@ services:
 
   pollers:
     image: smev3client/pollers
-    restart: always
+    restart: ${pollers.docker.compose.restart}
     ports:
-      - 8092:8092
-      - 5701:5701
+      ${pollers.docker.compose.ports}
+      ${debug.port.compose}
     logging:
+      driver: "gelf"
       options:
-        max-size: "10m"
-        max-file: "10"
+        gelf-address: ${logging.gelf.address}
+        tag: "pollers"
+#        max-size: "10m"
+#        max-file: "10"
 
   # ELK-based LOGGING
 

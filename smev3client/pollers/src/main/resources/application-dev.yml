@@ -22,4 +22,4 @@ camel:
 
 smev3adapter:
    host:
-     port: ${smev3adapter.host.port}
+     port: ${smev3adapter.http.port}

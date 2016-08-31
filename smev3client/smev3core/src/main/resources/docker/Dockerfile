@@ -5,4 +5,4 @@ RUN sh -c 'touch /{artifactId}.jar'
 
 ENTRYPOINT [${jvm.args}, "${artifactId}.jar"]
 
-EXPOSE 5005
+EXPOSE ${smev3core.http.port} ${debug.port}

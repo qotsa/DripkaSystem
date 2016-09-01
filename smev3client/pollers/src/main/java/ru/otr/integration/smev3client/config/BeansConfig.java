@@ -21,6 +21,7 @@ public class BeansConfig {
             @Override
             public void beforeApplicationStart(CamelContext context) {
                 context.setUseMDCLogging(true);
+                context.setTracing(true);
             }
 
             @Override

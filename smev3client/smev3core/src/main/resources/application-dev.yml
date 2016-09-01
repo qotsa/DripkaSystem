@@ -36,3 +36,4 @@ routes:
     STUB: ${smev3core.routes.STUB.outbound}
     test: ${smev3core.routes.STUB.outbound}
   GetStatusResponseQueue: ${smev3core.routes.preprocessor.inbound.GetStatusResponseQueue}
+  log: ${smev3core.routes.log}

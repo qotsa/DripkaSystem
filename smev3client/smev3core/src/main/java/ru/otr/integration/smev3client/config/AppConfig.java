@@ -1,5 +1,7 @@
 package ru.otr.integration.smev3client.config;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.jolokia.http.AgentServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +14,7 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Profile({"dev", "test"})
-public class ServletConfig {
+public class AppConfig {
     private static final String JOLOKIA_URL_MAPPING = "/jolokia/*";
     private static final String JOLOKIA_SERVLET_NAME = "JolokiaAgent";
 
@@ -21,5 +23,20 @@ public class ServletConfig {
         ServletRegistrationBean registration = new ServletRegistrationBean(new AgentServlet(), JOLOKIA_URL_MAPPING);
         registration.setName(JOLOKIA_SERVLET_NAME);
         return registration;
+    }
+
+    @Bean
+    public CamelContextConfiguration contextConfiguration() {
+        return new CamelContextConfiguration() {
+            @Override
+            public void beforeApplicationStart(CamelContext context) {
+                context.setUseMDCLogging(true);
+                context.setTracing(true);
+            }
+
+            @Override
+            public void afterApplicationStart(CamelContext camelContext) {
+            }
+        };
     }
 }

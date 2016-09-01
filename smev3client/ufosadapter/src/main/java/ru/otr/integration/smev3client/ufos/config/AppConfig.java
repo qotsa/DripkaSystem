@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Configuration
-public class ServletConfig {
+public class AppConfig {
 
     @Bean
     public ServletRegistrationBean jolokiaServletRegistrationBean() {
@@ -28,6 +28,7 @@ public class ServletConfig {
             @Override
             public void beforeApplicationStart(CamelContext context) {
                 context.setUseMDCLogging(true);
+                context.setTracing(false);
             }
 
             @Override

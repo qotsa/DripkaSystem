@@ -26,12 +26,15 @@ public class ProxyRouteBuilder extends RouteBuilder {
                     .when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
                         .to("{{routes.preprocessor.outbound.replication}}").stop()
                     .otherwise()
-                        .dynamicRouter(method(PreprocessorMetadataRouter.class, "route"));
+                        .dynamicRouter(method(PreprocessorMetadataRouter.class, "route"))
+                        .to("{{routes.postprocessor.inbound}}")
+                .end();
 
         from("{{routes.postprocessor.inbound}}")
                 .transacted()
                 .routeId("postprocessor")
                 .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
+                //.to("{{routes.log}}")
                 .choice().
                     when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
                         .to("{{routes.postprocessor.outbound.default}}").stop()

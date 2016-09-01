@@ -17,3 +17,4 @@ routes:
     STUB: mock:seda:queue:ep-stub-1
     test: mock:seda:queue:output-test-ep
   GetStatusResponseQueue: mock:seda:queue:GetStatusResponseQueue
+  log: mock:seda:queue:log

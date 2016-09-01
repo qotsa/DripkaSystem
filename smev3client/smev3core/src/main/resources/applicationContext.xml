@@ -26,7 +26,7 @@
         <property name="showExchangeId" value="false"/>
         <property name="showShortExchangeId" value="false"/>
         <property name="showProperties" value="false"/>
-        <property name="showHeaders" value="false"/>
+        <property name="showHeaders" value="true"/>
         <property name="showBodyType" value="false"/>
         <property name="showBody" value="false"/>
         <property name="showOutHeaders" value="false"/>

@@ -27,7 +27,7 @@ routes:
     GetResponseResponseQueue: ${smev3core.routes.preprocessor.inbound.GetResponseResponseQueue}
     outbound:
       default: ${smev3core.routes.preprocessor.outbound.default}
-      replication: ${smev3core.routes.preprocessor.outbound.replication}
+      replication: ${replication.routes.replicationService.inbound.queue}
   postprocessor:
     inbound: ${smev3core.routes.postprocessor.inbound}
     outbound:

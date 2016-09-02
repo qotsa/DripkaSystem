@@ -1,0 +1,208 @@
+<ns:GetRequestResponse xmlns:ns="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1" xmlns:ns1="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1">
+    <ns:RequestMessage>
+        <ns:Request Id="ID_a5ea09a4-aa46-4d51-b11d-d683f5282e3a">
+            <ns:SenderProvidedRequestData Id="SIGNED_BY_CONSUMER">
+                <ns:MessageID>13bd1798-6b86-11e6-8b77-86f30ca893d3</ns:MessageID>
+                <ns1:MessagePrimaryContent>
+                    <ns:RequestData Id="ID0" env="PROD">
+                        <ns:ServiceCode>10000015411</ns:ServiceCode>
+                        <ns:orderId>10028999</ns:orderId>
+                        <ns:LicensingPharmaceuticalActivities>
+                            <ns:Usluga>Лицензирование фармацевтической деятельности в сфере обращения лекарственных средств для ветеринарного применения</ns:Usluga>
+                            <ns:Reg>0000</ns:Reg>
+                            <ns:UserType>2</ns:UserType>
+                            <ns:VidUslugi>1</ns:VidUslugi>
+                            <ns:SNILS/>
+                            <ns:Surname/>
+                            <ns:Name/>
+                            <ns:Middlename/>
+                            <ns:INNIP/>
+                            <ns:Series2/>
+                            <ns:Number2/>
+                            <ns:Issuedby2/>
+                            <ns:FullName>Общество с ограниченной ответственностью "Балтинформ"</ns:FullName>
+                            <ns:CutName>ООО "Балтинформ"</ns:CutName>
+                            <ns:FirmName/>
+                            <ns:OPF>ООО</ns:OPF>
+                            <ns:OGRN>1063905071526</ns:OGRN>
+                            <ns:INN>3905074565</ns:INN>
+                            <ns:SurnameMan>Нечаев</ns:SurnameMan>
+                            <ns:NameMan>Григорий</ns:NameMan>
+                            <ns:MiddlenameMan>Аркадьевич</ns:MiddlenameMan>
+                            <ns:KPP/>
+                            <ns:Telefon>+74956845222</ns:Telefon>
+                            <ns:Fax/>
+                            <ns:Email/>
+                            <ns:FIASText>b3833b41-4051-48b4-8f4a-9a05473439f2</ns:FIASText>
+                            <ns:addressIndex>649789</ns:addressIndex>
+                            <ns:regionText>Алтай Республика</ns:regionText>
+                            <ns:districtText>Кош-Агачский район</ns:districtText>
+                            <ns:cityText>Бельтирское сельское поселение</ns:cityText>
+                            <ns:townText/>
+                            <ns:streetText/>
+                            <ns:addressHouse>5</ns:addressHouse>
+                            <ns:addressBld/>
+                            <ns:addressFlat/>
+                            <ns:FaAdresFIAS>0c4ffee3-d90d-4785-b4b9-35dbfae873d7</ns:FaAdresFIAS>
+                            <ns:FaIddressIndex>649740</ns:FaIddressIndex>
+                            <ns:FaRegionText>Алтай Республика</ns:FaRegionText>
+                            <ns:FaDistrictText>Улаганский район</ns:FaDistrictText>
+                            <ns:FaCityText>Чибилинское сельское поселение</ns:FaCityText>
+                            <ns:FaTownText/>
+                            <ns:FaStreetText/>
+                            <ns:FaAddressHouse>123</ns:FaAddressHouse>
+                            <ns:FaAddressBld/>
+                            <ns:FaAddressFlat/>
+                            <ns:AdresFIASText>be58748c-0df6-4a49-b7d6-2e636201a21d</ns:AdresFIASText>
+                            <ns:AdAddressIndex>649744</ns:AdAddressIndex>
+                            <ns:AdRegionText>Байконур город</ns:AdRegionText>
+                            <ns:AdDistrictText/>
+                            <ns:AdCityText>Чибитское сельское поселение</ns:AdCityText>
+                            <ns:AdTownText/>
+                            <ns:AdStreetText/>
+                            <ns:AdAddressHouse>55</ns:AdAddressHouse>
+                            <ns:AdAddressBld/>
+                            <ns:AdAddressFlat>4</ns:AdAddressFlat>
+                            <ns:NameDoc>паспорт</ns:NameDoc>
+                            <ns:DocBy>УВД Кировского района</ns:DocBy>
+                            <ns:DocDate>2016-03-07</ns:DocDate>
+                            <ns:DocSeria>123</ns:DocSeria>
+                            <ns:DocNumber>456789</ns:DocNumber>
+                            <ns:NameDoc1>ИНН</ns:NameDoc1>
+                            <ns:DocBy1>ФНС Кировского района</ns:DocBy1>
+                            <ns:DocDate1>2016-03-01</ns:DocDate1>
+                            <ns:DocSeria1>987</ns:DocSeria1>
+                            <ns:DocNumber1>6554333</ns:DocNumber1>
+                            <ns:WhsleDrugs>true</ns:WhsleDrugs>
+                            <ns:StorageDrags>true</ns:StorageDrags>
+                            <ns:StorageDrugs1>false</ns:StorageDrugs1>
+                            <ns:TranspDrugs>true</ns:TranspDrugs>
+                            <ns:TranspDrugs1>false</ns:TranspDrugs1>
+                            <ns:RetailTrade>true</ns:RetailTrade>
+                            <ns:DistDrugs>false</ns:DistDrugs>
+                            <ns:ProdDrugs>true</ns:ProdDrugs>
+                            <ns:DocNumber2/>
+                            <ns:Reorganiz>false</ns:Reorganiz>
+                            <ns:IzmName>false</ns:IzmName>
+                            <ns:IzmPlace>false</ns:IzmPlace>
+                            <ns:IzmAddress>false</ns:IzmAddress>
+                            <ns:ReorganizMerg>false</ns:ReorganizMerg>
+                            <ns:ChangePlace>false</ns:ChangePlace>
+                            <ns:ChangeList>false</ns:ChangeList>
+                            <ns:Other/>
+                            <ns:AdressPlace/>
+                            <ns:DataAdress/>
+                            <ns:DataEducation/>
+                            <ns:DataConcl/>
+                            <ns:DopWhsleDrugs>false</ns:DopWhsleDrugs>
+                            <ns:DopStorageDrags>false</ns:DopStorageDrags>
+                            <ns:DopStorageDrugs1>false</ns:DopStorageDrugs1>
+                            <ns:DopTranspDrugs>false</ns:DopTranspDrugs>
+                            <ns:DopTranspDrugs1>false</ns:DopTranspDrugs1>
+                            <ns:DopRetailTrade>false</ns:DopRetailTrade>
+                            <ns:DopDistDrugs>false</ns:DopDistDrugs>
+                            <ns:DopProdDrugs>false</ns:DopProdDrugs>
+                            <ns:Copy/>
+                            <ns:Reason/>
+                            <ns:NameLic/>
+                            <ns:CutNameLic/>
+                            <ns:OGRN2/>
+                            <ns:INN2/>
+                        </ns:LicensingPharmaceuticalActivities>
+                    </ns:RequestData>
+                </ns1:MessagePrimaryContent>
+                <ns1:RefAttachmentHeaderList>
+                    <ns1:RefAttachmentHeader>
+                        <ns1:uuid>4f706ca2-f860-48ea-8f65-e5a8407fe2a4</ns1:uuid>
+                        <ns1:Hash>6c5563d3001b6bef7ef552e160232d4c</ns1:Hash>
+                        <ns1:MimeType>application/pdf</ns1:MimeType>
+                    </ns1:RefAttachmentHeader>
+                    <ns1:RefAttachmentHeader>
+                        <ns1:uuid>fc7ed873-2ee5-4300-b186-dd1976dd52b7</ns1:uuid>
+                        <ns1:Hash>403f244a3df11c8618b9e5c8b9d48e30</ns1:Hash>
+                        <ns1:MimeType>application/pdf</ns1:MimeType>
+                    </ns1:RefAttachmentHeader>
+                </ns1:RefAttachmentHeaderList>
+                <ns:TestMessage/>
+            </ns:SenderProvidedRequestData>
+            <ns:MessageMetadata Id="ID_a1ef0821-48e3-49f1-bd05-8d0c85f4dff6">
+                <ns:MessageId>13bd1798-6b86-11e6-8b77-86f30ca893d3</ns:MessageId>
+                <ns:MessageType>REQUEST</ns:MessageType>
+                <ns:Sender>
+                    <ns:Mnemonic>STUB</ns:Mnemonic>
+                    <ns:HumanReadableName>Тестовое ведомство</ns:HumanReadableName>
+                </ns:Sender>
+                <ns:SendingTimestamp>2016-08-26T15:10:44.254+03:00</ns:SendingTimestamp>
+                <ns:DestinationName>TODO DestinationName</ns:DestinationName>
+                <ns:Recipient>
+                    <ns:Mnemonic>STUB</ns:Mnemonic>
+                    <ns:HumanReadableName>Тестовое ведомство</ns:HumanReadableName>
+                </ns:Recipient>
+                <ns:SupplementaryData>
+                    <ns:DetectedContentTypeName>TODO SupplementaryData.DetectedContentTypeName</ns:DetectedContentTypeName>
+                    <ns:InteractionType>NotDetected</ns:InteractionType>
+                </ns:SupplementaryData>
+                <ns:Status>requestIsAcceptedBySmev</ns:Status>
+            </ns:MessageMetadata>
+            <ns1:FSAttachmentsList>
+                <ns1:FSAttachment>
+                    <ns1:uuid>4f706ca2-f860-48ea-8f65-e5a8407fe2a4</ns1:uuid>
+                    <ns1:UserName>user_4F70074F4347</ns1:UserName>
+                    <ns1:Password>1c1d6af7</ns1:Password>
+                    <ns1:FileName>TOGAF.zip</ns1:FileName>
+                </ns1:FSAttachment>
+                <ns1:FSAttachment>
+                    <ns1:uuid>fc7ed873-2ee5-4300-b186-dd1976dd52b7</ns1:uuid>
+                    <ns1:UserName>user_FC7E88964347</ns1:UserName>
+                    <ns1:Password>16f4c90a</ns1:Password>
+                    <ns1:FileName>SWEBOK.zip</ns1:FileName>
+                </ns1:FSAttachment>
+            </ns1:FSAttachmentsList>
+            <ns:ReplyTo>STUB|13bd1798-6b86-11e6-8b77-86f30ca893d3|2016-08-26T15:10:44.254+03:00</ns:ReplyTo>
+            <ns:SenderInformationSystemSignature>
+                <xd:Signature xmlns:xd="http://www.w3.org/2000/09/xmldsig#">
+                    <xd:SignedInfo>
+                        <xd:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                        <xd:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#gostr34102001-gostr3411"/>
+                        <xd:Reference URI="#SIGNED_BY_CONSUMER">
+                            <xd:Transforms>
+                                <xd:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                                <xd:Transform Algorithm="urn://smev-gov-ru/xmldsig/transform"/>
+                            </xd:Transforms>
+                            <xd:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#gostr3411"/>
+                            <xd:DigestValue>hFYNEyVnkbTKJS3TYgnZa3rXNJxNA81jniEEoJw/9PY=</xd:DigestValue>
+                        </xd:Reference>
+                    </xd:SignedInfo>
+                    <xd:SignatureValue>OUuplI+pta6r9dEKJBza2IrtZ+u6K25uNSfZ0mb3lHw8JDXZjWHQ39Y9MTF95UxyUBPEmgmoaqNvGE9EOuhY4g==</xd:SignatureValue>
+                    <xd:KeyInfo>
+                        <xd:X509Data>
+                            <xd:X509Certificate>MIII8DCCCJ+gAwIBAgIKNG1JkwACAAEi9zAIBgYqhQMCAgMwggFrMRgwFgYFKoUDZAESDTExMTY2NzMwMDg1MzkxGjAYBggqhQMDgQMBARIMMDA2NjczMjQwMzI4MS4wLAYDVQQJDCXRg9C7LiDQo9C70YzRj9C90L7QstGB0LrQsNGPINC0LiAxM9CQMR8wHQYJKoZIhvcNAQkBFhBjYUBzZXJ0dW0tcHJvLnJ1MQswCQYDVQQGEwJSVTEzMDEGA1UECAwqNjYg0KHQstC10YDQtNC70L7QstGB0LrQsNGPINC+0LHQu9Cw0YHRgtGMMSEwHwYDVQQHDBjQldC60LDRgtC10YDQuNC90LHRg9GA0LMxJzAlBgNVBAoMHtCe0J7QniDCq9Ch0LXRgNGC0YPQvC3Qn9GA0L7CuzEaMBgGA1UECwwR0KHQu9GD0LbQsdCwINCY0KIxODA2BgNVBAMML9Cj0KYg0J7QntCeIMKr0KHQtdGA0YLRg9C8LdCf0YDQvsK7IChRdWFsaWZpZWQpMB4XDTE1MTExMjA2MjYwMFoXDTE2MTExMjA2MjcwMFowggEfMRowGAYIKoUDA4EDAQESDDAwNzcwODUyMzUzMDEfMB0GCSqGSIb3DQEJARYQa2F6ZWtvdnNAbWFpbC5ydTELMAkGA1UEBhMCUlUxHDAaBgNVBAgMEzc3INCzLiDQnNC+0YHQutCy0LAxFTATBgNVBAcMDNCc0L7RgdC60LLQsDEpMCcGA1UECgwg0KDQntCh0KHQldCb0KzQpdCe0JfQndCQ0JTQl9Ce0KAxKTAnBgNVBAMMINCg0J7QodCh0JXQm9Cs0KXQntCX0J3QkNCU0JfQntCgMS4wLAYDVQQJDCXQn9CV0KDQldCj0JvQntCaINCe0KDQm9CY0JrQntCSLCAxLzExMRgwFgYFKoUDZAESDTEwNDc3OTYyOTY0MzcwYzAcBgYqhQMCAhMwEgYHKoUDAgIkAAYHKoUDAgIeAQNDAARAKlmrYOR7vBXyukAFePCbjUoqLYp2d5szfQIonYb9uiVEQoOCDZ+k2SISuIVWyZy/Rzi6qVwZC1TRJ1RUHT/NtaOCBWkwggVlMA4GA1UdDwEB/wQEAwIE8DATBgNVHSAEDDAKMAgGBiqFA2RxATBKBgNVHSUEQzBBBggrBgEFBQcDAgYHKoUDAgIiBgYIKwYBBQUHAwQGByqFAwOBOQEGByqFAwMHCAEGBiqFA2QCAgYIKoUDAwcAAQwwGwYDVR0RBBQwEoEQa2F6ZWtvdnNAbWFpbC5ydTAdBgNVHQ4EFgQUmFohVjp7m6FWT4/qpHzn4bkm9towggGsBgNVHSMEggGjMIIBn4AUhAmhSbB+Ng4r2B8z/KwPZz6TQdqhggFzpIIBbzCCAWsxGDAWBgUqhQNkARINMTExNjY3MzAwODUzOTEaMBgGCCqFAwOBAwEBEgwwMDY2NzMyNDAzMjgxLjAsBgNVBAkMJdGD0LsuINCj0LvRjNGP0L3QvtCy0YHQutCw0Y8g0LQuIDEz0JAxHzAdBgkqhkiG9w0BCQEWEGNhQHNlcnR1bS1wcm8ucnUxCzAJBgNVBAYTAlJVMTMwMQYDVQQIDCo2NiDQodCy0LXRgNC00LvQvtCy0YHQutCw0Y8g0L7QsdC70LDRgdGC0YwxITAfBgNVBAcMGNCV0LrQsNGC0LXRgNC40L3QsdGD0YDQszEnMCUGA1UECgwe0J7QntCeIMKr0KHQtdGA0YLRg9C8LdCf0YDQvsK7MRowGAYDVQQLDBHQodC70YPQttCx0LAg0JjQojE4MDYGA1UEAwwv0KPQpiDQntCe0J4gwqvQodC10YDRgtGD0Lwt0J/RgNC+wrsgKFF1YWxpZmllZCmCEBeNIZksOkCPSRYfZlmShaQwgYgGA1UdHwSBgDB+MD+gPaA7hjlodHRwOi8vY2Euc2VydHVtLXByby5ydS9jZHAvc2VydHVtLXByby1xdWFsaWZpZWQtMjAxNC5jcmwwO6A5oDeGNWh0dHA6Ly9jYS5zZXJ0dW0ucnUvY2RwL3NlcnR1bS1wcm8tcXVhbGlmaWVkLTIwMTQuY3JsMIHgBggrBgEFBQcBAQSB0zCB0DAyBggrBgEFBQcwAYYmaHR0cDovL3BraS5zZXJ0dW0tcHJvLnJ1L29jc3Avb2NzcC5zcmYwTgYIKwYBBQUHMAKGQmh0dHA6Ly9jYS5zZXJ0dW0tcHJvLnJ1L2NlcnRpZmljYXRlcy9zZXJ0dW0tcHJvLXF1YWxpZmllZC0yMDE0LmNydDBKBggrBgEFBQcwAoY+aHR0cDovL2NhLnNlcnR1bS5ydS9jZXJ0aWZpY2F0ZXMvc2VydHVtLXByby1xdWFsaWZpZWQtMjAxNC5jcnQwKwYDVR0QBCQwIoAPMjAxNTExMTIwNjI2MDBagQ8yMDE2MTExMjA2MjYwMFowNgYFKoUDZG8ELQwrItCa0YDQuNC/0YLQvtCf0YDQviBDU1AiICjQstC10YDRgdC40Y8gMy42KTCCATEGBSqFA2RwBIIBJjCCASIMKyLQmtGA0LjQv9GC0L7Qn9GA0L4gQ1NQIiAo0LLQtdGA0YHQuNGPIDMuNikMUyLQo9C00L7RgdGC0L7QstC10YDRj9GO0YnQuNC5INGG0LXQvdGC0YAgItCa0YDQuNC/0YLQvtCf0YDQviDQo9CmIiDQstC10YDRgdC40LggMS41DE5D0LXRgNGC0LjRhNC40LrQsNGCINGB0L7QvtGC0LLQtdGC0YHRgtCy0LjRjyDihJYg0KHQpC8xMjQtMjczOCDQvtGCIDAxLjA3LjIwMTUMTkPQtdGA0YLQuNGE0LjQutCw0YIg0YHQvtC+0YLQstC10YLRgdGC0LLQuNGPIOKEliDQodCkLzEyOC0yMzUxINC+0YIgMTUuMDQuMjAxNDAIBgYqhQMCAgMDQQAJ9FEZbTSUHDEFI2IL8HOA6+nHsr3oQmNTWHC9LIznVQjLPF8y2gCkqlR3X2CFSu3x15Vf6zyyMtWyCzjX33IE</xd:X509Certificate>
+                        </xd:X509Data>
+                    </xd:KeyInfo>
+                </xd:Signature>
+            </ns:SenderInformationSystemSignature>
+        </ns:Request>
+        <ns:SMEVSignature xmlns:xd="http://www.w3.org/2000/09/xmldsig#">
+            <xd:SignedInfo>
+                <xd:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                <xd:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#gostr34102001-gostr3411"/>
+                <xd:Reference URI="#ID_a5ea09a4-aa46-4d51-b11d-d683f5282e3a">
+                    <xd:Transforms>
+                        <xd:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                        <xd:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                        <xd:Transform Algorithm="urn://smev-gov-ru/xmldsig/transform"/>
+                    </xd:Transforms>
+                    <xd:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#gostr3411"/>
+                    <xd:DigestValue>4PcRoo/TdypZUoEAQ62kLsgWTx18iNTtWDlWP1jfo+E=</xd:DigestValue>
+                </xd:Reference>
+            </xd:SignedInfo>
+            <xd:SignatureValue>s5//e6Ibm5CM+EfqNN1PzkfTrQ9v0TD+R9w2ziRAAU1sutWSYArbymBkrlCahEFjVUaxNH5kV+8SB1ZmCVKKsQ==</xd:SignatureValue>
+            <xd:KeyInfo>
+                <xd:X509Data>
+                    <xd:X509Certificate>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</xd:X509Certificate>
+                    <xd:X509SubjectName>.1.2.643.100.1=\#120D31303437373936323936343337,STREET=ПЕРЕУЛОК ОРЛИКОВ\, 1/11,CN=РОССЕЛЬХОЗНАДЗОР,O=РОССЕЛЬХОЗНАДЗОР,L=Москва,ST=77 г. Москва,C=RU,EMAILADDRESS=kazekovs@mail.ru,.1.2.643.3.131.1.1=\#120C303037373038353233353330</xd:X509SubjectName>
+                </xd:X509Data>
+            </xd:KeyInfo>
+        </ns:SMEVSignature>
+    </ns:RequestMessage>
+</ns:GetRequestResponse>

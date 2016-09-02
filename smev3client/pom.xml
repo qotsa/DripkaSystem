@@ -60,7 +60,7 @@
             <properties>
                 <jvm.args>"java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005","-jar"</jvm.args>
                 <debug.port>5005</debug.port>
-                <debug.port.compose>- 5005:5005</debug.port.compose>
+                <debug.port.compose>${line.separator}      - 5005:5005</debug.port.compose>
             </properties>
         </profile>
 

@@ -24,8 +24,7 @@ services:
     image: smev3client/smev3core
     restart: ${smev3core.docker.compose.restart}
     ports:
-      ${smev3core.docker.compose.ports}
-      ${debug.port.compose}
+      ${smev3core.docker.compose.ports}${debug.port.compose}
     logging:
 #      driver: "gelf"
       options:
@@ -38,8 +37,7 @@ services:
     image: smev3client/smev3adapter
     restart: ${smev3adapter.docker.compose.restart}
     ports:
-      ${smev3adapter.docker.compose.ports}
-      ${debug.port.compose}
+      ${smev3adapter.docker.compose.ports}${debug.port.compose}
     logging:
 #      driver: "gelf"
       options:
@@ -52,8 +50,7 @@ services:
     image: smev3client/ufosadapter
     restart: ${ufosadapter.docker.compose.restart}
     ports:
-      ${ufosadapter.docker.compose.ports}
-      ${debug.port.compose}
+      ${ufosadapter.docker.compose.ports}${debug.port.compose}
     logging:
 #      driver: "gelf"
       options:
@@ -76,8 +73,7 @@ services:
     image: smev3client/replication
     restart: always
     ports:
-        ${replication.docker.compose.ports}
-        ${debug.port.compose}
+        ${replication.docker.compose.ports}${debug.port.compose}
     logging:
       options:
         max-size: "10m"
@@ -87,8 +83,7 @@ services:
     image: smev3client/pollers
     restart: ${pollers.docker.compose.restart}
     ports:
-      ${pollers.docker.compose.ports}
-      ${debug.port.compose}
+      ${pollers.docker.compose.ports}${debug.port.compose}
     logging:
 #      driver: "gelf"
       options:

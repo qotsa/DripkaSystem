@@ -32,6 +32,7 @@ routes:
     inbound: ${smev3core.routes.postprocessor.inbound}
     outbound:
       default: ${smev3core.routes.postprocessor.outbound.default}
+      ufos: ${ufosadapter.routes.toUfos.inbound.queue}
   metadata:
     STUB: ${smev3core.routes.STUB.outbound}
     test: ${smev3core.routes.STUB.outbound}

@@ -14,7 +14,7 @@ public class ReplicationRouteBuilder extends RouteBuilder {
         from("{{routes.replicationService.inboundQueue}}").routeId("replicationService")
                 .transacted()
                 .setHeader("messageReplicationAndVerification").method(ResponseRandomizer.class, "getOkorFailed")
-                .to("routes.replicationService.outboundQueue");
+                .to("{{routes.replicationService.outboundQueue}}");
     }
 
     private static class ResponseRandomizer {

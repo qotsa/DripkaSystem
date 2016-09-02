@@ -39,6 +39,7 @@ public class ProxyRouteBuilder extends RouteBuilder {
                     when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
                         .to("{{routes.postprocessor.outbound.default}}").stop()
                     .otherwise()
-                        .dynamicRouter(method(PostprocessorMetadataRouter.class, "route"));
+                        //.dynamicRouter(method(PostprocessorMetadataRouter.class, "route"));
+                        .to("{{routes.postprocessor.outbound.ufos}}");
     }
 }

@@ -29,18 +29,18 @@ public class PollerRouteBuilder extends RouteBuilder {
 
         from("scheduler://foo?initialDelay=70s&delay=70s").routeId("GetRequestPoller")
                 .transacted()
-                .to("velocity:velocity/GetRequestRequest.vm")
+                .to("freemarker:templates/GetRequestRequest.ftl")
                 .to("http://smev3adapter:{{smev3adapter.http.port}}/camel/request")
                 .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}");
 
         /*from("scheduler://foo1?initialDelay=120s&delay=60s").routeId("GetResponsePoller")
-                .to("velocity:velocity/GetResponseRequest.vm")
+                .to("freemarker:templates/GetResponseRequest.ftl")
                 .to("http://smev3adapter:8090/camel/request")
                 .to("{{routes.GetResponsePoller.GetResponseResponseQueue}}activemq:GetResponseResponseQueue");*/
 
         /*from("scheduler://foo2?initialDelay=60s&delay=15s").routeId("GetStatusPoller")
                 .transacted()
-                .to("velocity:velocity/GetStatusRequest.vm")
+                .to("freemarker:templates/GetStatusRequest.ftl")
                 .to("http://smev3adapter:{{smev3adapter.http.port}}/camel/request")
                 .idempotentConsumer(xpath("//ns2:OriginalMessageId").resultType(String.class).namespaces(ns2), repository)
                 .skipDuplicate(false)

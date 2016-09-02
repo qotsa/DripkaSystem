@@ -35,20 +35,23 @@
     </properties>
 
     <modules>
+        <!-- business modules -->
         <module>smev3adapter</module>
         <module>smev3core</module>
         <module>configserver</module>
         <module>smev3mock</module>
         <module>pollers</module>
         <module>ufosadapter</module>
+        <module>replication</module>
 
+        <!-- elk stack -->
         <module>elasticsearch</module>
         <module>curator</module>
         <module>logstash</module>
         <module>kibana</module>
 
+        <!-- docker related stuff -->
         <module>dockercompose</module>
-        <module>replication</module>
     </modules>
 
     <profiles>

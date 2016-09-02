@@ -100,7 +100,7 @@ services:
   # ELK-based LOGGING
 
   elasticsearch:
-    build: elasticsearch
+    image: smev3client/elasticsearch
     restart: never
     logging:
       options:
@@ -125,7 +125,7 @@ services:
       - elasticsearch
 
   kibana:
-    build: kibana
+    image: smev3client/kibana
     restart: never
     environment:
       NODE_OPTIONS: "--max-old-space-size=250"

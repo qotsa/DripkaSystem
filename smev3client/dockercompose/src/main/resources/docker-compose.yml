@@ -66,7 +66,18 @@ services:
     image: smev3client/smev3mock
     restart: always
     ports:
-      - 8091:8091
+      ${smev3mock.docker.compose.ports}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  replication:
+    image: smev3client/replication
+    restart: always
+    ports:
+        ${replication.docker.compose.ports}
+        ${debug.port.compose}
     logging:
       options:
         max-size: "10m"

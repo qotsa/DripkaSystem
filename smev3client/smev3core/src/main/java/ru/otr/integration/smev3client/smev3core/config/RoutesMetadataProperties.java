@@ -17,10 +17,6 @@ public class RoutesMetadataProperties {
 
     private Map<String, String> metadata;
 
-    public Map<String, String> getMetadataImmutable() {
-        return Collections.unmodifiableMap(metadata);
-    }
-
     public Map<String, String> getMetadata() {
         return metadata;
     }
@@ -28,5 +24,4 @@ public class RoutesMetadataProperties {
     public void setMetadata(Map<String, String> metadata) {
         this.metadata = metadata;
     }
-
 }

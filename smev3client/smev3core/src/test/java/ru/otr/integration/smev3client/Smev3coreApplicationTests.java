@@ -59,7 +59,7 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @EndpointInject(uri = "{{routes.preprocessor.outbound.replication}}")
     protected MockEndpoint preOutRepEndpoint;
 
-    @EndpointInject(uri = "{{routes.postprocessor.outbound.default}}")
+    @EndpointInject(uri = "{{routes.log}}")
     protected MockEndpoint postOutDefEndpoint;
 
     @EndpointInject(uri = "{{routes.metadata.STUB}}")

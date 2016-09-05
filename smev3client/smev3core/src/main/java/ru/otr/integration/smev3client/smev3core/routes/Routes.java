@@ -3,7 +3,6 @@ package ru.otr.integration.smev3client.smev3core.routes;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
 import org.springframework.stereotype.Component;
-import ru.otr.integration.smev3client.smev3core.routes.routers.PreprocessorMetadataRouter;
 
 @Component
 public class Routes extends RouteBuilder {
@@ -20,25 +19,24 @@ public class Routes extends RouteBuilder {
         from("{{routes.preprocessor.inbound}}")
                 .transacted()
                 .routeId("preprocessor")
-                .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
                 .choice()
                     .when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
-                        .to("{{routes.preprocessor.outbound.replication}}").stop()
+                        .to("{{routes.preprocessor.replication}}").stop()
                     .otherwise()
-                        .dynamicRouter(method(PreprocessorMetadataRouter.class, "route"))
-                        .to("{{routes.postprocessor.inbound}}")
+                        .to("direct:postprocessor")
                 .end();
+
+        from("direct:postprocessor").to("{{routes.postprocessor.inbound}}");
 
         from("{{routes.postprocessor.inbound}}")
                 .transacted()
                 .routeId("postprocessor")
                 .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
-                //.to("{{routes.log}}")
                 .choice().
                     when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
-                        .to("{{routes.postprocessor.outbound.default}}").stop()
+                        .to("{{routes.log}}").stop()
                     .otherwise()
-                        //.dynamicRouter(method(PostprocessorMetadataRouter.class, "route"));
-                        .to("{{routes.postprocessor.outbound.ufos}}");
+                        .dynamicRouter(method(PostprocessorRouter.class, "route"))
+                .end();
     }
 }

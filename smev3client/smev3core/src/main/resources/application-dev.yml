@@ -25,16 +25,11 @@ routes:
     inbound: ${smev3core.routes.preprocessor.inbound}
     GetRequestResponseQueue: ${smev3core.routes.preprocessor.inbound.GetRequestResponseQueue}
     GetResponseResponseQueue: ${smev3core.routes.preprocessor.inbound.GetResponseResponseQueue}
-    outbound:
-      default: ${smev3core.routes.preprocessor.outbound.default}
-      replication: ${replication.routes.replicationService.inbound.queue}
+    replication: ${replication.routes.replicationService.inbound.queue}
   postprocessor:
     inbound: ${smev3core.routes.postprocessor.inbound}
-    outbound:
-      default: ${smev3core.routes.postprocessor.outbound.default}
-      ufos: ${ufosadapter.routes.toUfos.inbound.queue}
   metadata:
-    STUB: ${smev3core.routes.STUB.outbound}
-    test: ${smev3core.routes.STUB.outbound}
+    STUB: ${ufosadapter.routes.toUfos.inbound.queue}
+    UFOS: ${ufosadapter.routes.toUfos.inbound.queue}
   GetStatusResponseQueue: ${smev3core.routes.preprocessor.inbound.GetStatusResponseQueue}
   log: ${smev3core.routes.log}

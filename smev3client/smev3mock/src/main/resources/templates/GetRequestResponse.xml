@@ -135,7 +135,7 @@
                 <ns:SendingTimestamp>2016-08-26T15:10:44.254+03:00</ns:SendingTimestamp>
                 <ns:DestinationName>TODO DestinationName</ns:DestinationName>
                 <ns:Recipient>
-                    <ns:Mnemonic>STUB</ns:Mnemonic>
+                    <ns:Mnemonic>UFOS</ns:Mnemonic>
                     <ns:HumanReadableName>Тестовое ведомство</ns:HumanReadableName>
                 </ns:Recipient>
                 <ns:SupplementaryData>

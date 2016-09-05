@@ -71,9 +71,9 @@ services:
 
   replication:
     image: smev3client/replication
-    restart: always
+    restart: ${replication.docker.compose.restart}
     ports:
-        ${replication.docker.compose.ports}${debug.port.compose}
+      ${replication.docker.compose.ports}${debug.port.compose}
     logging:
       options:
         max-size: "10m"

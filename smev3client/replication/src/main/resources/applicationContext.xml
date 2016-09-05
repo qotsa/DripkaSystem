@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:cxf="http://camel.apache.org/schema/cxf"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd
-                           http://camel.apache.org/schema/cxf          http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="camelTracer" class="org.apache.camel.processor.interceptor.Tracer">
         <property name="formatter" ref="traceFormatter"/>
         <property name="enabled" value="true"/>
-        <property name="logLevel" value="${smev3core.logging.level.business}"/>
-        <property name="logName" value="ru.otr.integration.smev3client.tracer.smev3core"/>
+        <property name="logLevel" value="${ufosadapter.logging.level.business}"/>
+        <property name="logName" value="ru.otr.integration.smev3client.tracer.ufosadapter"/>
         <!--<property name="traceFilter"-->
         <property name="traceInterceptors" value="true"/>
         <property name="traceExceptions" value="true"/>
@@ -26,7 +23,7 @@
         <property name="showExchangeId" value="false"/>
         <property name="showShortExchangeId" value="false"/>
         <property name="showProperties" value="false"/>
-        <property name="showHeaders" value="false"/>
+        <property name="showHeaders" value="true"/>
         <property name="showBodyType" value="false"/>
         <property name="showBody" value="false"/>
         <property name="showOutHeaders" value="false"/>

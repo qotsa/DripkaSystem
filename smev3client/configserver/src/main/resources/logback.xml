@@ -13,6 +13,7 @@
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
                 <mdc/>
+                <timestamp/>
                 <context/>
                 <version/>
                 <logLevel/>

@@ -50,8 +50,9 @@
         <module>logstash</module>
         <module>kibana</module>
 
-        <!-- docker related stuff -->
+        <!-- docker related stuff and other nicees -->
         <module>dockercompose</module>
+        <module>cadvisor</module>
     </modules>
 
     <profiles>
@@ -60,7 +61,7 @@
             <properties>
                 <jvm.args>"java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005","-jar"</jvm.args>
                 <debug.port>5005</debug.port>
-                <debug.port.compose>${line.separator}      - 5005:5005</debug.port.compose>
+                <debug.port.compose>${line.separator}      - ${debug.port}:${debug.port}</debug.port.compose>
             </properties>
         </profile>
 

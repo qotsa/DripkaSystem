@@ -26,4 +26,37 @@
         <constructor-arg index="0" value="aaaaaaaaaaaaaaaa"/>
     </bean>
 
+    <bean id="camelTracer" class="org.apache.camel.processor.interceptor.Tracer">
+        <property name="formatter" ref="traceFormatter"/>
+        <property name="enabled" value="true"/>
+        <property name="logLevel" value="${ufosadapter.logging.level.business}"/>
+        <property name="logName" value="ru.otr.integration.smev3client.tracer.ufosadapter"/>
+        <!--<property name="traceFilter"-->
+        <property name="traceInterceptors" value="true"/>
+        <property name="traceExceptions" value="true"/>
+        <property name="traceOutExchanges" value="false"/>
+        <property name="logStackTrace" value="false"/>
+    </bean>
+
+    <bean id="traceFormatter" class="org.apache.camel.processor.interceptor.DefaultTraceFormatter">
+        <property name="breadCrumbLength" value="0"/>
+        <property name="nodeLength" value="0"/>
+        <property name="showBreadCrumb" value="true"/>
+        <property name="showNode" value="true"/>
+        <property name="showExchangeId" value="false"/>
+        <property name="showShortExchangeId" value="false"/>
+        <property name="showProperties" value="false"/>
+        <property name="showHeaders" value="true"/>
+        <property name="showBodyType" value="false"/>
+        <property name="showBody" value="false"/>
+        <property name="showOutHeaders" value="false"/>
+        <property name="showOutBodyType" value="false"/>
+        <property name="showOutBody" value="false"/>
+        <property name="showExchangePattern" value="false"/>
+        <property name="showException" value="true"/>
+        <property name="showRouteId" value="false"/>
+        <property name="maxChars" value="10000"/>
+        <property name="multiline" value="true"/>
+    </bean>
+
 </beans>

@@ -119,20 +119,6 @@ services:
     links:
       - elasticsearch
 
-  kibana:
-    image: smev3client/kibana
-    restart: never
-    environment:
-      NODE_OPTIONS: "--max-old-space-size=250"
-    ports:
-      - 5601:5601
-    links:
-      - elasticsearch
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-
   curator:
     image: smev3client/curator
     restart: never
@@ -143,13 +129,52 @@ services:
     links:
       - elasticsearch
 
+  # monitoring stuff
+
+#  influxdb:
+#    image: tutum/influxdb:latest
+#    ports:
+#      - 8083:8083
+#      - 8086:8086
+#    expose:
+#      - 8090
+#      - 8099
+#    environment:
+#      - PRE_CREATE_DB=cadvisor
+
   cadvisor:
-    image: google/cadvisor:latest
+    image: smev3client/cadvisor
     ports:
-      - 8080:8080
+      - 8081:8081
     volumes:
-    #    - /:/rootfs:ro # this WILL NOT work on windows host
-        - /../:/rootfs:ro # this WILL work on windows host
-        - /var/run:/var/run:rw
-        - /sys:/sys:ro
-        - /var/lib/docker/:/var/lib/docker:ro
+#      - /:/rootfs:ro # this WILL NOT work on windows host
+      - /../:/rootfs:ro # this WILL work on windows host
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+#    command: "-storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxdb:8086"
+    command: "-port=8081"
+#    links:
+#      - "influxdb:influxdb"
+
+  kibana:
+      image: smev3client/kibana
+      restart: never
+      environment:
+        NODE_OPTIONS: "--max-old-space-size=250"
+      ports:
+        - 5601:5601
+      links:
+        - elasticsearch
+      logging:
+        options:
+          max-size: "10m"
+          max-file: "10"
+
+#  grafana:
+#    image: grafana/grafana:latest
+#    ports:
+#      - 3000:3000
+#    links:
+#      - influxdb:influxdb
+#      - elasticsearch

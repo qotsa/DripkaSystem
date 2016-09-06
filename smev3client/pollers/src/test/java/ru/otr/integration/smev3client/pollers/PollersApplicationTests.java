@@ -1,15 +1,13 @@
-package ru.otr.integration.smev3client;
+package ru.otr.integration.smev3client.pollers;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("test")
-public class ReplicationApplicationTests {
+public class PollersApplicationTests {
 
 	@Test
 	public void contextLoads() {

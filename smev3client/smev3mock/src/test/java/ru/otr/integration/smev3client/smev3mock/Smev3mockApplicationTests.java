@@ -1,4 +1,4 @@
-package ru.otr.integration.smev3client;
+package ru.otr.integration.smev3client.smev3mock;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

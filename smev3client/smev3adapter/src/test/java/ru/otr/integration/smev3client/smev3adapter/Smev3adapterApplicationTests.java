@@ -1,4 +1,4 @@
-package ru.otr.integration.smev3client;
+package ru.otr.integration.smev3client.smev3adapter;
 
 
 import org.apache.camel.test.spring.*;

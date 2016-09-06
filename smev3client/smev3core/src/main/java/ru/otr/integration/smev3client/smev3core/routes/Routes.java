@@ -32,8 +32,8 @@ public class Routes extends RouteBuilder {
                 .transacted()
                 .routeId("postprocessor")
                 .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
-                .choice().
-                    when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
+                .choice()
+                    .when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
                         .to("{{routes.log}}").stop()
                     .otherwise()
                         .dynamicRouter(method(PostprocessorRouter.class, "route"))

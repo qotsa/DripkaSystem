@@ -28,9 +28,6 @@ routes:
       GetResponseResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetResponseResponseQueue}
     postprocessor:
       inbound: ${smev3core.routes.Smev2Vis.postprocessor.inbound}
-    metadata:
-      STUB: ${ufosadapter.routes.toUfos.inbound}
-      UFOS: ${ufosadapter.routes.toUfos.inbound}
     GetStatusResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetStatusResponseQueue}
   Vis2Smev:
     preprocessor:
@@ -39,5 +36,8 @@ routes:
       SendResponseResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendResponseResponseQueue}
     postprocessor:
       inbound: ${smev3core.routes.Vis2Smev.postprocessor.inbound}
+  metadata:
+    STUB: ${ufosadapter.routes.toUfos.inbound}
+    UFOS: ${ufosadapter.routes.toUfos.inbound}
   replication: ${replication.routes.replicationService.inbound.queue}
   log: ${smev3core.routes.log}

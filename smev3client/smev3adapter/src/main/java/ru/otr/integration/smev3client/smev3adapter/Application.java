@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.ImportResource;
 
 //@Import({/*ServletConfig.class,*/ BeansConfig.class})
-@ImportResource("classpath:/config/staticConfig.xml")
+@ImportResource("classpath:/applicationContext.xml")
 @SpringBootApplication
 @EnableConfigurationProperties
 public class Application {

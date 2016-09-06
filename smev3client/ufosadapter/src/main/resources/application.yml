@@ -34,7 +34,10 @@ camel:
     stream-caching: false
 
 routes:
+  log: ${ufosadapter.routes.log}
   toUfos:
-    inboundQueue: ${ufosadapter.routes.toUfos.inbound.queue}
-    outboundQueue: ${ufosadapter.routes.toUfos.outbound.queue}
-    log: ${ufosadapter.routes.toUfos.log}
+    inboundQueue: ${ufosadapter.routes.toUfos.inbound}
+    outboundQueue: ${ufosadapter.routes.toUfos.outbound}
+  fromUfos:
+    inboundQueue: ${ufosadapter.routes.fromUfos.inbound}
+    outboundQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound}

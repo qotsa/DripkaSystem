@@ -2,19 +2,23 @@ spring:
  profiles: test
 
 routes:
-  preprocessor:
-    inbound: seda:queue:input1
-    GetRequestResponseQueue: seda:queue:GetRequestResponseQueue
-    GetResponseResponseQueue: seda::queue:GetResponseResponseQueue
-    outbound:
-      default: mock:seda:queue:output1
-      replication: mock:seda:queue:replication1
-  postprocessor:
-    inbound: seda:queue:input2
-    outbound:
-      default: mock:seda:queue:output2
-  metadata:
-    STUB: mock:seda:queue:ep-stub-1
-    test: mock:seda:queue:output-test-ep
-  GetStatusResponseQueue: mock:seda:queue:GetStatusResponseQueue
-  log: mock:seda:queue:log
+  Smev2Vis:
+    preprocessor:
+      inbound: seda:queue:Smev2Vis_Smev2Vis_preprocessor_inbound
+      GetRequestResponseQueue: seda:queue:Smev2Vis_Smev2Vis_preprocessor_GetRequestResponseQueue
+      GetResponseResponseQueue: seda:queue:Smev2Vis_Smev2Vis_preprocessor_GetResponseResponseQueue
+    postprocessor:
+      inbound: seda:queue:Smev2Vis_Smev2Vis_postprocessor_inbound
+    metadata:
+      STUB: mock:seda:queue:STUB
+      UFOS: mock:seda:queue:UFOS
+    GetStatusResponseQueue: seda:queue:Smev2Vis_GetStatusResponseQueue
+  Vis2Smev:
+    preprocessor:
+      inbound: seda:queue:Vis2Smev_preprocessor_inbound
+      SendRequestResponseQueue: seda:queue:Vis2Smev_preprocessor_SendRequestResponseQueue
+      SendResponseResponseQueue: seda:queue:Vis2Smev_preprocessor_SendResponseResponseQueue
+    postprocessor:
+      inbound: seda:queue:Vis2Smev_postprocessor_inbound
+  replication: mock:seda:queue:replication
+  log: mock:log

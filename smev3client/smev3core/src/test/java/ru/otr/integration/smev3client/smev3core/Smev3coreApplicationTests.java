@@ -47,7 +47,7 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     @Value("classpath:RequestBodyNoAttachStub.xml")
     private Resource requestBodyNoAttachStub;
 
-    @EndpointInject(uri = "{{routes.preprocessor.inbound}}")
+    /*@EndpointInject(uri = "{{routes.preprocessor.inbound}}")
     protected ProducerTemplate input1Endpoint;
 
     @EndpointInject(uri = "{{routes.postprocessor.inbound}}")
@@ -63,7 +63,7 @@ public class Smev3coreApplicationTests extends XMLTestCase {
     protected MockEndpoint postOutDefEndpoint;
 
     @EndpointInject(uri = "{{routes.metadata.STUB}}")
-    protected MockEndpoint outStubEndpoint;
+    protected MockEndpoint outStubEndpoint;*/
 
     @Test
     public void testRoutes() throws Exception {

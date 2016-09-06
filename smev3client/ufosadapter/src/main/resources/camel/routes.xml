@@ -3,16 +3,16 @@
 
     <route id="toUfos" errorHandlerRef="transactionErrorHandlerBuilder">
         <from uri="{{routes.toUfos.inboundQueue}}"/>
-        <transacted ref="PROPAGATION_REQUIRED"/>
-        <to uri="{{routes.toUfos.log}}"/>
-        <!--<throwException ref="zombieApocalipse"/>-->
+        <transacted/>
+        <to uri="{{routes.log}}"/>
         <to uri="{{routes.toUfos.outboundQueue}}"/>
     </route>
 
-    <!--<route id="test" errorHandlerRef="transactionErrorHandlerBuilder">
-        <from uri="scheduler://foo?initialDelay=10s&amp;delay=10s"/>
-        <transacted ref="PROPAGATION_REQUIRES_NEW"/>
-        <to uri="{{routes.toUfos.inboundQueue}}"/>
-    </route>-->
+    <route id="fromUfos" errorHandlerRef="transactionErrorHandlerBuilder">
+        <from uri="{{routes.fromUfos.inboundQueue}}"/>
+        <transacted/>
+        <to uri="{{routes.log}}"/>
+        <to uri="{{routes.fromUfos.outboundQueue}}"/>
+    </route>
 
 </routes>

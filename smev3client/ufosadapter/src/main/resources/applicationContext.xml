@@ -3,15 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="PROPAGATION_REQUIRED" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
-        <property name="transactionManager" ref="transactionManager"/>
-    </bean>
-
-    <bean id="PROPAGATION_REQUIRES_NEW" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
-        <property name="transactionManager" ref="transactionManager"/>
-        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRES_NEW"/>
-    </bean>
-
     <bean id="transactionErrorHandlerBuilder" class="org.apache.camel.spring.spi.TransactionErrorHandlerBuilder">
         <property name="redeliveryPolicy" ref="redeliveryPolicy"/>
     </bean>
@@ -20,10 +11,6 @@
         <property name="maximumRedeliveries" value="3"/>
         <property name="redeliveryDelay" value="250"/>
         <property name="logStackTrace" value="true"/>
-    </bean>
-
-    <bean id="zombieApocalipse" class="java.lang.IllegalArgumentException">
-        <constructor-arg index="0" value="aaaaaaaaaaaaaaaa"/>
     </bean>
 
     <bean id="camelTracer" class="org.apache.camel.processor.interceptor.Tracer">

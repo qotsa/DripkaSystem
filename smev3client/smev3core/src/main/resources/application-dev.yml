@@ -21,15 +21,23 @@ camel:
     stream-caching: true
 
 routes:
-  preprocessor:
-    inbound: ${smev3core.routes.preprocessor.inbound}
-    GetRequestResponseQueue: ${smev3core.routes.preprocessor.inbound.GetRequestResponseQueue}
-    GetResponseResponseQueue: ${smev3core.routes.preprocessor.inbound.GetResponseResponseQueue}
-    replication: ${replication.routes.replicationService.inbound.queue}
-  postprocessor:
-    inbound: ${smev3core.routes.postprocessor.inbound}
-  metadata:
-    STUB: ${ufosadapter.routes.toUfos.inbound.queue}
-    UFOS: ${ufosadapter.routes.toUfos.inbound.queue}
-  GetStatusResponseQueue: ${smev3core.routes.preprocessor.inbound.GetStatusResponseQueue}
+  Smev2Vis:
+    preprocessor:
+      inbound: ${smev3core.routes.Smev2Vis.preprocessor.inbound}
+      GetRequestResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetRequestResponseQueue}
+      GetResponseResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetResponseResponseQueue}
+    postprocessor:
+      inbound: ${smev3core.routes.Smev2Vis.postprocessor.inbound}
+    metadata:
+      STUB: ${ufosadapter.routes.toUfos.inbound}
+      UFOS: ${ufosadapter.routes.toUfos.inbound}
+    GetStatusResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetStatusResponseQueue}
+  Vis2Smev:
+    preprocessor:
+      inbound: ${smev3core.routes.Vis2Smev.preprocessor.inbound}
+      SendRequestResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendRequestResponseQueue}
+      SendResponseResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendResponseResponseQueue}
+    postprocessor:
+      inbound: ${smev3core.routes.Vis2Smev.postprocessor.inbound}
+  replication: ${replication.routes.replicationService.inbound.queue}
   log: ${smev3core.routes.log}

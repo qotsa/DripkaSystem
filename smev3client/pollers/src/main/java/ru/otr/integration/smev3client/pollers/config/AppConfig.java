@@ -46,6 +46,8 @@ public class AppConfig {
 
     @Bean
     public Config configBean()  {
-        return new Config();
+        Config config =  new Config();
+        config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
+        return config;
     }
 }

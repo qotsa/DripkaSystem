@@ -592,6 +592,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <argLine>${failsafeArgLine}</argLine>
+                    <skipTests>${skip.integration.tests}</skipTests>
+                </configuration>
                 <executions>
                     <execution>
                         <id>integration-tests</id>
@@ -599,10 +603,6 @@
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
-                        <configuration>
-                            <argLine>${failsafeArgLine}</argLine>
-                            <skipTests>${skip.integration.tests}</skipTests>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

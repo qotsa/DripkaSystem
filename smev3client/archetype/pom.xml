@@ -8,6 +8,7 @@
     <packaging>jar</packaging>
 
     <name>archetype</name>
+    <description>maven project template for generating new smev3client modules</description>
 
     <parent>
         <groupId>ru.otr.integration.smev3client</groupId>

@@ -17,49 +17,48 @@ public class Routes extends RouteBuilder {
         from("direct:Smev2Vis_preprocessor").to("{{routes.Smev2Vis.preprocessor.inbound}}");
 
         from("{{routes.Smev2Vis.preprocessor.inbound}}")
-                .transacted()
-                .routeId("Smev2VisPreprocessor")
-                .choice()
-                    .when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
-                        .to("{{routes.replication}}").stop()
-                    .otherwise()
-                        .to("direct:Smev2Vis_postprocessor")
-                .end();
+            .transacted()
+            .routeId("Smev2VisPreprocessor")
+            .choice()
+                .when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
+                    .to("{{routes.replication}}")
+                .otherwise()
+                    .to("direct:Smev2Vis_postprocessor")
+            .end();
 
         from("direct:Smev2Vis_postprocessor").to("{{routes.Smev2Vis.postprocessor.inbound}}");
 
         from("{{routes.Smev2Vis.postprocessor.inbound}}")
-                .transacted()
-                .routeId("Smev2VisPostprocessor")
-                .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
-                .choice()
-                    .when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
-                        .to("{{routes.log}}").stop()
-                    .otherwise()
-                        .dynamicRouter(method(PostprocessorRouter.class, "route"))
-                .end();
+            .transacted()
+            .routeId("Smev2VisPostprocessor")
+            .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
+            .choice()
+                .when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
+                    .to("{{routes.log}}")
+                .otherwise()
+                    .dynamicRouter(method(PostprocessorRouter.class, "route"))
+            .end();
 
         from("{{routes.Vis2Smev.preprocessor.SendRequestResponseQueue}}").to("direct:Vis2Smev_preprocessor");
         from("{{routes.Vis2Smev.preprocessor.SendResponseResponseQueue}}").to("direct:Vis2Smev_preprocessor");
         from("direct:Vis2Smev_preprocessor").to("{{routes.Vis2Smev.preprocessor.inbound}}");
 
         from("{{routes.Vis2Smev.preprocessor.inbound}}")
-                .transacted()
-                .routeId("Vis2SmevPreprocessor")
-                .choice()
+            .transacted()
+            .routeId("Vis2SmevPreprocessor")
+            .choice()
                 .when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
-                .to("{{routes.replication}}").stop()
+                    .to("{{routes.replication}}")
                 .otherwise()
-                .to("direct:Vis2Smev_postprocessor")
-                .end();
+                    .to("direct:Vis2Smev_postprocessor")
+            .end();
 
         from("direct:Vis2Smev_postprocessor").to("{{routes.Vis2Smev.postprocessor.inbound}}");
 
-        // TODO route to pushers module
-
         from("{{routes.Vis2Smev.postprocessor.inbound}}")
-                .transacted()
-                .routeId("Vis2SmevPostprocessor")
-                .to("{{routes.log}}");
+            .transacted()
+            .routeId("Vis2SmevPostprocessor")
+            .to("{{routes.log}}")
+            .to("{{pushers.routes.vis2smev.inbound}}");
     }
 }

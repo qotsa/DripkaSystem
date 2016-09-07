@@ -1,0 +1,26 @@
+server:
+  port: ${pollers.http.port}
+
+spring:
+  activemq:
+    brokerUrl: ${activemq.url}
+    inMemory: false
+    user: ${activemq.username}
+    password: ${activemq.password}
+    pool:
+      enabled: true
+  devtools:
+    remote:
+      secret: ${devtools.secret}
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: false
+
+routes:
+  log: ${pushers.routes.log}
+  smev3adapter: http://smev3adapter:${smev3adapter.http.port}/camel/request
+  vis2smev:
+    inbound: ${pushers.routes.vis2smev.inbound}

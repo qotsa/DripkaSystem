@@ -44,6 +44,7 @@
         <module>configserver</module>
         <module>smev3mock</module>
         <module>pollers</module>
+        <module>pushers</module>
         <module>ufosadapter</module>
         <module>replication</module>
 
@@ -86,7 +87,7 @@
                         <executions>
                             <execution>
                                 <id>build-docker-images</id>
-                                <phase>package</phase>
+                                <phase>post-integration-test</phase>
                                 <goals>
                                     <goal>build</goal>
                                 </goals>
@@ -451,7 +452,7 @@
                             <resource>
                                 <targetPath>/</targetPath>
                                 <directory>${project.build.directory}</directory>
-                                <include>${project.build.finalName}.jar</include>
+                                <include>${project.build.finalName}-bootable.jar</include>
                             </resource>
                         </resources>
                     </configuration>
@@ -468,6 +469,9 @@
                             </goals>
                         </execution>
                     </executions>
+                    <configuration>
+                        <classifier>bootable</classifier>
+                    </configuration>
                 </plugin>
 
                 <plugin>

@@ -59,6 +59,6 @@ public class Routes extends RouteBuilder {
             .transacted()
             .routeId("Vis2SmevPostprocessor")
             .to("{{routes.log}}")
-            .to("{{pushers.routes.vis2smev.inbound}}");
+            .to("{{routes.Vis2Smev.inbound}}");
     }
 }

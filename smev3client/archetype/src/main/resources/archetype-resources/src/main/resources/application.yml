@@ -1,5 +1,5 @@
 server:
-  port: ${pushers.http.port}
+  port: ???
 
 spring:
   activemq:
@@ -18,9 +18,3 @@ camel:
     jmxEnabled: true
     allow-use-original-message: true
     stream-caching: false
-
-routes:
-  log: ${pushers.routes.log}
-  smev3adapter: http://smev3adapter:${smev3adapter.http.port}/camel/request
-  vis2smev:
-    inbound: ${pushers.routes.vis2smev.inbound}

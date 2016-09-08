@@ -17,7 +17,7 @@
         <property name="formatter" ref="traceFormatter"/>
         <property name="enabled" value="true"/>
         <property name="logLevel" value="${ufosadapter.logging.level.business}"/>
-        <property name="logName" value="ru.otr.integration.smev3client.tracer.ufosadapter"/>
+        <property name="logName" value="ru.otr.integration.smev3client.tracer.${artifactId}"/>
         <!--<property name="traceFilter"-->
         <property name="traceInterceptors" value="true"/>
         <property name="traceExceptions" value="true"/>

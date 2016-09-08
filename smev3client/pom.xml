@@ -38,6 +38,8 @@
     </properties>
 
     <modules>
+        <module>archetype</module>
+
         <!-- business modules -->
         <module>smev3adapter</module>
         <module>smev3core</module>

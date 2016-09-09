@@ -7,7 +7,7 @@
                            http://camel.apache.org/schema/cxf          http://camel.apache.org/schema/cxf/camel-cxf.xsd">
 
     <cxf:cxfEndpoint id="smevMessageExchangeService"
-                     address="http://smev3mock:${smev3mock.http.port}/soap-api/SmevMessageExchangeService"
+                     address="${smev3adapter.routes.smev}"
                      wsdlURL="wsdl/smev-message-exchange-service-1.1.wsdl"
                      serviceName="s:SMEVMessageExchangeService"
                      endpointName="s:SMEVMessageExchangeEndpoint"

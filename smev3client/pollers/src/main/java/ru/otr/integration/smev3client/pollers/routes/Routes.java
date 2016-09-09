@@ -28,10 +28,15 @@ public class Routes extends RouteBuilder {
         camelContext.setStreamCaching(true);
 
         from("scheduler://foo?initialDelay=70s&delay=70s").routeId("GetRequestPoller")
-                .transacted()
-                .to("freemarker:templates/GetRequestRequest.ftl")
-                .to("http://smev3adapter:{{smev3adapter.http.port}}/camel/request")
-                .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}");
+            .transacted()
+            .to("freemarker:templates/GetRequestRequest.ftl")
+            .to("http://smev3adapter:{{smev3adapter.http.port}}/camel/request")
+            .choice()
+                .when(header("ERROR_MESSAGE"))
+                .stop()
+            .otherwise()
+                .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}")
+            .end();
 
         /*from("scheduler://foo1?initialDelay=120s&delay=60s").routeId("GetResponsePoller")
                 .to("freemarker:templates/GetResponseRequest.ftl")

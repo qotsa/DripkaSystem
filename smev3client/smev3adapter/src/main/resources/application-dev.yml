@@ -36,5 +36,4 @@ camel:
     stream-caching: false
 
 routes:
-  smevProxyService:
-    log: ${smev3adapter.routes.smevProxyService.log}
+  log: ${smev3adapter.routes.log}

@@ -20,5 +20,4 @@ activemq:
         password: "admin"
 
 routes:
-  smevProxyService:
-    log: log:ru.otr.integration.smev3client.smev3adapter?level=DEBUG&showAll=true&multiline=true
+  log: log:ru.otr.integration.smev3client.smev3adapter?level=DEBUG&showAll=true&multiline=true

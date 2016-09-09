@@ -58,6 +58,7 @@
 
         <!-- docker related stuff and other nicees -->
         <module>dockercompose</module>
+        <module>activemq</module>
         <module>cadvisor</module>
     </modules>
 
@@ -101,11 +102,11 @@
         </profile>
 
         <profile>
-            <id>env-local</id>
+            <id>env-dev</id>
 
             <build>
                 <filters>
-                    <filter>${project.parent.relativePath}/../env/local.properties</filter>
+                    <filter>${project.parent.relativePath}/../env/dev.properties</filter>
                 </filters>
             </build>
         </profile>

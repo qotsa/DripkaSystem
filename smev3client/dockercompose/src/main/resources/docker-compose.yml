@@ -2,12 +2,102 @@ version: '2'
 
 services:
   activemq:
-    image: webcenter/activemq:latest
-    restart: always
+    image: smev3client/activemq
+    restart: never
     ports:
       - 8161:8161
       - 61616:61616
       - 61613:61613
+
+  # ELK-based LOGGING
+
+  elasticsearch:
+    image: smev3client/elasticsearch
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 9200:9200
+
+  logstash:
+    image: smev3client/logstash
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    command: logstash -f /config-dir/logstash.conf
+    ports:
+      - 12201:12201
+      - 12201:12201/udp
+      - 4560:4560
+    links:
+      - elasticsearch
+
+  curator:
+    image: smev3client/curator
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    links:
+      - elasticsearch
+
+  # monitoring stuff
+
+#  influxdb:
+#    image: tutum/influxdb:latest
+#    ports:
+#      - 8083:8083
+#      - 8086:8086
+#    expose:
+#      - 8090
+#      - 8099
+#    environment:
+#      - PRE_CREATE_DB=cadvisor
+
+  cadvisor:
+    image: smev3client/cadvisor
+    restart: never
+    ports:
+      - 8081:8081
+    volumes:
+#      - /:/rootfs:ro # this WILL NOT work on windows host
+      - /../:/rootfs:ro # this WILL work on windows host
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+#    command: "-storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxdb:8086"
+    command: "-port=8081"
+#    links:
+#      - "influxdb:influxdb"
+
+  kibana:
+      image: smev3client/kibana
+      restart: never
+      environment:
+        NODE_OPTIONS: "--max-old-space-size=250"
+      ports:
+        - 5601:5601
+      links:
+        - elasticsearch
+      logging:
+        options:
+          max-size: "10m"
+          max-file: "10"
+
+#  grafana:
+#    image: grafana/grafana:latest
+#    ports:
+#      - 3000:3000
+#    links:
+#      - influxdb:influxdb
+#      - elasticsearch
+
+  # smev3client stuff
 
   configserver:
     image: smev3client/configserver
@@ -104,90 +194,3 @@ services:
 #        tag: "pushers"
         max-size: "10m"
         max-file: "10"
-
-  # ELK-based LOGGING
-
-  elasticsearch:
-    image: smev3client/elasticsearch
-    restart: never
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    ports:
-      - 9200:9200
-
-  logstash:
-    image: smev3client/logstash
-    restart: never
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    command: logstash -f /config-dir/logstash.conf
-    ports:
-      - 12201:12201
-      - 12201:12201/udp
-      - 4560:4560
-    links:
-      - elasticsearch
-
-  curator:
-    image: smev3client/curator
-    restart: never
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    links:
-      - elasticsearch
-
-  # monitoring stuff
-
-#  influxdb:
-#    image: tutum/influxdb:latest
-#    ports:
-#      - 8083:8083
-#      - 8086:8086
-#    expose:
-#      - 8090
-#      - 8099
-#    environment:
-#      - PRE_CREATE_DB=cadvisor
-
-  cadvisor:
-    image: smev3client/cadvisor
-    ports:
-      - 8081:8081
-    volumes:
-#      - /:/rootfs:ro # this WILL NOT work on windows host
-      - /../:/rootfs:ro # this WILL work on windows host
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-#    command: "-storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxdb:8086"
-    command: "-port=8081"
-#    links:
-#      - "influxdb:influxdb"
-
-  kibana:
-      image: smev3client/kibana
-      restart: never
-      environment:
-        NODE_OPTIONS: "--max-old-space-size=250"
-      ports:
-        - 5601:5601
-      links:
-        - elasticsearch
-      logging:
-        options:
-          max-size: "10m"
-          max-file: "10"
-
-#  grafana:
-#    image: grafana/grafana:latest
-#    ports:
-#      - 3000:3000
-#    links:
-#      - influxdb:influxdb
-#      - elasticsearch

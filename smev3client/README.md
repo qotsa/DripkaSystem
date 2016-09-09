@@ -16,7 +16,7 @@ Contains:
 Maven profiles:
 - build-docker-images - use in activation mode, builds images
 - debug - adds jvm debug flags to entrypoin in docker image
-- env - local  - uses filtering from env/local.properties for docker images and configuration files filtering
+- env-dev - uses filtering from env/dev.properties for docker images and configuration files filtering
 
 
 ##How to run
@@ -51,9 +51,7 @@ then build image using appropriate maven plugin
 Use debug profile (enabled for smev3adapter)
 
 ##TODO
-- logging agregator
 - issues with one command build in maven
-- refactor all hardcoded vals : hosts, ports and etc
 - unit and route tests
 - all the microservices stuff : curcuit bracer, balancer, service discovery etc
 

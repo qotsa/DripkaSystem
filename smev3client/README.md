@@ -92,3 +92,7 @@ Example: creating a module "qwerty":
 8. Module name: qwerty
 9. Finish
 10. adjust generated module rsources, replace "???" with correct values
+
+## LBSS (https://github.com/gimatdinov/lbss)
+
+to deploy: docker-compose -p smev3client up -d

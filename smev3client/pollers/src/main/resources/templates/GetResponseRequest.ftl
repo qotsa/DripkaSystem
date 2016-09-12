@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<typ:GetResponseRequest xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://otr.ru/irs/services/message-exchange/types" xmlns:bas="http://otr.ru/irs/services/message-exchange/types/basic" xmlns:ns="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1" xmlns:ns1="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1>
+<typ:GetResponseRequest xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                        xmlns:typ="http://otr.ru/irs/services/message-exchange/types"
+                        xmlns:bas="http://otr.ru/irs/services/message-exchange/types/basic"
+                        xmlns:ns="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1"
+                        xmlns:ns1="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1">
     <bas:MessageTypeSelector  Id="SIGNED_BY_CALLER" xmlns:ns2="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1" xmlns="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1">
         <bas:NamespaceURI>NamespaceURI</bas:NamespaceURI>
         <bas:RootElementLocalName>RootElementLocalName</bas:RootElementLocalName>

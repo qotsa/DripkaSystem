@@ -1,0 +1,20 @@
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration
+      - org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: false
+
+routes:
+  smev3adapter: mock:smev3adapter
+  GetRequestPoller:
+    GetRequestResponseQueue: mock:GetRequestResponseQueue
+  GetResponsePoller:
+    GetResponseResponseQueue: mock:GetResponseResponseQueue
+  GetStatusPoller:
+    GetStatusResponseQueue: mock:GetStatusResponseQueue

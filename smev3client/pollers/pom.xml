@@ -65,7 +65,7 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
+			<artifactId>spring-boot-starter-jta-bitronix</artifactId>
 		</dependency>
 
 	</dependencies>

@@ -18,10 +18,11 @@ server:
 operations:
   - Ack
   - GetIncomingQueueStatistics
-  - GetRequest
   - GetStatus
   - SendRequest
+  - GetRequest
   - SendResponse
+  - GetResponse
 
 smevServiceNamespace: urn://x-artefacts-smev-gov-ru/services/message-exchange/1.1
 

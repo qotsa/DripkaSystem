@@ -29,6 +29,7 @@ public class AppConfig {
             public void beforeApplicationStart(CamelContext context) {
                 context.setUseMDCLogging(true);
                 context.setTracing(true);
+                context.setStreamCaching(true);
             }
 
             @Override

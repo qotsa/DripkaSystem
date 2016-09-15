@@ -6,13 +6,13 @@
 	<artifactId>pollers</artifactId>
 	<packaging>jar</packaging>
 
-	<name>pollers</name>
 	<description>smev3 request-response queue pollers</description>
+	<name>${project.artifactId}</name>
 
 	<parent>
 		<groupId>ru.otr.integration.smev3client</groupId>
 		<artifactId>smev3client-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>[1.0.0,99.0.0)</version>
 	</parent>
 
 	<dependencies>

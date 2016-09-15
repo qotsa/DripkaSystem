@@ -1,5 +1,14 @@
 spring:
- profiles: test
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration
+      - org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: false
 
 routes:
   Smev2Vis:
@@ -9,16 +18,17 @@ routes:
       GetResponseResponseQueue: seda:queue:Smev2Vis_Smev2Vis_preprocessor_GetResponseResponseQueue
     postprocessor:
       inbound: seda:queue:Smev2Vis_Smev2Vis_postprocessor_inbound
-    metadata:
-      STUB: mock:seda:queue:STUB
-      UFOS: mock:seda:queue:UFOS
     GetStatusResponseQueue: seda:queue:Smev2Vis_GetStatusResponseQueue
   Vis2Smev:
+    inbound: seda:vis2smev.inbound
     preprocessor:
       inbound: seda:queue:Vis2Smev_preprocessor_inbound
       SendRequestResponseQueue: seda:queue:Vis2Smev_preprocessor_SendRequestResponseQueue
       SendResponseResponseQueue: seda:queue:Vis2Smev_preprocessor_SendResponseResponseQueue
     postprocessor:
       inbound: seda:queue:Vis2Smev_postprocessor_inbound
+  metadata:
+    STUB: mock:seda:queue:STUB
+    UFOS: mock:seda:queue:UFOS
   replication: mock:seda:queue:replication
   log: mock:log

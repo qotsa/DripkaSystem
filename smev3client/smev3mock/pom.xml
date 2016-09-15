@@ -6,13 +6,13 @@
     <artifactId>smev3mock</artifactId>
     <packaging>jar</packaging>
 
-    <name>smev3mock</name>
     <description>Mock service for smev3</description>
+    <name>${project.artifactId}</name>
 
     <parent>
         <groupId>ru.otr.integration.smev3client</groupId>
         <artifactId>smev3client-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>[1.0.0,99.0.0)</version>
     </parent>
 
     <dependencies>

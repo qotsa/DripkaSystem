@@ -1,3 +1,43 @@
+server:
+  port: ${smev3core.http.port}
+
 spring:
-   profiles:
-      active: dev
+  activemq:
+    brokerUrl: ${activemq.url}
+    inMemory: false
+    user: ${activemq.username}
+    password: ${activemq.password}
+    pool:
+      enabled: true
+  devtools:
+    remote:
+      secret: ${devtools.secret}
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: true
+
+routes:
+  Smev2Vis:
+    preprocessor:
+      inbound: ${smev3core.routes.Smev2Vis.preprocessor.inbound}
+      GetRequestResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetRequestResponseQueue}
+      GetResponseResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetResponseResponseQueue}
+    postprocessor:
+      inbound: ${smev3core.routes.Smev2Vis.postprocessor.inbound}
+    GetStatusResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetStatusResponseQueue}
+  Vis2Smev:
+    inbound: ${pushers.routes.vis2smev.inbound}
+    preprocessor:
+      inbound: ${smev3core.routes.Vis2Smev.preprocessor.inbound}
+      SendRequestResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendRequestResponseQueue}
+      SendResponseResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendResponseResponseQueue}
+    postprocessor:
+      inbound: ${smev3core.routes.Vis2Smev.postprocessor.inbound}
+  metadata:
+    STUB: ${ufosadapter.routes.toUfos.inbound}
+    UFOS: ${ufosadapter.routes.toUfos.inbound}
+  replication: ${replication.routes.replicationService.inbound.queue}
+  log: ${smev3core.routes.log}

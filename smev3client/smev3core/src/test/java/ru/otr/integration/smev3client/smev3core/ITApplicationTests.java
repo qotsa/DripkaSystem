@@ -1,16 +1,10 @@
 package ru.otr.integration.smev3client.smev3core;
 
 
-import org.apache.camel.EndpointInject;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-
 import org.apache.camel.test.spring.CamelSpringBootRunner;
-
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.apache.commons.io.IOUtils;
-import org.custommonkey.xmlunit.XMLTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +12,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.apache.camel.builder.Builder.simple;
-
 @RunWith(CamelSpringBootRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @UseAdviceWith
-public class Smev3coreApplicationTests extends XMLTestCase {
+public class ITApplicationTests {
 
     @Autowired
     private ModelCamelContext context;

@@ -6,13 +6,13 @@
 	<artifactId>replication</artifactId>
 	<packaging>jar</packaging>
 
-	<name>replication</name>
 	<description>Service for replicating attachments from smev3 ftp to local ftp</description>
+	<name>${project.artifactId}</name>
 
 	<parent>
 		<groupId>ru.otr.integration.smev3client</groupId>
 		<artifactId>smev3client-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>[1.0.0,99.0.0)</version>
 	</parent>
 
 	<properties>

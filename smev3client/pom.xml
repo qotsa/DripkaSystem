@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.otr.integration.smev3client</groupId>
     <artifactId>smev3client-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.${revision}</version>
 
     <packaging>pom</packaging>
 
-    <name>smev3client</name>
+    <name>${project.artifactId}</name>
     <description>smev3client parent project</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
+        <revision>0.${buildNumber}</revision>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -36,6 +39,13 @@
         <camel.version>2.18-SNAPSHOT</camel.version>
         <cxf.version>3.1.7</cxf.version>
     </properties>
+
+    <scm>
+        <connection>scm:git:file://.</connection>
+        <developerConnection>scm:git:file://.</developerConnection>
+        <url>scm:git:file://.</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <modules>
         <module>archetype</module>
@@ -536,10 +546,83 @@
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>2.19.1</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.4.1</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.4</version>
+                    <configuration>
+                        <doCheck>false</doCheck>
+                        <doUpdate>false</doUpdate>
+                        <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+                        <revisionOnScmFailure>0</revisionOnScmFailure>
+                        <shortRevisionLength>7</shortRevisionLength>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.3.9</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>1.8</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>buildNumber</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                        <configuration>
+                            <buildNumberPropertyName>buildNumber</buildNumberPropertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>buildDate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                        <configuration>
+                            <format>{0,date,dd-MM-yyyy HH:mm}</format>
+                            <items>
+                                <item>timestamp</item>
+                            </items>
+                            <buildNumberPropertyName>buildDate</buildNumberPropertyName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>

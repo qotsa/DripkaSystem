@@ -2,7 +2,7 @@ version: '2'
 
 services:
   activemq:
-    image: smev3client/activemq
+    image: smev3client/activemq:${docker.images.version}
     restart: never
     ports:
       - 8161:8161
@@ -12,7 +12,7 @@ services:
   # ELK-based LOGGING
 
   elasticsearch:
-    image: smev3client/elasticsearch
+    image: smev3client/elasticsearch:${docker.images.version}
     restart: never
     logging:
       options:
@@ -22,7 +22,7 @@ services:
       - 9200:9200
 
   logstash:
-    image: smev3client/logstash
+    image: smev3client/logstash:${docker.images.version}
     restart: never
     logging:
       options:
@@ -37,7 +37,7 @@ services:
       - elasticsearch
 
   curator:
-    image: smev3client/curator
+    image: smev3client/curator:${docker.images.version}
     restart: never
     logging:
       options:
@@ -60,7 +60,7 @@ services:
 #      - PRE_CREATE_DB=cadvisor
 
   cadvisor:
-    image: smev3client/cadvisor
+    image: smev3client/cadvisor:${docker.images.version}
     restart: never
     ports:
       - 8081:8081
@@ -76,7 +76,7 @@ services:
 #      - "influxdb:influxdb"
 
   kibana:
-    image: smev3client/kibana
+    image: smev3client/kibana:${docker.images.version}
     restart: never
     environment:
       NODE_OPTIONS: "--max-old-space-size=250"
@@ -100,7 +100,7 @@ services:
   # smev3client stuff
 
   configserver:
-    image: smev3client/configserver
+    image: smev3client/configserver:${docker.images.version}
     restart: ${configserver.docker.compose.restart}
     logging:
 #      driver: "gelf"
@@ -111,7 +111,7 @@ services:
         max-file: "10"
 
   smev3core:
-    image: smev3client/smev3core
+    image: smev3client/smev3core:${docker.images.version}
     restart: ${smev3core.docker.compose.restart}
     ports:
       ${smev3core.docker.compose.ports}${debug.port.compose}
@@ -124,7 +124,7 @@ services:
         max-file: "10"
 
   smev3adapter:
-    image: smev3client/smev3adapter
+    image: smev3client/smev3adapter:${docker.images.version}
     restart: ${smev3adapter.docker.compose.restart}
     ports:
       ${smev3adapter.docker.compose.ports}${debug.port.compose}
@@ -136,7 +136,7 @@ services:
         max-size: "10m"
         max-file: "10"
   ufosadapter:
-    image: smev3client/ufosadapter
+    image: smev3client/ufosadapter:${docker.images.version}
     restart: ${ufosadapter.docker.compose.restart}
     ports:
       ${ufosadapter.docker.compose.ports}${debug.port.compose}
@@ -149,7 +149,7 @@ services:
         max-file: "10"
 
 #  smev3mock:
-#    image: smev3client/smev3mock
+#    image: smev3client/smev3mock:${docker.images.version}
 #    restart: always
 #    ports:
 #      ${smev3mock.docker.compose.ports}
@@ -159,7 +159,7 @@ services:
 #        max-file: "10"
 
   replication:
-    image: smev3client/replication
+    image: smev3client/replication:${docker.images.version}
     restart: ${replication.docker.compose.restart}
     ports:
       ${replication.docker.compose.ports}${debug.port.compose}
@@ -172,7 +172,7 @@ services:
         max-file: "10"
 
   pollers:
-    image: smev3client/pollers
+    image: smev3client/pollers:${docker.images.version}
     restart: ${pollers.docker.compose.restart}
     ports:
       ${pollers.docker.compose.ports}${debug.port.compose}
@@ -185,7 +185,7 @@ services:
         max-file: "10"
 
   pushers:
-    image: smev3client/pushers
+    image: smev3client/pushers:${docker.images.version}
     restart: ${pushers.docker.compose.restart}
     ports:
       ${pushers.docker.compose.ports}${debug.port.compose}

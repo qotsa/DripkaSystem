@@ -1,3 +1,3 @@
-FROM webcenter/activemq:latest
+FROM webcenter/activemq:5.13.2
 
 EXPOSE 8161 61616 61613

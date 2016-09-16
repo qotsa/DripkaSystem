@@ -1,6 +1,8 @@
 package ru.otr.integration.smev3client.smev3core;
 
-
+import org.apache.camel.EndpointInject;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringBootRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
@@ -23,7 +25,7 @@ import java.io.InputStream;
 public class ITApplicationTests {
 
     @Autowired
-    private ModelCamelContext context;
+    private ModelCamelContext camelContext;
 
     //сообщение с аттачем -- уходит на сервис репликации
     @Value("classpath:RequestBodyAttach.xml")
@@ -37,39 +39,65 @@ public class ITApplicationTests {
     @Value("classpath:RequestBodyNoAttachStub.xml")
     private Resource requestBodyNoAttachStub;
 
-    /*@EndpointInject(uri = "{{routes.preprocessor.inbound}}")
-    protected ProducerTemplate input1Endpoint;
+    @EndpointInject(uri = "{{routes.Smev2Vis.preprocessor.inbound}}")
+    protected ProducerTemplate smev2VisPreprocessorInbound;
 
-    @EndpointInject(uri = "{{routes.postprocessor.inbound}}")
-    protected ProducerTemplate input2Endpoint;
+    @EndpointInject(uri = "{{routes.Smev2Vis.preprocessor.GetRequestResponseQueue}}")
+    protected ProducerTemplate smev2VisPreprocessorGetRequestResponseQueue;
 
-    @EndpointInject(uri = "{{routes.preprocessor.outbound.default}}")
-    protected MockEndpoint preOutDefEndpoint;
+    @EndpointInject(uri = "{{routes.Smev2Vis.preprocessor.GetResponseResponseQueue}}")
+    protected ProducerTemplate smev2VisPreprocessorGetResponseResponseQueue;
 
-    @EndpointInject(uri = "{{routes.preprocessor.outbound.replication}}")
-    protected MockEndpoint preOutRepEndpoint;
+    @EndpointInject(uri = "{{routes.Smev2Vis.postprocessor.inbound}}")
+    protected ProducerTemplate smev2VisPostprocessorInbound;
+
+    @EndpointInject(uri = "{{routes.Vis2Smev.inbound}}")
+    protected ProducerTemplate vis2SmevInbound;
+
+    @EndpointInject(uri = "{{routes.Vis2Smev.preprocessor.inbound}}")
+    protected ProducerTemplate vis2SmevPreprocessorInbound;
+
+    @EndpointInject(uri = "{{routes.Vis2Smev.preprocessor.SendRequestResponseQueue}}")
+    protected ProducerTemplate vis2SmevPreprocessorSendRequestResponseQueue;
+
+    @EndpointInject(uri = "{{routes.Vis2Smev.preprocessor.SendResponseResponseQueue}}")
+    protected ProducerTemplate vis2SmevPreprocessorSendResponseResponseQueue;
+
+    @EndpointInject(uri = "{{routes.Vis2Smev.postprocessor.inbound}}")
+    protected ProducerTemplate vis2SmevPostprocessorInbound;
+
+    @EndpointInject(uri = "{{routes.replication}}")
+    protected MockEndpoint replicationMock;
+
+    @EndpointInject(uri = "{{routes.replication}}")
+    protected ProducerTemplate replication;
 
     @EndpointInject(uri = "{{routes.log}}")
-    protected MockEndpoint postOutDefEndpoint;
+    protected MockEndpoint logMock;
 
     @EndpointInject(uri = "{{routes.metadata.STUB}}")
-    protected MockEndpoint outStubEndpoint;*/
+    protected MockEndpoint metadataSTUBMock;
+
+    @EndpointInject(uri = "{{routes.metadata.UFOS}}")
+    protected MockEndpoint metadataUFOSMock;
+
+    //@EndpointInject(uri = "{{routes.Smev2Vis.GetStatusResponseQueue}}")
+    //protected MockEndpoint smev2VisGetStatusResponseQueueMock;
 
     @Test
     public void testRoutes() throws Exception {
-
-        /*context.start();
+        camelContext.start();
 
 //        есть вложения
-        preOutRepEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyAttach));
+        /*preOutRepEndpoint.expectedBodiesReceived(getResourceAsString(requestBodyAttach));
         preOutRepEndpoint.expectedMessageCount(1);
 
 //        нет вложений и не определен маршрут в маппинге
-        preOutDefEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyNoAttach));
+        preOutDefEndpoint.expectedBodiesReceived(getResourceAsString(requestBodyNoAttach));
         preOutDefEndpoint.expectedMessageCount(1);
 
 //        нет вложений, определен маршрут
-        postOutDefEndpoint.expectedBodiesReceived(TestUtils.getResourceAsString(requestBodyNoAttachStub));
+        postOutDefEndpoint.expectedBodiesReceived(getResourceAsString(requestBodyNoAttachStub));
         postOutDefEndpoint.expectedMessageCount(1);
 
 //        выходная очередь для постпроцессора и препроцессора из маппинга
@@ -79,9 +107,9 @@ public class ITApplicationTests {
         outStubEndpoint.expectedMessageCount(2);
 
         //preprocessor tests
-        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyAttach));
-        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyNoAttachStub));
-        input1Endpoint.sendBody(TestUtils.getResourceAsString(requestBodyNoAttach));
+        input1Endpoint.sendBody(getResourceAsString(requestBodyAttach));
+        input1Endpoint.sendBody(getResourceAsString(requestBodyNoAttachStub));
+        input1Endpoint.sendBody(getResourceAsString(requestBodyNoAttach));
 
 
         //postprocessor tests
@@ -90,7 +118,7 @@ public class ITApplicationTests {
                 "messageReplicationAndVerification",
                 "OK");
 
-        input2Endpoint.sendBodyAndHeader(TestUtils.getResourceAsString(requestBodyNoAttachStub),
+        input2Endpoint.sendBodyAndHeader(getResourceAsString(requestBodyNoAttachStub),
                 "messageReplicationAndVerification", "FAILED");
 
 
@@ -100,15 +128,9 @@ public class ITApplicationTests {
         outStubEndpoint.assertIsSatisfied();*/
     }
 
-    private static class TestUtils {
-        static String getResourceAsString(Resource resource) throws IOException {
-            try (InputStream is = resource.getInputStream()) {
-                return IOUtils.toString(is, "utf-8");
-            }
-        }
-
-        private TestUtils() {
+    private static String getResourceAsString(Resource resource) throws IOException {
+        try (InputStream is = resource.getInputStream()) {
+            return IOUtils.toString(is, "utf-8");
         }
     }
 }
-

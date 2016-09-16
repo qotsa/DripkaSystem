@@ -1,3 +1,3 @@
-FROM kibana:latest
+FROM kibana:4.6.1
 
 EXPOSE 5601

@@ -22,6 +22,7 @@
 
     <properties>
         <revision>0.${buildNumber}</revision>
+        <docker.images.version>1.0</docker.images.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -96,10 +97,22 @@
                         <artifactId>docker-maven-plugin</artifactId>
                         <configuration>
                             <dockerDirectory>${project.build.directory}/classes/docker</dockerDirectory>
+                            <forceTags>true</forceTags>
+                            <imageTags>
+                                <imageTag>${docker.images.version}</imageTag>
+                                <imageTag>latest</imageTag>
+                            </imageTags>
                         </configuration>
                         <executions>
                             <execution>
-                                <id>build-docker-images</id>
+                                <id>remove-docker-image</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>removeImage</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>build-docker-image</id>
                                 <phase>post-integration-test</phase>
                                 <goals>
                                     <goal>build</goal>
@@ -468,7 +481,7 @@
                 <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.4.10</version>
+                    <version>0.4.13</version>
                     <configuration>
                         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                         <dockerDirectory>${project.basedir}/src/main/resources/docker</dockerDirectory>

@@ -106,6 +106,7 @@ deploy: docker-compose -p smev3client up -d
   major number - set in <version> tag, currently 1 followed by minor number ${revision}
   minor number - set in <revision> tag, currently 0 followed by revision number ${buildNumber}
   revision number - git revision, detected automatically
+3. docker images version is set in another property: <docker.images.version>
 
 ## Static IP for docker host machine (for boot2docker version running in virtualbox)
 

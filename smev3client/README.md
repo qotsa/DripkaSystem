@@ -19,6 +19,8 @@ Maven profiles:
 - integration-tests - enable integration testing during build
 - skip-unit-tests - disable unit testing during build
 
+Use "verify" goal to build correctly ("package" is not enough).
+
 ##How to run
 
 There are main compose file in root project and compose files per each project, having only current service and 
@@ -102,11 +104,11 @@ deploy: docker-compose -p smev3client up -d
 ## Project versioning
 
 1. all submodules does inherit version from parent
-2. parent version consists of the following parts:
+2. parent version should be in range [1.0.0,99.0.0) and consists of the following parts:
   major number - set in <version> tag, currently 1 followed by minor number ${revision}
-  minor number - set in <revision> tag, currently 0 followed by revision number ${buildNumber}
-  revision number - git revision, detected automatically
-3. docker images version is set in another property: <docker.images.version>
+  minor number - set in <revision> tag, currently 0.0
+3. revision number - git revision, detected automatically and stored in parameters ${buildNumber} + ${buildDate}
+4. docker images version is set in another property: <docker.images.version>
 
 ## Static IP for docker host machine (for boot2docker version running in virtualbox)
 

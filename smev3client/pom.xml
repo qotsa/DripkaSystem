@@ -21,7 +21,7 @@
     </parent>
 
     <properties>
-        <revision>0.${buildNumber}</revision>
+        <revision>0.0</revision>
         <docker.images.version>1.0</docker.images.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -49,13 +49,18 @@
     </scm>
 
     <modules>
+        <!-- utilities -->
+        <module>dockercompose</module>
         <module>archetype</module>
+
+        <!-- common stuff -->
+        <module>activemq</module>
 
         <!-- business modules -->
         <module>smev3adapter</module>
         <module>smev3core</module>
         <module>configserver</module>
-        <module>smev3mock</module>
+        <!--<module>smev3mock</module>-->
         <module>pollers</module>
         <module>pushers</module>
         <module>ufosadapter</module>
@@ -67,9 +72,9 @@
         <module>logstash</module>
         <module>kibana</module>
 
-        <!-- docker related stuff and other nicees -->
-        <module>dockercompose</module>
-        <module>activemq</module>
+        <!-- monitoring tools -->
+        <!--<module>influxdb</module>
+        <module>grafana</module>-->
         <module>cadvisor</module>
     </modules>
 

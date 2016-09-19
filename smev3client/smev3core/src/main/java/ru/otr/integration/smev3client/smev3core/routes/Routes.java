@@ -23,8 +23,15 @@ public class Routes extends RouteBuilder {
                 .when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
                     .to("{{routes.replication}}")
                 .otherwise()
+                    .setHeader("messageReplicationAndVerification", simple("OK"))
                     .to("direct:Smev2Vis_postprocessor")
             .end();
+
+        from("{{routes.Smev2Vis.GetStatusResponseQueue}}")
+            .transacted()
+            .routeId("Smev2VisGetStatusPreprocessor")
+            .setHeader("messageReplicationAndVerification", simple("OK"))
+            .to("direct:Smev2Vis_postprocessor");
 
         from("direct:Smev2Vis_postprocessor").to("{{routes.Smev2Vis.postprocessor.inbound}}");
 

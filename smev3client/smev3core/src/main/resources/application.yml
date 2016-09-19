@@ -27,7 +27,7 @@ routes:
       GetResponseResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetResponseResponseQueue}
     postprocessor:
       inbound: ${smev3core.routes.Smev2Vis.postprocessor.inbound}
-    GetStatusResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetStatusResponseQueue}
+    GetStatusResponseQueue: ${smev3core.routes.Smev2Vis.GetStatusResponseQueue}
   Vis2Smev:
     inbound: ${pushers.routes.vis2smev.inbound}
     preprocessor:

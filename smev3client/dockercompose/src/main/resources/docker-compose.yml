@@ -4,6 +4,22 @@ services:
   activemq:
     image: smev3client/activemq:${docker.images.version}
     restart: never
+    environment:
+      ACTIVEMQ_MIN_MEMORY: "512"
+      ACTIVEMQ_MAX_MEMORY: "2048"
+      ACTIVEMQ_NAME: "amqp-srv1"
+      ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT: "true"
+      ACTIVEMQ_ADMIN_LOGIN: "admin"
+      ACTIVEMQ_ADMIN_PASSWORD: "admin"
+      ACTIVEMQ_WRITE_LOGIN: "producer"
+      ACTIVEMQ_WRITE_PASSWORD: "producer"
+      ACTIVEMQ_READ_LOGIN: "consumer"
+      ACTIVEMQ_READ_PASSWORD: "consumer"
+      ACTIVEMQ_JMX_LOGIN: "jmx"
+      ACTIVEMQ_JMX_PASSWORD: "jmx"
+      ACTIVEMQ_ENABLED_SCHEDULER: "true"
+#      ACTIVEMQ_STATIC_TOPICS: "topic1;topic2;topic3"
+#      ACTIVEMQ_STATIC_QUEUES: "queue1;queue2;queue3"
     ports:
       - 8161:8161
       - 61616:61616

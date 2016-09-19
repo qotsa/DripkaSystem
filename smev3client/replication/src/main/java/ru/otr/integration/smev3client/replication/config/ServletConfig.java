@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
  */
 
 @Configuration
-@Profile({"dev", "test"})
+//@Profile({"dev", "test"})
 public class ServletConfig {
     private static final String JOLOKIA_URL_MAPPING = "/jolokia/*";
     private static final String JOLOKIA_SERVLET_NAME = "JolokiaAgent";

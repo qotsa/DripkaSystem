@@ -1,0 +1,18 @@
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration
+      - org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: false
+
+routes:
+  replicationService:
+    inboundQueue:
+        seda:queue:replicationInboundQueue
+    outboundQueue:
+        mock:seda:queue:replicationOutboundQueue

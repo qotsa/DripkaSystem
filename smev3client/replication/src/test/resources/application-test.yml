@@ -1,9 +1,0 @@
-spring:
- profiles: test
-
-routes:
-  replicationService:
-    inboundQueue:
-        seda:queue:replicationInboundQueue
-    outboundQueue:
-        mock:seda:queue:replicationOutboundQueue

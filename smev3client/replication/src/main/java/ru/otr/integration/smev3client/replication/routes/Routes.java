@@ -17,6 +17,8 @@ public class Routes extends RouteBuilder {
         from("{{routes.replicationService.inboundQueue}}").routeId("replicationService")
                 .transacted()
                 .to("bean:responseRandomizer")
+                .setHeader("CamelFileName", simple("${id}/body.xml"))
+                .to("{{routes.ftp}}")
                 .to("{{routes.replicationService.outboundQueue}}");
     }
 

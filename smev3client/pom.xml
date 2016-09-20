@@ -57,6 +57,7 @@
 
         <!-- common stuff -->
         <module>activemq</module>
+        <module>ftp</module>
 
         <!-- business modules -->
         <module>smev3adapter</module>

@@ -25,6 +25,18 @@ services:
       - 61616:61616
       - 61613:61613
 
+  ftp:
+    image: smev3client/ftp:${docker.images.version}
+    restart: never
+    environment:
+      PUBLICHOST: "ftp"
+    volumes:
+      - ftpData:/home/ftpusers
+      - ftpUsers:/etc/pure-ftpd/users
+    ports:
+      - 2021:2021
+      - 30000-30009:30000-30009
+
   # ELK-based LOGGING
 
   elasticsearch:
@@ -212,3 +224,9 @@ services:
 #        tag: "pushers"
         max-size: "10m"
         max-file: "10"
+
+# VOLUMES
+
+volumes:
+  ftpData:
+  ftpUsers:

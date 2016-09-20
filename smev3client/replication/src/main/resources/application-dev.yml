@@ -12,7 +12,7 @@ spring:
       secret: ${devtools.secret}
 
 server:
-   port: ${replication.http.port}
+  port: ${replication.http.port}
 
 camel:
   springboot:

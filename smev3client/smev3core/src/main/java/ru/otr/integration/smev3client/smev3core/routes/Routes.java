@@ -38,7 +38,7 @@ public class Routes extends RouteBuilder {
         from("{{routes.Smev2Vis.postprocessor.inbound}}")
             .transacted()
             .routeId("Smev2VisPostprocessor")
-            .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", ns)
+            .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", String.class, ns)
             .choice()
                 .when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
                     .to("{{routes.log}}")

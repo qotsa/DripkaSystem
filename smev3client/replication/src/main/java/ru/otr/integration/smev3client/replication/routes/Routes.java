@@ -1,6 +1,7 @@
 package ru.otr.integration.smev3client.replication.routes;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.util.toolbox.AggregationStrategies;
 import org.springframework.stereotype.Component;
 import ru.otr.integration.smev3client.replication.config.FtpFileAggregationStrategy;
 
@@ -21,7 +22,7 @@ public class Routes extends RouteBuilder {
 
             .transacted()
             .setHeader("messageReplicationAndVerification", simple("OK"))
-            .multicast().stopOnException().to("direct:replicate").end()
+            .multicast().stopOnException().aggregationStrategy(AggregationStrategies.useOriginal()).to("direct:replicate").end()
             .to("{{routes.replicationService.outboundQueue}}");
 
         from("direct:replicate").routeId("ftpReplication")

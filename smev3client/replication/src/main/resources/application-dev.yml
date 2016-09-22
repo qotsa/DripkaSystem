@@ -24,5 +24,7 @@ routes:
   replicationService:
     inboundQueue: ${replication.routes.replicationService.inbound.queue}
     outboundQueue: ${smev3core.routes.Smev2Vis.postprocessor.inbound}
-    log: ${replication.routes.replicationService.log}
+  log: ${replication.routes.replicationService.log}
   ftp: ftp://ftp:${ftp.port}/replication?username=${ftp.username}&password=${ftp.password}&disconnect=true&passiveMode=true
+  smev:
+    ftp: ftp://${smev.ftp.host}:${smev.ftp.port}?username=${smev.ftp.username}&password=${smev.ftp.password}&disconnect=true&passiveMode=true

@@ -14,7 +14,12 @@ public class FtpFileAggregationStrategy implements AggregationStrategy {
     @Override
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         if (oldExchange == null) return newExchange;
-        if (newExchange == null) return null;
+        //if (newExchange == null) return null;
+
+        if (newExchange == null) {
+            oldExchange.getIn().setHeader("pollFailed", true);
+            return oldExchange;
+        }
 
         newExchange.getIn().setHeader("originalMessageId", oldExchange.getIn().getHeader("originalMessageId"));
         newExchange.getIn().setHeader("attachmentUuid", oldExchange.getIn().getHeader("attachmentUuid"));

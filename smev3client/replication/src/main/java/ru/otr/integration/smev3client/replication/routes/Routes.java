@@ -14,27 +14,40 @@ public class Routes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("{{routes.replicationService.inboundQueue}}").routeId("replicationService")
-            .onException(Throwable.class)
+            .onException(Throwable.class).useOriginalMessage()
                 .handled(true)
                 .setHeader("messageReplicationAndVerification", simple("FAIL"))
                 .to("{{routes.log}}")
+                .to("{{routes.replicationService.outboundQueue}}")
             .end()
-
             .transacted()
+            .multicast().stopOnException()/*.shareUnitOfWork()*/
+                .aggregationStrategy(AggregationStrategies.useOriginal()).aggregationStrategyMethodAllowNull()
+                .to("direct:replicate")
+            .end()
             .setHeader("messageReplicationAndVerification", simple("OK"))
-            .multicast().stopOnException().aggregationStrategy(AggregationStrategies.useOriginal()).to("direct:replicate").end()
             .to("{{routes.replicationService.outboundQueue}}");
 
         from("direct:replicate").routeId("ftpReplication")
-            .transacted()
+            .errorHandler(noErrorHandler())
             .setHeader("originalMessageId", simple("${id}"))
             .to("xslt:xslt/extract_attachments.xsl")
-            .split(xpath("//Attachments/Attachment"))
+            .split(xpath("//Attachments/Attachment")).stopOnException()
                 .setHeader("attachmentUuid", xpath("//uuid/text()", String.class))
                 .setHeader("attachmentFilename", xpath("//filename/text()", String.class))
-                .pollEnrich().simple("{{routes.smev.ftp}}?fileName=${headers.attachmentUuid}/${headers.attachmentFilename}").timeout(10000).aggregationStrategy(new FtpFileAggregationStrategy())
-                .setHeader("CamelFileName", simple("${headers.originalMessageId}/${headers.attachmentUuid}/${headers.attachmentFilename}"))
-                .to("{{routes.ftp}}")
+                .pollEnrich().simple("ftp://{{routes.smev.host}}:{{routes.smev.port}}/${headers.attachmentUuid}?username={{routes.smev.username}}&password={{routes.smev.password}}&disconnect=true&passiveMode=true&fileName=${headers.attachmentFilename}")
+                //.pollEnrich().simple("{{routes.smev.ftp}}?fileName=${headers.attachmentUuid}/${headers.attachmentFilename}")
+                    .timeout(10000)
+                    .aggregationStrategy(new FtpFileAggregationStrategy())
+                    .aggregateOnException(true)
+                .end()
+                .choice()
+                    .when(header("pollFailed"))
+                        .throwException(new Exception("pollFailed"))
+                    .otherwise()
+                        .setHeader("CamelFileName", simple("${headers.originalMessageId}/${headers.attachmentUuid}/${headers.attachmentFilename}"))
+                        .to("{{routes.ftp}}")
+                .end()
             .end();
     }
 }

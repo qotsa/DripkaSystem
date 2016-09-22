@@ -6,15 +6,14 @@ import org.apache.camel.processor.aggregate.AggregationStrategy;
 /**
  * Created by nikitin.maksim on 21.09.2016.
  */
-public class FtpFileAggregationStrategy implements AggregationStrategy {
+public class FtpPollingAggregationStrategy implements AggregationStrategy {
 
-    public FtpFileAggregationStrategy() {
+    public FtpPollingAggregationStrategy() {
     }
 
     @Override
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         if (oldExchange == null) return newExchange;
-        //if (newExchange == null) return null;
 
         if (newExchange == null) {
             oldExchange.getIn().setHeader("pollFailed", true);

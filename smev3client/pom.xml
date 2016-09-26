@@ -60,6 +60,7 @@
         <module>ftp</module>
 
         <!-- business modules -->
+        <module>eureka</module>
         <module>smev3adapter</module>
         <module>smev3core</module>
         <module>configserver</module>
@@ -194,10 +195,23 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Brixton.SR3</version>
+                <version>Brixton.SR6</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-netflix</artifactId>
+                <version>1.2.0.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--<dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-config</artifactId>
+            </dependency>-->
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -224,11 +238,6 @@
                 <version>${springboot.version}</version>
                 <optional>true</optional>
             </dependency>
-
-            <!--<dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-config</artifactId>
-            </dependency>-->
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -419,6 +428,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
@@ -433,21 +447,10 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-        <!--<dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-devtools</artifactId>
-        </dependency>-->
-
-        <!--<dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -748,7 +751,7 @@
                                         <limit>
                                             <counter>INSTRUCTION</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.70</minimum>
+                                            <minimum>0.50</minimum>
                                         </limit>
                                         <limit>
                                             <counter>CLASS</counter>

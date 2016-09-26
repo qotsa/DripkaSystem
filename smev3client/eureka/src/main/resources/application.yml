@@ -1,0 +1,21 @@
+server:
+  port: ${eureka.http.port}
+
+spring:
+  devtools:
+    remote:
+      secret: ${devtools.secret}
+  application:
+    name: eureka
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: false
+  server:
+    enableSelfPreservation: false
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

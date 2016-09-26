@@ -20,6 +20,8 @@ spring:
       connectionfactory:
         min-pool-size: 10
         max-pool-size: 100
+  application:
+    name: ufosadapter
 #    atomikos:
 #      connectionfactory:
 #        min-pool-size: 10
@@ -32,6 +34,16 @@ camel:
     jmxEnabled: true
     allow-use-original-message: true
     stream-caching: false
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://eureka:${eureka.http.port}/eureka/
 
 routes:
   log: ${ufosadapter.routes.log}

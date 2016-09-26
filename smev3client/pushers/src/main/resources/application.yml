@@ -12,12 +12,24 @@ spring:
   devtools:
     remote:
       secret: ${devtools.secret}
+  application:
+    name: pushers
 
 camel:
   springboot:
     jmxEnabled: true
     allow-use-original-message: true
     stream-caching: false
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://eureka:${eureka.http.port}/eureka/
 
 routes:
   log: ${pushers.routes.log}

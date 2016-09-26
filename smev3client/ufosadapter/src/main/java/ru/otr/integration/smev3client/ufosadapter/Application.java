@@ -3,6 +3,7 @@ package ru.otr.integration.smev3client.ufosadapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ImportResource;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication
 @EnableConfigurationProperties
 //@EnableAspectJAutoProxy
+@EnableEurekaClient
 public class Application {
 
     public static void main(String[] args) {

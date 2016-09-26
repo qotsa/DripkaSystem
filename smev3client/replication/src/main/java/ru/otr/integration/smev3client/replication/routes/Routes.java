@@ -42,9 +42,10 @@ public class Routes extends RouteBuilder {
                 .end()
                 .choice()
                     .when(header("pollFailed"))
-                        .throwException(new Exception("pollFailed"))
+                        .throwException(new Exception("FTP Poll Failed"))
                     .otherwise()
                         .setHeader("CamelFileName", simple("${headers.originalMessageId}/${headers.attachmentUuid}/${headers.attachmentFilename}"))
+                        // TODO error check!!!
                         .to("{{routes.ftp}}")
                 .end()
             .end();

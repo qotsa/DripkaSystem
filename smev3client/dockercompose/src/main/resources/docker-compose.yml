@@ -143,6 +143,8 @@ services:
   configserver:
     image: smev3client/configserver:${docker.images.version}
     restart: ${configserver.docker.compose.restart}
+    ports:
+      ${configserver.docker.compose.ports}
     logging:
 #      driver: "gelf"
       options:

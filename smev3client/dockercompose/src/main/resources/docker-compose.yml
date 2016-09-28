@@ -141,10 +141,7 @@ services:
     ports:
       ${eureka.docker.compose.ports}${debug.port.compose}
     logging:
-#      driver: "gelf"
       options:
-#        gelf-address: ${logging.gelf.address}
-#        tag: "configserver"
         max-size: "10m"
         max-file: "10"
 
@@ -154,10 +151,7 @@ services:
     ports:
       ${configserver.docker.compose.ports}
     logging:
-#      driver: "gelf"
       options:
-#        gelf-address: ${logging.gelf.address}
-#        tag: "configserver"
         max-size: "10m"
         max-file: "10"
 
@@ -167,10 +161,7 @@ services:
     ports:
       ${smev3core.docker.compose.ports}${debug.port.compose}
     logging:
-#      driver: "gelf"
       options:
-#        gelf-address: ${logging.gelf.address}
-#        tag: "smev3core"
         max-size: "10m"
         max-file: "10"
 
@@ -180,10 +171,7 @@ services:
     ports:
       ${smev3adapter.docker.compose.ports}${debug.port.compose}
     logging:
-#      driver: "gelf"
       options:
-#        gelf-address: ${logging.gelf.address}
-#        tag: "smev3adapter"
         max-size: "10m"
         max-file: "10"
 
@@ -193,10 +181,7 @@ services:
     ports:
       ${ufosadapter.docker.compose.ports}${debug.port.compose}
     logging:
-#      driver: "gelf"
       options:
-#        gelf-address: ${logging.gelf.address}
-#        tag: "ufosadapter"
         max-size: "10m"
         max-file: "10"
 
@@ -216,10 +201,7 @@ services:
     ports:
       ${replication.docker.compose.ports}${debug.port.compose}
     logging:
-#      driver: "gelf"
       options:
-#        gelf-address: ${logging.gelf.address}
-#        tag: "replication"
         max-size: "10m"
         max-file: "10"
 
@@ -229,10 +211,7 @@ services:
     ports:
       ${pollers.docker.compose.ports}${debug.port.compose}
     logging:
-#      driver: "gelf"
       options:
-#        gelf-address: ${logging.gelf.address}
-#        tag: "pollers"
         max-size: "10m"
         max-file: "10"
 
@@ -242,10 +221,7 @@ services:
     ports:
       ${pushers.docker.compose.ports}${debug.port.compose}
     logging:
-#      driver: "gelf"
       options:
-#        gelf-address: ${logging.gelf.address}
-#        tag: "pushers"
         max-size: "10m"
         max-file: "10"
 
@@ -255,10 +231,7 @@ services:
     ports:
       ${bpmengine.docker.compose.ports}${debug.port.compose}
     logging:
-#      driver: "gelf"
       options:
-#        gelf-address: ${logging.gelf.address}
-#        tag: "configserver"
         max-size: "10m"
         max-file: "10"
 

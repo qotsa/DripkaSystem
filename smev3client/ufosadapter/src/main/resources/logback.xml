@@ -39,9 +39,8 @@
 
     <logger name="ROOT" level="${ufosadapter.logging.level.raw}" additivity="false">
         <appender-ref ref="CONSOLE"/>
-    </logger>
-
-    <logger name="ru.otr.integration.smev3client" level="${ufosadapter.logging.level.business}" additivity="true">
         <appender-ref ref="LOGSTASH"/>
     </logger>
+
+    <logger name="ru.otr.integration.smev3client" level="${ufosadapter.logging.level.business}" additivity="true"/>
 </configuration>

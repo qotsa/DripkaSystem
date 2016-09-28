@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.0.RELEASE</version>
+        <version>1.4.1.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -38,8 +38,9 @@
         <skip.check.coverage.for.unit.tests>true</skip.check.coverage.for.unit.tests>
         <skip.check.coverage.for.integration.tests>true</skip.check.coverage.for.integration.tests>
 
-        <springboot.version>1.4.0.RELEASE</springboot.version>
+        <springboot.version>1.4.1.RELEASE</springboot.version>
         <camel.version>2.18-SNAPSHOT</camel.version>
+        <activiti.version>5.21.0</activiti.version>
         <cxf.version>3.1.7</cxf.version>
     </properties>
 
@@ -58,6 +59,7 @@
         <!-- common stuff -->
         <module>activemq</module>
         <module>ftp</module>
+        <module>postgresql</module>
 
         <!-- business modules -->
         <module>eureka</module>
@@ -69,6 +71,7 @@
         <module>pushers</module>
         <module>ufosadapter</module>
         <module>replication</module>
+        <module>bpmengine</module>
 
         <!-- elk stack -->
         <module>elasticsearch</module>
@@ -135,41 +138,29 @@
 
         <profile>
             <id>env-dev</id>
-
             <build>
-                <filters>
-                    <filter>${project.parent.relativePath}/../env/dev.properties</filter>
-                </filters>
+                <filters><filter>${project.parent.relativePath}/../env/dev.properties</filter></filters>
             </build>
         </profile>
 
         <profile>
             <id>env-test</id>
-
             <build>
-                <filters>
-                    <filter>${project.parent.relativePath}/../env/test.properties</filter>
-                </filters>
+                <filters><filter>${project.parent.relativePath}/../env/test.properties</filter></filters>
             </build>
         </profile>
 
         <profile>
             <id>env-uat</id>
-
             <build>
-                <filters>
-                    <filter>${project.parent.relativePath}/../env/uat.properties</filter>
-                </filters>
+                <filters><filter>${project.parent.relativePath}/../env/uat.properties</filter></filters>
             </build>
         </profile>
 
         <profile>
             <id>env-prod</id>
-
             <build>
-                <filters>
-                    <filter>${project.parent.relativePath}/../env/prod.properties</filter>
-                </filters>
+                <filters><filter>${project.parent.relativePath}/../env/prod.properties</filter></filters>
             </build>
         </profile>
 
@@ -423,6 +414,45 @@
                 <artifactId>logback-classic</artifactId>
                 <version>1.1.6</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.192</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>9.4.1211.jre7</version>
+            </dependency>
+
+            <!-- activiti -->
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-basic</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-jpa</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-rest-api</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-actuator</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -504,25 +534,6 @@
                     <configuration>
                         <classifier>bootable</classifier>
                     </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <configuration>
-                        <outputDirectory>
-                            ${project.build.directory}/lib
-                        </outputDirectory>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>copy</id>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>copy-dependencies</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
 
                 <plugin>

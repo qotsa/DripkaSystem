@@ -37,6 +37,14 @@ services:
       - 2021:2021
       - 30000-30009:30000-30009
 
+  postgresql:
+    image: smev3client/postgresql:${docker.images.version}
+    restart: never
+    volumes:
+      - postgresData:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
   # ELK-based LOGGING
 
   elasticsearch:
@@ -178,6 +186,7 @@ services:
 #        tag: "smev3adapter"
         max-size: "10m"
         max-file: "10"
+
   ufosadapter:
     image: smev3client/ufosadapter:${docker.images.version}
     restart: ${ufosadapter.docker.compose.restart}
@@ -240,8 +249,22 @@ services:
         max-size: "10m"
         max-file: "10"
 
+  bpmengine:
+    image: smev3client/bpmengine:${docker.images.version}
+    restart: ${bpmengine.docker.compose.restart}
+    ports:
+      ${bpmengine.docker.compose.ports}${debug.port.compose}
+    logging:
+#      driver: "gelf"
+      options:
+#        gelf-address: ${logging.gelf.address}
+#        tag: "configserver"
+        max-size: "10m"
+        max-file: "10"
+
 # VOLUMES
 
 volumes:
   ftpData:
   ftpUsers:
+  postgresData:

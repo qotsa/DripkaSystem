@@ -1,5 +1,6 @@
 server:
   port: ${bpmengine.http.port}
+  servlet-path: /*
 
 spring:
   activemq:
@@ -30,6 +31,12 @@ spring:
   activiti:
     db-history-used: true
     history-level: full
+  autoconfigure:
+    exclude:
+#      - org.activiti.spring.boot.RestApiAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+      - org.activiti.spring.boot.SecurityAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration
 
 camel:
   springboot:
@@ -41,8 +48,13 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
+    prefer-ip-address: false
   client:
     healthcheck:
       enabled: true
     service-url:
       defaultZone: http://eureka:${eureka.http.port}/eureka/
+    enabled: true
+
+routes:
+  log: ${bpmengine.routes.log}

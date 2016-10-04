@@ -40,7 +40,7 @@
 
         <springboot.version>1.4.1.RELEASE</springboot.version>
         <camel.version>2.18-SNAPSHOT</camel.version>
-        <activiti.version>5.21.0</activiti.version>
+        <activiti.version>6.0.0.Beta4</activiti.version>
         <cxf.version>3.1.7</cxf.version>
     </properties>
 
@@ -107,14 +107,6 @@
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <dockerDirectory>${project.build.directory}/classes/docker</dockerDirectory>
-                            <forceTags>true</forceTags>
-                            <imageTags>
-                                <imageTag>${docker.images.version}</imageTag>
-                                <imageTag>latest</imageTag>
-                            </imageTags>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>remove-docker-image</id>
@@ -398,6 +390,12 @@
             </dependency>
 
             <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-script</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>4.7</version>
@@ -450,6 +448,78 @@
             <dependency>
                 <groupId>org.activiti</groupId>
                 <artifactId>activiti-spring-boot-starter-actuator</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-security</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-camel</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-form-engine-configurator</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-form-engine</artifactId>
+                <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-form-model</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-form-json-converter</artifactId>
+                <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-dmn-engine-configurator</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-dmn-engine</artifactId>
+                <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-dmn-model</artifactId>
                 <version>${activiti.version}</version>
             </dependency>
 
@@ -508,8 +578,13 @@
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>0.4.13</version>
                     <configuration>
+                        <dockerDirectory>${project.build.directory}/classes/docker</dockerDirectory>
+                        <forceTags>true</forceTags>
+                        <imageTags>
+                            <imageTag>${docker.images.version}</imageTag>
+                            <imageTag>latest</imageTag>
+                        </imageTags>
                         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                        <dockerDirectory>${project.basedir}/src/main/resources/docker</dockerDirectory>
                         <resources>
                             <resource>
                                 <targetPath>/</targetPath>

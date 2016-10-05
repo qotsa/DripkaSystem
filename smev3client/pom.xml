@@ -28,7 +28,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <docker.image.prefix>smev3client</docker.image.prefix>
+        <!--<docker.image.prefix>smev3client</docker.image.prefix>-->
+        <docker.image.prefix>localhost:5000</docker.image.prefix>
         <jvm.args>"java","-jar"</jvm.args>
         <debug.port></debug.port>
         <debug.port.compose></debug.port.compose>
@@ -121,6 +122,16 @@
                                 <goals>
                                     <goal>build</goal>
                                 </goals>
+                            </execution>
+                            <execution>
+                                <id>push-image</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <imageName>${docker.image.prefix}/${project.artifactId}:${docker.images.version}</imageName>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

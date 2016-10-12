@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns="http://camel.apache.org/schema/spring">
+
+    <route id="activititest" errorHandlerRef="transactionErrorHandlerBuilder">
+        <from uri="activiti:myProcess:callCamel?copyCamelBodyToBody=true"/>
+        <transacted/>
+        <to uri="{{routes.log}}"/>
+        <to uri="seda:callActiviti"/>
+    </route>
+
+    <route id="activititest2" errorHandlerRef="transactionErrorHandlerBuilder">
+        <from uri="seda:callActiviti"/>
+        <transacted/>
+        <choice>
+            <when>
+                <javaScript>request.body == 'дурак'</javaScript>
+                <setProperty propertyName="originalMessage">
+                    <javaScript>request.body</javaScript>
+                </setProperty>
+                <setBody>
+                    <javaScript>'сам дурак'</javaScript>
+                </setBody>
+            </when>
+        </choice>
+        <to uri="{{routes.log}}"/>
+        <to uri="activiti:myProcess:receiveCamel"/>
+    </route>
+
+</routes>

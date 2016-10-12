@@ -6,37 +6,28 @@
 
     <groupId>ru.otr.integration.smev3client</groupId>
     <artifactId>smev3client-parent</artifactId>
-    <version>1.${revision}</version>
+    <version>1.0.0</version>
 
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
     <description>smev3client parent project</description>
 
-   <!-- <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.1.RELEASE</version>
-        <relativePath/>
-    </parent>-->
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.1.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
-        <revision>0.0</revision>
-        <docker.images.version>1.0</docker.images.version>
+        <docker.image.version>1.0</docker.image.version>
+        <docker.image.prefix>localhost:5000</docker.image.prefix>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <!--<docker.image.prefix>smev3client</docker.image.prefix>-->
-        <docker.image.prefix>localhost:5000</docker.image.prefix>
         <jvm.args>"java","-jar"</jvm.args>
         <debug.port></debug.port>
         <debug.port.compose></debug.port.compose>
@@ -45,6 +36,8 @@
         <skip.unit.tests>false</skip.unit.tests>
         <skip.check.coverage.for.unit.tests>true</skip.check.coverage.for.unit.tests>
         <skip.check.coverage.for.integration.tests>true</skip.check.coverage.for.integration.tests>
+
+        <env.path>${project.parent.relativePath}/../env</env.path>
 
         <springboot.version>1.4.1.RELEASE</springboot.version>
         <camel.version>2.18-SNAPSHOT</camel.version>
@@ -60,41 +53,41 @@
     </scm>
 
     <modules>
-        <!-- utilities -->
-        <module>dockercompose</module>
         <module>archetype</module>
-
-        <!-- common stuff -->
-        <module>activemq</module>
-        <module>ftp</module>
-        <module>postgresql</module>
-
-        <!-- business modules -->
-        <module>eureka</module>
-        <module>smev3adapter</module>
-        <module>smev3core</module>
-        <module>configserver</module>
-        <!--<module>smev3mock</module>-->
-        <module>pollers</module>
-        <module>pushers</module>
-        <module>ufosadapter</module>
-        <module>replication</module>
-        <module>bpmengine</module>
-
-        <!-- elk stack -->
-        <module>elasticsearch</module>
-        <module>curator</module>
-        <module>logstash</module>
-        <module>kibana</module>
-        <module>smev3mock2</module>
-
-        <!-- monitoring tools -->
-        <!--<module>influxdb</module>
-        <module>grafana</module>-->
-        <module>cadvisor</module>
+        <module>dockercompose</module>
+        <module>infra</module>
+        <module>smev3client</module>
     </modules>
 
     <profiles>
+        <profile>
+            <id>env-dev</id>
+            <build>
+                <filters><filter>${env.path}/dev.properties</filter></filters>
+            </build>
+        </profile>
+
+        <profile>
+            <id>env-test</id>
+            <build>
+                <filters><filter>${env.path}/test.properties</filter></filters>
+            </build>
+        </profile>
+
+        <profile>
+            <id>env-uat</id>
+            <build>
+                <filters><filter>${env.path}/uat.properties</filter></filters>
+            </build>
+        </profile>
+
+        <profile>
+            <id>env-prod</id>
+            <build>
+                <filters><filter>${env.path}/prod.properties</filter></filters>
+            </build>
+        </profile>
+
         <profile>
             <id>debug</id>
             <properties>
@@ -102,77 +95,6 @@
                 <debug.port>5005</debug.port>
                 <debug.port.compose>${line.separator}      - ${debug.port}:${debug.port}</debug.port.compose>
             </properties>
-        </profile>
-
-        <profile>
-            <id>build-docker-images</id>
-            <activation>
-                <file>
-                    <exists>src/main/resources/docker/Dockerfile</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>remove-docker-image</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>removeImage</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>build-docker-image</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>push-image</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>push</goal>
-                                </goals>
-                                <configuration>
-                                    <imageName>${docker.image.prefix}/${project.artifactId}:${docker.images.version}</imageName>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>env-dev</id>
-            <build>
-                <filters><filter>${project.parent.relativePath}/../env/dev.properties</filter></filters>
-            </build>
-        </profile>
-
-        <profile>
-            <id>env-test</id>
-            <build>
-                <filters><filter>${project.parent.relativePath}/../env/test.properties</filter></filters>
-            </build>
-        </profile>
-
-        <profile>
-            <id>env-uat</id>
-            <build>
-                <filters><filter>${project.parent.relativePath}/../env/uat.properties</filter></filters>
-            </build>
-        </profile>
-
-        <profile>
-            <id>env-prod</id>
-            <build>
-                <filters><filter>${project.parent.relativePath}/../env/prod.properties</filter></filters>
-            </build>
         </profile>
 
         <profile>
@@ -210,27 +132,33 @@
                 <scope>import</scope>
             </dependency>
 
-            <!--<dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-config</artifactId>
-            </dependency>-->
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-actuator</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jta-atomikos -->
             <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-jta-atomikos</artifactId>
                 <version>${springboot.version}</version>
             </dependency>-->
 
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-jta-bitronix</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>-->
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jta-narayana</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
 
@@ -290,7 +218,6 @@
                 <version>${camel.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.apache.camel/camel-spring -->
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-spring</artifactId>
@@ -304,42 +231,48 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.apache.camel/camel-netty4-http -->
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-netty4-http</artifactId>
                 <version>${camel.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>19.0</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.4</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-vfs2</artifactId>
+                <version>2.1</version>
+            </dependency>
+
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>2.5</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>3.3</version>
+            </dependency>
+
             <dependency>
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.2</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/xmlunit/xmlunit -->
             <dependency>
                 <groupId>xmlunit</groupId>
                 <artifactId>xmlunit</artifactId>
@@ -347,19 +280,12 @@
                 <scope>test</scope>
             </dependency>
 
-            <!--<dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-http</artifactId>
-                <version>${camel.version}</version>
-            </dependency>-->
-
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-camel</artifactId>
                 <version>5.14.0</version>
             </dependency>
 
-            <!-- CXF -->
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -444,6 +370,12 @@
                 <version>9.4.1211.jre7</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.mockftpserver</groupId>
+                <artifactId>MockFtpServer</artifactId>
+                <version>2.6</version>
+            </dependency>
+
             <!-- activiti -->
 
             <dependency>
@@ -479,6 +411,12 @@
             <dependency>
                 <groupId>org.activiti</groupId>
                 <artifactId>activiti-camel</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-json-converter</artifactId>
                 <version>${activiti.version}</version>
             </dependency>
 
@@ -545,81 +483,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jolokia</groupId>
-            <artifactId>jolokia-spring</artifactId>
-            <version>1.3.4</version>
-        </dependency>
-
-        <dependency>
-            <groupId>xmlunit</groupId>
-            <artifactId>xmlunit</artifactId>
-        </dependency>
-
-    </dependencies>
-
-
-    <repositories>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>apache.snapshots</id>
-            <url>http://repository.apache.org/snapshots/</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -631,10 +494,10 @@
                         <dockerDirectory>${project.build.directory}/classes/docker</dockerDirectory>
                         <forceTags>true</forceTags>
                         <imageTags>
-                            <imageTag>${docker.images.version}</imageTag>
+                            <imageTag>${docker.image.version}</imageTag>
                             <imageTag>latest</imageTag>
                         </imageTags>
-                        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                        <imageName>${docker.image.prefix}/${project.artifactId}:${docker.image.version}</imageName>
                         <resources>
                             <resource>
                                 <targetPath>/</targetPath>
@@ -709,6 +572,16 @@
                         <shortRevisionLength>7</shortRevisionLength>
                     </configuration>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.5.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -772,7 +645,12 @@
                 <artifactId>maven-resources-plugin</artifactId>
             </plugin>
 
-           <!-- <plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!--<plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <executions>
@@ -819,7 +697,7 @@
                             <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
                         </configuration>
                     </execution>
-                    &lt;!&ndash;<execution>
+                    <execution>
                         <id>check-code-coverage-metrics-for-unit-tests</id>
                         <goals>
                             <goal>check</goal>
@@ -846,7 +724,7 @@
                                 </rule>
                             </rules>
                         </configuration>
-                    </execution>&ndash;&gt;
+                    </execution>
                     <execution>
                         <id>check-code-coverage-metrics-for-integration-tests</id>
                         <goals>
@@ -856,6 +734,10 @@
                             <haltOnFailure>true</haltOnFailure>
                             <dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
                             <skip>${skip.check.coverage.for.integration.tests}</skip>
+                            <excludes>
+                                <exclude>**/Application.class</exclude>
+                                <exclude>**/config/*</exclude>
+                            </excludes>
                             <rules>
                                 <rule>
                                     <element>BUNDLE</element>
@@ -864,11 +746,6 @@
                                             <counter>INSTRUCTION</counter>
                                             <value>COVEREDRATIO</value>
                                             <minimum>0.50</minimum>
-                                        </limit>
-                                        <limit>
-                                            <counter>CLASS</counter>
-                                            <value>MISSEDCOUNT</value>
-                                            <maximum>0</maximum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -907,25 +784,22 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
         </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
+
+    <repositories>
+        <repository>
+            <id>apache.snapshots</id>
+            <url>http://repository.apache.org/snapshots/</url>
+            <name>Apache Snapshot Repo</name>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
     <pluginRepositories>
         <pluginRepository>

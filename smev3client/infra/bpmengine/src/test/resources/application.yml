@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: bpmengine
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=false;DB_CLOSE_DELAY=-1
+    schema: classpath:/schema.sql
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration
+      - org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration
+#      - org.activiti.spring.boot.RestApiAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+      - org.activiti.spring.boot.SecurityAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: false
+
+eureka:
+  client:
+    enabled: false
+
+routes:
+  log: mock:log

@@ -1,0 +1,230 @@
+version: '2'
+
+services:
+  activemq:
+    image: ${docker.image.prefix}/activemq:${docker.image.version}
+    restart: never
+    environment:
+      ACTIVEMQ_MIN_MEMORY: "512"
+      ACTIVEMQ_MAX_MEMORY: "2048"
+      ACTIVEMQ_NAME: "amqp-srv1"
+      ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT: "true"
+      ACTIVEMQ_ADMIN_LOGIN: "admin"
+      ACTIVEMQ_ADMIN_PASSWORD: "admin"
+      ACTIVEMQ_WRITE_LOGIN: "producer"
+      ACTIVEMQ_WRITE_PASSWORD: "producer"
+      ACTIVEMQ_READ_LOGIN: "consumer"
+      ACTIVEMQ_READ_PASSWORD: "consumer"
+      ACTIVEMQ_JMX_LOGIN: "jmx"
+      ACTIVEMQ_JMX_PASSWORD: "jmx"
+      ACTIVEMQ_ENABLED_SCHEDULER: "true"
+#      ACTIVEMQ_STATIC_TOPICS: "topic1;topic2;topic3"
+#      ACTIVEMQ_STATIC_QUEUES: "queue1;queue2;queue3"
+    ports:
+      - 8161:8161
+      - 61616:61616
+      - 61613:61613
+
+  ftp:
+    image: ${docker.image.prefix}/ftp:${docker.image.version}
+    restart: never
+    environment:
+      PUBLICHOST: "ftp"
+    volumes:
+      - ftpData:/home/ftpusers
+      - ftpUsers:/etc/pure-ftpd/users
+    ports:
+      - 2021:2021
+      - 30000-30009:30000-30009
+
+  postgresql:
+    image: ${docker.image.prefix}/postgresql:${docker.image.version}
+    restart: never
+    volumes:
+      - postgresData:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  # ELK-based LOGGING
+
+  elasticsearch:
+    image: ${docker.image.prefix}/elasticsearch:${docker.image.version}
+    restart: never
+    volumes:
+      - elasticsearchData:/usr/share/elasticsearch/data
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 9200:9200
+
+  logstash:
+    image: ${docker.image.prefix}/logstash:${docker.image.version}
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    command: logstash -f /config-dir/logstash.conf
+    ports:
+      - 12201:12201
+      - 12201:12201/udp
+      - 4560:4560
+
+  curator:
+    image: ${docker.image.prefix}/curator:${docker.image.version}
+    restart: never
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  # monitoring stuff
+
+#  influxdb:
+#    image: tutum/influxdb:latest
+#    ports:
+#      - 8083:8083
+#      - 8086:8086
+#    expose:
+#      - 8090
+#      - 8099
+#    environment:
+#      - PRE_CREATE_DB=cadvisor
+
+  cadvisor:
+    image: ${docker.image.prefix}/cadvisor:${docker.image.version}
+    restart: never
+    ports:
+      - 8081:8081
+    volumes:
+#      - /:/rootfs:ro # this WILL NOT work on windows host
+      - /../:/rootfs:ro # this WILL work on windows host
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+#    command: "-storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxdb:8086"
+    command: "-port=8081"
+
+  kibana:
+    image: ${docker.image.prefix}/kibana:${docker.image.version}
+    restart: never
+    environment:
+      NODE_OPTIONS: "--max-old-space-size=250"
+    ports:
+      - 5601:5601
+    links:
+      - elasticsearch
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+#  grafana:
+#    image: grafana/grafana:latest
+#    ports:
+#      - 3000:3000
+#    links:
+#      - influxdb:influxdb
+#      - elasticsearch
+
+  # smev3client stuff
+
+  eureka:
+    image: ${docker.image.prefix}/eureka:${docker.image.version}
+    restart: ${eureka.docker.compose.restart}
+    ports:
+      ${eureka.docker.compose.ports}${debug.port.compose}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  configserver:
+    image: ${docker.image.prefix}/configserver:${docker.image.version}
+    restart: ${configserver.docker.compose.restart}
+    ports:
+      ${configserver.docker.compose.ports}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  smev3core:
+    image: ${docker.image.prefix}/smev3core:${docker.image.version}
+    restart: ${smev3core.docker.compose.restart}
+    ports:
+      ${smev3core.docker.compose.ports}${debug.port.compose}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  smev3adapter:
+    image: ${docker.image.prefix}/smev3adapter:${docker.image.version}
+    restart: ${smev3adapter.docker.compose.restart}
+    ports:
+      ${smev3adapter.docker.compose.ports}${debug.port.compose}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  ufosadapter:
+    image: ${docker.image.prefix}/ufosadapter:${docker.image.version}
+    restart: ${ufosadapter.docker.compose.restart}
+    ports:
+      ${ufosadapter.docker.compose.ports}${debug.port.compose}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  replication:
+    image: ${docker.image.prefix}/replication:${docker.image.version}
+    restart: ${replication.docker.compose.restart}
+    ports:
+      ${replication.docker.compose.ports}${debug.port.compose}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  pollers:
+    image: ${docker.image.prefix}/pollers:${docker.image.version}
+    restart: ${pollers.docker.compose.restart}
+    ports:
+      ${pollers.docker.compose.ports}${debug.port.compose}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  pushers:
+    image: ${docker.image.prefix}/pushers:${docker.image.version}
+    restart: ${pushers.docker.compose.restart}
+    ports:
+      ${pushers.docker.compose.ports}${debug.port.compose}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  bpmengine:
+    image: ${docker.image.prefix}/bpmengine:${docker.image.version}
+    restart: ${bpmengine.docker.compose.restart}
+    ports:
+      ${bpmengine.docker.compose.ports}${debug.port.compose}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+# VOLUMES
+
+volumes:
+  ftpData:
+  ftpUsers:
+  postgresData:
+  elasticsearchData:

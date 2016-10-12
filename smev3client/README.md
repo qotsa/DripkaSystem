@@ -11,10 +11,21 @@ Contains:
 - new test runner
 - tested @adviceWith and @MockEndpoints
 
+##Project structure
+- archetype - maven archetype for new services
+- dockercompose - contains docker-compose.yml template. As a result of build, docker-compose.yml in project root folder is created
+- env - directory with environment configurations
+- infra - infrastructure services (service discovery, configuration etc)
+- infra/static - 3rd-party infrastructure services (ActiveMQ, ftp, databases, ELK etc)
+- sh - a few awesome shell scripts
+- smev3client - business services
+
 ##How to build
 Maven profiles:
-- build-docker-images - use in activation mode, builds images
 - debug - adds jvm debug flags to entrypoin in docker image
+- docker-images-01-remove - use in activation mode, remove old images
+- docker-images-02-build - use in activation mode, builds images
+- docker-images-03-push - use in activation mode, push images
 - env-xxx - uses filtering from env/xxx.properties for docker images and configuration files filtering
 - integration-tests - enable integration testing during build
 - skip-unit-tests - disable unit testing during build
@@ -50,7 +61,7 @@ DOCKER_MACHINE_NAME="default"
 then build image using appropriate maven plugin
 
 ##How to debug
-Use debug profile (enabled for smev3adapter)
+Use debug profile to build service for debugging
 
 ##TODO
 - issues with one command build in maven

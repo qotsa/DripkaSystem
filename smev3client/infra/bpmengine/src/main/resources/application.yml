@@ -1,0 +1,60 @@
+server:
+  port: ${bpmengine.http.port}
+  servlet-path: /*
+spring:
+  activemq:
+    brokerUrl: ${activemq.url}
+    inMemory: false
+    user: ${activemq.username}
+    password: ${activemq.password}
+    pool:
+      enabled: true
+      configuration:
+        max-connections: 100
+        maximum-active-session-per-connection: 10
+  devtools:
+    remote:
+      secret: ${devtools.secret}
+  application:
+    name: bpmengine
+  datasource:
+    url: jdbc:postgresql://postgresql:5432/activiti
+    username: ${bpmengine.db.username}
+    password: ${bpmengine.db.password}
+    driver-class-name: org.postgresql.Driver
+  activiti:
+    db-history-used: true
+    history-level: full
+    process-definition-location-suffixes:
+      - "**.bpmn20.xml"
+      - "**.bpmn"
+    jpa-enabled: false
+  autoconfigure:
+    exclude:
+#      - org.activiti.spring.boot.RestApiAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+      - org.activiti.spring.boot.SecurityAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration
+  jta:
+    enabled: true
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: false
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    prefer-ip-address: false
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://eureka:${eureka.http.port}/eureka/
+    enabled: true
+
+routes:
+  log: ${bpmengine.routes.log}

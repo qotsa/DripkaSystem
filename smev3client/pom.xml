@@ -13,11 +13,18 @@
     <name>${project.artifactId}</name>
     <description>smev3client parent project</description>
 
-    <parent>
+   <!-- <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.1.RELEASE</version>
         <relativePath/>
+    </parent>-->
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
@@ -79,6 +86,7 @@
         <module>curator</module>
         <module>logstash</module>
         <module>kibana</module>
+        <module>smev3mock2</module>
 
         <!-- monitoring tools -->
         <!--<module>influxdb</module>
@@ -581,6 +589,37 @@
 
     </dependencies>
 
+
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>apache.snapshots</id>
+            <url>http://repository.apache.org/snapshots/</url>
+            <name>Apache Snapshot Repo</name>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -733,7 +772,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
             </plugin>
 
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <executions>
@@ -780,7 +819,7 @@
                             <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
                         </configuration>
                     </execution>
-                    <!--<execution>
+                    &lt;!&ndash;<execution>
                         <id>check-code-coverage-metrics-for-unit-tests</id>
                         <goals>
                             <goal>check</goal>
@@ -807,7 +846,7 @@
                                 </rule>
                             </rules>
                         </configuration>
-                    </execution>-->
+                    </execution>&ndash;&gt;
                     <execution>
                         <id>check-code-coverage-metrics-for-integration-tests</id>
                         <goals>
@@ -837,7 +876,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -887,20 +926,6 @@
             </resource>
         </resources>
     </build>
-
-    <repositories>
-        <repository>
-            <id>apache.snapshots</id>
-            <url>http://repository.apache.org/snapshots/</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
 
     <pluginRepositories>
         <pluginRepository>

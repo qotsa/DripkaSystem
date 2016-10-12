@@ -195,6 +195,16 @@ services:
 #        max-size: "10m"
 #        max-file: "10"
 
+  smev3mock2:
+    image: localhost:5000/smev3mock2:${docker.images.version}
+    restart: always
+    ports:
+      ${smev3mock2.docker.compose.ports}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
   replication:
     image: ${docker.image.prefix}/replication:${docker.images.version}
     restart: ${replication.docker.compose.restart}

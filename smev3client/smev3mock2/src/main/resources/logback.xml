@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd'T'HH:mm:ss,SSS", UTC} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+
+
+    <logger name="ROOT" level="${pushers.logging.level.raw}" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="ru.otr.integration.smev3client" level="${pushers.logging.level.business}" additivity="true"/>
+</configuration>

@@ -221,6 +221,16 @@ services:
         max-size: "10m"
         max-file: "10"
 
+  smev3mock2:
+    image: ${docker.image.prefix}/smev3mock2:${docker.image.version}
+    restart: always
+    ports:
+      ${smev3mock2.docker.compose.ports}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
 # VOLUMES
 
 volumes:

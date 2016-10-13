@@ -35,7 +35,7 @@ public class Routes extends RouteBuilder {
             .split(xpath("//Attachments/Attachment")).stopOnException()
                 .setHeader("attachmentUuid", xpath("//uuid/text()", String.class))
                 .setHeader("attachmentFilename", xpath("//filename/text()", String.class))
-                .pollEnrich().simple("ftp://{{routes.smev.host}}:{{routes.smev.port}}?username={{routes.smev.username}}&password={{routes.smev.password}}&disconnect=true&passiveMode=true&fileName=${headers.attachmentFilename}")
+                .pollEnrich().simple("ftp://{{routes.smev.host}}:{{routes.smev.port}}?username={{routes.smev.username}}&password={{routes.smev.password}}&disconnect=true&passiveMode=true&fileName=${headers.attachmentFilename}&streamDownload=true")
                     .timeout(10000)
                     .aggregationStrategy(new FtpPollingAggregationStrategy())
                     .aggregateOnException(true)

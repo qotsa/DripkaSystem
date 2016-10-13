@@ -26,8 +26,8 @@ public class ModelRandomizer {
             randomizedModel.put("FileName2", RandomStringUtils.random(6, "zxcvbnmasdfghjklqwertyuiop1234567890") + ".zip");
 */
         //no random yet
-        randomizedModel.put("FileName1", "ftpFiles/Enterprise OSGi in Action.zip");
-        randomizedModel.put("FileName2", "ftpFiles/the-devops.zip");
+        randomizedModel.put("FileName1", "Enterprise OSGi in Action.zip");
+        randomizedModel.put("FileName2", "the-devops.zip");
 
         randomizedModel.put("user", appProperties.getUser());
         randomizedModel.put("password", appProperties.getPassword());

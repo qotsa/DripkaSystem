@@ -37,7 +37,7 @@ public class Routes extends RouteBuilder {
                     .end()
             .end();
 
-        from("scheduler://foo1?initialDelay=60s&delay=60s").routeId("GetResponsePoller")
+        /*from("scheduler://foo1?initialDelay=60s&delay=60s").routeId("GetResponsePoller")
             .transacted()
             .to("freemarker:templates/GetResponseRequest.ftl")
             .to("{{routes.smev3adapter}}")
@@ -67,6 +67,6 @@ public class Routes extends RouteBuilder {
                         .stop()
                     .end()
                     .to("{{routes.GetStatusPoller.GetStatusResponseQueue}}")
-            .end();
+            .end();*/
     }
 }

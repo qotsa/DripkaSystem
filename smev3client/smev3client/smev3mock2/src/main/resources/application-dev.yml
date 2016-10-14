@@ -1,12 +1,5 @@
 spring:
   profiles: dev
-  activemq:
-    brokerUrl: ${activemq.url}
-    inMemory: false
-    user: ${activemq.username}
-    password: ${activemq.password}
-    pool:
-      enabled: true
   devtools:
     remote:
       secret: ${devtools.secret}
@@ -24,6 +17,7 @@ camel:
     stream-caching: false
 
 ftp:
-   user:  ${smev3mock2.ftp.user}
+   host: ${smev3mock2.ftp.host}
+   user: ${smev3mock2.ftp.user}
    password: ${smev3mock2.ftp.password}
    port: ${smev3mock2.ftp.port}

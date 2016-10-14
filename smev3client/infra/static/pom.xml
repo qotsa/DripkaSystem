@@ -24,6 +24,7 @@
         <module>curator</module>
         <module>elasticsearch</module>
         <module>ftp</module>
+        <module>ftpsmev</module>
         <module>kibana</module>
         <module>logstash</module>
         <module>postgresql</module>

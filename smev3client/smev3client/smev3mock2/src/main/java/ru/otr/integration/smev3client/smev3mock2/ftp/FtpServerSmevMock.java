@@ -35,7 +35,7 @@ public class FtpServerSmevMock {
     @PostConstruct
     public void createFtp() {
 
-        logger.debug("-----Starting createFtp()-----");
+        /*logger.debug("-----Starting createFtp()-----");
         FakeFtpServer fakeFtpServer = new FakeFtpServer();
         fakeFtpServer.setServerControlPort(appProperties.getPort());
 
@@ -45,12 +45,17 @@ public class FtpServerSmevMock {
         fileSystem.add(new FileEntry("/data/file1.txt", "file1"));
         fakeFtpServer.setFileSystem(fileSystem);
         fakeFtpServer.start();
-        logger.debug("-----Leaving createFtp()-----");
+        logger.debug("-----Leaving createFtp()-----");*/
+
+
+
+
+
     }
 
     public String writeToFtp(String localURI, String targetURI)
             throws Exception {
-        logger.debug("-----Leaving writeToFtp with parameters:\n" +
+        logger.debug("-----Entering writeToFtp with parameters:\n" +
                 "localURI: " + localURI + "\n" +
                 "targetURI: " + targetURI + "\n" + "-----");
         if (StringUtils.isEmpty(localURI) || StringUtils.isEmpty(targetURI)) {

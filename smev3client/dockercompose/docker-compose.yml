@@ -37,6 +37,19 @@ services:
       - 2021:2021
       - 30000-30009:30000-30009
 
+  ftpsmev:
+      image: ${docker.image.prefix}/ftpsmev:${docker.image.version}
+      restart: never
+      environment:
+        PUBLICHOST: "ftpsmev"
+      volumes:
+        - ftpSmevData:/home/ftpusers
+        - ftpSmevUsers:/etc/pure-ftpd/users
+      ports:
+        - 3333:3333
+        - 30010-30019:30010-30019
+
+
   postgresql:
     image: ${docker.image.prefix}/postgresql:${docker.image.version}
     restart: never
@@ -236,5 +249,7 @@ services:
 volumes:
   ftpData:
   ftpUsers:
+  ftpSmevData:
+  ftpSmevUsers:
   postgresData:
   elasticsearchData:

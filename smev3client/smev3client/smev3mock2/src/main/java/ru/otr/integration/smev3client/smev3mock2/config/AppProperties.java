@@ -17,6 +17,7 @@ public class AppProperties {
 
     private String user;
     private String password;
+    private String host;
     private int port;
 
 
@@ -34,6 +35,13 @@ public class AppProperties {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 
     public int getPort() {

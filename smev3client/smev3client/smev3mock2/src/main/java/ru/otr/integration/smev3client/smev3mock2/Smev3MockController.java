@@ -39,9 +39,10 @@ public class Smev3MockController {
     ResponseRandomizer responseRandomizer;
 
     @RequestMapping("/setloadprofile")
-    public void setLoadProfile(@RequestParam(value = "withoutattach", required=true) double withoutAttachmentWeight,
-                               @RequestParam(value = "withattach", required=true) double withFptWeight, HttpServletResponse response) throws TemplateException, IOException {
-        responseRandomizer.setLoadProfile(withoutAttachmentWeight, -1.0, withFptWeight);
+    public void setLoadProfile(@RequestParam(value = "withoutattach", required=false,  defaultValue = "1") double withoutAttachmentWeight,
+                               @RequestParam(value = "withembedded", required=false, defaultValue = "1" ) double withEmbeddedWeight,
+                               @RequestParam(value = "withattach", required=false, defaultValue = "1") double withFptWeight, HttpServletResponse response) throws TemplateException, IOException {
+        responseRandomizer.setLoadProfile(withoutAttachmentWeight, withEmbeddedWeight, withFptWeight);
         response.setContentType("text/html; charset=UTF-8");
         getLoadProfile(response);
     }

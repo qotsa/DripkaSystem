@@ -15,8 +15,13 @@ SWAM_TOKEN_MANAGER_DIRTY=$(docker swarm join-token manager)
 SWARM_TOKEN_WORKER=${SWAM_TOKEN_WORKER_DIRTY#"To add a worker to this swarm, run the following command:"} 
 SWARM_TOKEN_MANAGER=${SWAM_TOKEN_MANAGER_DIRTY#"To add a manager to this swarm, run the following command:"} 
 
-./docker-machine-ipconfig static 192.168.99.98
+
+#need to check if works
+docker-machine-ipconfig static master 192.168.99.98
 docker-machine restart master
+docker-machine regenerate-certs master
+eval "$(docker-machine env master)"
+
 
 log "SWARM_WORKER token is: $SWARM_TOKEN_WORKER"
 log "SWARM_MANAGER token is: $SWARM_TOKEN_MANAGER"

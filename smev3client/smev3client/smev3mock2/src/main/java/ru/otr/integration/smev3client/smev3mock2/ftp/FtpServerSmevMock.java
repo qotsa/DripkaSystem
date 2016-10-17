@@ -46,11 +46,6 @@ public class FtpServerSmevMock {
         fakeFtpServer.setFileSystem(fileSystem);
         fakeFtpServer.start();
         logger.debug("-----Leaving createFtp()-----");*/
-
-
-
-
-
     }
 
     public String writeToFtp(String localURI, String targetURI)

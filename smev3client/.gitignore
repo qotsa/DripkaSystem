@@ -13,3 +13,5 @@ target/
 #Atomikos
 *.epoch
 /docker-compose.yml
+*.btm
+

@@ -21,8 +21,9 @@ public class Routes extends RouteBuilder {
     public void configure() throws Exception {
         Namespaces ns2 = new Namespaces("ns2", "http://otr.ru/irs/services/message-exchange/types");
 
-        from("scheduler://foo?initialDelay=60s&delay=1000").routeId("GetRequestPoller")
+        from("scheduler://foo?initialDelay=60s&delay=30s").routeId("GetRequestPoller")
             .transacted()
+            .log("ping")
             .to("freemarker:templates/GetRequestRequest.ftl")
             .to("{{routes.smev3adapter}}")
             .choice()
@@ -34,6 +35,7 @@ public class Routes extends RouteBuilder {
                         .stop()
                     .otherwise()
                         .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}")
+                        .log("pong")
                     .end()
             .end();
 

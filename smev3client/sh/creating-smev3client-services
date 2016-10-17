@@ -17,16 +17,14 @@ echoProgress() {
 	echo -ne '\n'
 }
 
-
-
 operation=${1}
 shift
 
 case $operation in
     clean)
-        printf "Removing all the services and infrastructure"
+        printf "Removing all the services and infrastructure\n"
         docker service rm $(docker service ls -q)
-		docker volume rm ftpData ftpUsers postgresData
+		docker volume rm ftpData ftpUsers ftpSmevData ftpSmevUsers postgresData elasticsearchData
 		docker network rm smev3client
         ;;
 
@@ -39,32 +37,36 @@ case $operation in
 		log1 "Creating named volumes"
 		docker volume create --name ftpData
 		docker volume create --name ftpUsers
+		docker volume create --name ftpSmevData
+        docker volume create --name ftpSmevUsers
 		docker volume create --name postgresData
+		docker volume create --name elasticsearchData
 
 		sleep 1
 		log1 "Infrastructure services section"
 		echoProgress
 
 		log2 "*******Creating activemq service*******"
-		docker service create --name activemq --network smev3client --replicas 1 -p 8161:8161 -p 61616:61616 -p 61613:61613 --env "ACTIVEMQ_MIN_MEMORY=512" --env "ACTIVEMQ_MAX_MEMORY=2048" --env "ACTIVEMQ_NAME=amqp-srv1" --env "ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT=true" --env "ACTIVEMQ_ADMIN_LOGIN=admin" --env "ACTIVEMQ_ADMIN_PASSWORD=admin" --env "ACTIVEMQ_WRITE_LOGIN=producer" --env "ACTIVEMQ_WRITE_PASSWORD=producer" --env "ACTIVEMQ_READ_LOGIN=consumer" --env "ACTIVEMQ_READ_PASSWORD=consumer" --env "ACTIVEMQ_JMX_LOGIN=jmx" --env "ACTIVEMQ_JMX_PASSWORD=jmx" --env "ACTIVEMQ_ENABLED_SCHEDULER=true" webcenter/activemq
+		docker service create --name activemq --network smev3client --replicas 1 -p 8161:8161 -p 61616:61616 -p 61613:61613 --env "ACTIVEMQ_MIN_MEMORY=512" --env "ACTIVEMQ_MAX_MEMORY=2048" --env "ACTIVEMQ_NAME=amqp-srv1" --env "ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT=true" --env "ACTIVEMQ_ADMIN_LOGIN=admin" --env "ACTIVEMQ_ADMIN_PASSWORD=admin" --env "ACTIVEMQ_WRITE_LOGIN=producer" --env "ACTIVEMQ_WRITE_PASSWORD=producer" --env "ACTIVEMQ_READ_LOGIN=consumer" --env "ACTIVEMQ_READ_PASSWORD=consumer" --env "ACTIVEMQ_JMX_LOGIN=jmx" --env "ACTIVEMQ_JMX_PASSWORD=jmx" --env "ACTIVEMQ_ENABLED_SCHEDULER=true"  localhost:5000/activemq:1.0
 
-		log2 "*******Creating ftp service*******"
+		log2 "*******Creating ftp services*******"
 		docker service create --name ftp --network smev3client --replicas 1 --mount type=volume,source=ftpData,destination=/home/ftpusers --mount type=volume,source=ftpUsers,destination=/etc/pure-ftpd/users  -p 2021:2021 -p 30000-30009:30000-30009 --env "PUBLICHOST=ftp" localhost:5000/ftp:1.0
+		docker service create --name ftpsmev --network smev3client --replicas 1 --mount type=volume,source=ftpSmevData,destination=/home/ftpusers --mount type=volume,source=ftpSmevUsers,destination=/etc/pure-ftpd/users  -p 3333:3333 -p 30010-30019:30010-30019 --env "PUBLICHOST=ftpsmev" localhost:5000/ftpsmev:1.0
 
 		log2 "*******Creating postgresql service*******"
-		docker service create --name postgresql --network smev3client --replicas 1 --mount type=volume,source=postgresData,destination=/var/lib/postgresql/data -p 5432:5432 localhost:5000/postgresql:1.0
+		docker service create --name postgresql    --network smev3client --replicas 1 --mount type=volume,source=postgresData,destination=/var/lib/postgresql/data -p 5432:5432 localhost:5000/postgresql:1.0
 
 		log2 "*******Creating elasticsearch service*******"
-		docker service create --name elasticsearch --network smev3client --replicas 1 -p 9200:9200 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/elasticsearch:1.0
+		docker service create --name elasticsearch --network smev3client --replicas 1 --mount type=volume,source=elasticsearchData,destination=/usr/share/elasticsearch/data -p 9200:9200 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/elasticsearch:1.0
 
 		log2 "*******Creating logstash service*******"
-		docker service create --name logstash --network smev3client --replicas 1 -p 12201:12201 -p 12201:12201/udp -p 4560:4560 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/logstash:1.0 logstash -f /config-dir/logstash.conf
+		docker service create --name logstash --network smev3client --replicas 1 -p 12201:12201 -p 4560:4560 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/logstash:1.0 logstash -f /config-dir/logstash.conf
 
 		log2 "*******Creating curator service*******"
 		docker service create --name curator --network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/curator:1.0
 
 		log2 "*******Creating cadvisor service*******"
-		docker service create --name cadvisor --network smev3client --replicas 1  --mount type=bind,source=/../,destination=/rootfs:ro --mount type=bind,source=/var/run,destination=/var/run:rw --mount type=bind,source=/sys,destination=/sys:ro --mount type=bind,source=/var/lib/docker/,destination=/var/lib/docker:ro -p 8081:8081 localhost:5000/cadvisor:1.0 -port=8081 
+		docker service create --name cadvisor --network smev3client --replicas 1  --mount type=bind,source=/../,destination=/rootfs:ro --mount type=bind,source=/var/run,destination=/var/run:rw --mount type=bind,source=/sys,destination=/sys:ro --mount type=bind,source=/var/lib/docker/,destination=/var/lib/docker:ro -p 8081:8081 localhost:5000/cadvisor:1.0 -port=8081
 
 		log2 "*******Creating kibana service*******"
 		docker service create --name kibana --network smev3client --replicas 1 -p 5601:5601 --env "--max-old-space-size=250" --log-opt max-size=10m --log-opt max-file=10 localhost:5000/kibana:1.0
@@ -97,7 +99,7 @@ case $operation in
 		docker service create --name pollers --network smev3client --replicas 1 -p 8092:8092 -p 5701:5701 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/pollers:1.0
 
 		log2 "*******Creating pushers service*******"
-		docker service create --name pushers --network smev3client --replicas 1 -p 8096:8096 -p 5701:5701 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/pushers:1.0
+		docker service create --name pushers --network smev3client --replicas 1 -p 8096:8096 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/pushers:1.0
 
 		log2 "*******Creating bpmengine service*******"
 		docker service create --name bpmengine --network smev3client --replicas 1 -p 8098:8098 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/bpmengine:1.0

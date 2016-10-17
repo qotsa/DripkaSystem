@@ -119,11 +119,11 @@ public class ResponseRandomizer {
 
             //ftpServer.writeToFtp(is1, "Enterprise OSGi in Action.zip");
             ftpServer.writeToFtp("target/lib/Enterprise OSGi in Action.zip", "ftp://" + appProperties.getUser()+":"+
-            appProperties.getPassword() + "@localhost:" + appProperties.getPort()+ "ftpFiles/Enterprise OSGi in Action.zip");
+            appProperties.getPassword() + "@" + appProperties.getHost() + ":" + appProperties.getPort()+ "ftpFiles/Enterprise OSGi in Action.zip");
 
             //ftpServer.writeToFtp(is2, "the-devops.zip");
             ftpServer.writeToFtp("target/lib/the-devops.zip", "ftp://" + appProperties.getUser()+":"+
-                    appProperties.getPassword() + "@localhost:" + appProperties.getPort()+ "/ftpFiles/the-devops.zip");
+                    appProperties.getPassword() + "@" + appProperties.getHost() + ":" + appProperties.getPort()+ "/ftpFiles/the-devops.zip");
 
             //ftpServer.writeToFtp(temp2.getAbsolutePath(), "ftp://user_STUB2:qwerty123@localhost:3333/the-devops.zip");
         } catch (Exception e) {
@@ -134,11 +134,11 @@ public class ResponseRandomizer {
 
             //ftpServer.writeToFtp(is1, "Enterprise OSGi in Action.zip");
             ftpServer.writeToFtp(System.getProperty("user.dir") + "/ftpFiles/Enterprise OSGi in Action.zip", "ftp://" + appProperties.getUser()+":"+
-                    appProperties.getPassword() + "@localhost:" + appProperties.getPort()+ "/Enterprise OSGi in Action.zip");
+                    appProperties.getPassword() + "@" + appProperties.getHost() + ":" + appProperties.getPort()+ "/Enterprise OSGi in Action.zip");
 
             //ftpServer.writeToFtp(is2, "the-devops.zip");
             ftpServer.writeToFtp(System.getProperty("user.dir") + "/ftpFiles/the-devops.zip","ftp://" + appProperties.getUser()+":"+
-                    appProperties.getPassword() + "@localhost:" + appProperties.getPort()+ "/the-devops.zip");
+                    appProperties.getPassword() + "@" + appProperties.getHost() + ":" + appProperties.getPort()+ "/the-devops.zip");
 
             //ftpServer.writeToFtp(temp2.getAbsolutePath(), "ftp://user_STUB2:qwerty123@localhost:3333/the-devops.zip");
         }

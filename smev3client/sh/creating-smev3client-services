@@ -24,6 +24,7 @@ case $operation in
     clean)
         printf "Removing all the services and infrastructure\n"
         docker service rm $(docker service ls -q)
+		sleep 2
 		docker volume rm ftpData ftpUsers ftpSmevData ftpSmevUsers postgresData elasticsearchData
 		docker network rm smev3client
         ;;
@@ -100,6 +101,9 @@ case $operation in
 
 		log2 "*******Creating pushers service*******"
 		docker service create --name pushers --network smev3client --replicas 1 -p 8096:8096 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/pushers:1.0
+
+		log2 "*******Creating smev3mock2 service*******"
+        docker service create --name smev3mock2 --network smev3client --replicas 1 -p 8091:8091 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/smev3mock2:1.0
 
 		log2 "*******Creating bpmengine service*******"
 		docker service create --name bpmengine --network smev3client --replicas 1 -p 8098:8098 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/bpmengine:1.0

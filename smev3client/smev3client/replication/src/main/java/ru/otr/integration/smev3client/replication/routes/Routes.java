@@ -21,6 +21,7 @@ public class Routes extends RouteBuilder {
                 .to("{{routes.replicationService.outboundQueue}}")
             .end()
             .transacted()
+            .threads(1, 1)
             .log("ping")
             .multicast().stopOnException()
                 .aggregationStrategy(AggregationStrategies.useOriginal()).aggregationStrategyMethodAllowNull()
@@ -38,8 +39,10 @@ public class Routes extends RouteBuilder {
             .split(xpath("//Attachments/Attachment")).stopOnException()
                 .setHeader("attachmentUuid", xpath("//uuid/text()", String.class))
                 .setHeader("attachmentFilename", xpath("//filename/text()", String.class))
-                .pollEnrich().simple("ftp://{{routes.smev.host}}:{{routes.smev.port}}?username={{routes.smev.username}}&password={{routes.smev.password}}&disconnect=true&passiveMode=true&fileName=${headers.attachmentFilename}")
-                    .timeout(10000)
+                .pollEnrich().simple("ftp://{{routes.smev.host}}:{{routes.smev.port}}?username={{routes.smev.username}}&password={{routes.smev.password}}&disconnect=true&passiveMode=true&fileName=${headers.attachmentFilename}&localWorkDirectory=/replication_cache/${headers.breadcrumbid}")
+                    .timeout(1000 * 60 * 60) // optimal choice, set timeout which is enough to download large file
+                    //.timeout(10000) // will fail with large attachment
+                    //.timeout(-1) // will block if attachment file does not exist
                     .aggregationStrategy(new FtpPollingAggregationStrategy())
                     .aggregateOnException(true)
                 .end()

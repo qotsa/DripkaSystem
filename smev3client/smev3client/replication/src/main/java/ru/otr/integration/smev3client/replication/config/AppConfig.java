@@ -1,6 +1,8 @@
 package ru.otr.integration.smev3client.replication.config;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.spi.ExecutorServiceManager;
+import org.apache.camel.spi.ThreadPoolProfile;
 import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +23,11 @@ public class AppConfig {
                 context.setUseMDCLogging(true);
                 context.setTracing(true);
                 context.setStreamCaching(true);
+
+                ExecutorServiceManager manager = context.getExecutorServiceManager();
+                ThreadPoolProfile defaultProfile = manager.getDefaultThreadPoolProfile();
+
+                defaultProfile.setMaxQueueSize(1000);
             }
 
             @Override

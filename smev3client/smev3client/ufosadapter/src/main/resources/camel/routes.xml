@@ -15,4 +15,18 @@
         <to uri="{{routes.fromUfos.outboundQueue}}"/>
     </route>
 
+    <!--<route id="callbackFromUfos" errorHandlerRef="transactionErrorHandlerBuilder">
+        <from uri="{{routes.callback.inbound.inboundQueue}}"/>
+        <transacted/>
+        <to uri="{{routes.log}}"/>
+        <to uri="{{routes.callback.inbound.bpmnQueue}}"/>
+    </route>
+
+    <route id="callbackReturnToUfos" errorHandlerRef="transactionErrorHandlerBuilder">
+        <from uri="{{routes.callback.outbound.bpmnQueue}}"/>
+        <transacted/>
+        <to uri="{{routes.log}}"/>
+        <to uri="{{routes.callback.outbound.outboundQueue}}"/>
+    </route>-->
+
 </routes>

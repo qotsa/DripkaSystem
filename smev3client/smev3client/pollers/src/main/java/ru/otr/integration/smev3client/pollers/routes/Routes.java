@@ -1,6 +1,5 @@
 package ru.otr.integration.smev3client.pollers.routes;
 
-import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.processor.idempotent.hazelcast.HazelcastIdempotentRepository;
@@ -21,8 +20,8 @@ public class Routes extends RouteBuilder {
     public void configure() throws Exception {
         Namespaces ns2 = new Namespaces("ns2", "http://otr.ru/irs/services/message-exchange/types");
 
-       // from("scheduler://foo?initialDelay=60s&delay=30s").routeId("GetRequestPoller")
-        from("quartz2://myTimer?trigger.repeatInterval=500&trigger.repeatCount=-1").routeId("GetRequestPoller")
+        from("scheduler://foo?initialDelay=60s&delay=30s").routeId("GetRequestPoller")
+        //from("quartz2://myTimer?trigger.repeatInterval=500&trigger.repeatCount=-1").routeId("GetRequestPoller")
             .transacted()
             .log("ping")
             .to("freemarker:templates/GetRequestRequest.ftl")

@@ -55,7 +55,7 @@ case $operation in
 		docker service create --name ftpsmev --network smev3client --replicas 1 --mount type=volume,source=ftpSmevData,destination=/home/ftpusers --mount type=volume,source=ftpSmevUsers,destination=/etc/pure-ftpd/users  -p 3333:3333 -p 30010-30019:30010-30019 --env "PUBLICHOST=ftpsmev" localhost:5000/ftpsmev:1.0
 
 		log2 "*******Creating postgresql service*******"
-		docker service create --name postgresql    --network smev3client --replicas 1 --mount type=volume,source=postgresData,destination=/var/lib/postgresql/data -p 5432:5432 localhost:5000/postgresql:1.0
+		docker service create --name postgresql --network smev3client --replicas 1 --mount type=volume,source=postgresData,destination=/var/lib/postgresql/data -p 5432:5432 localhost:5000/postgresql:1.0
 
 		log2 "*******Creating elasticsearch service*******"
 		docker service create --name elasticsearch --network smev3client --replicas 1 --mount type=volume,source=elasticsearchData,destination=/usr/share/elasticsearch/data -p 9200:9200 --log-opt max-size=10m --log-opt max-file=10 localhost:5000/elasticsearch:1.0

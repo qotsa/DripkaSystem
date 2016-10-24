@@ -42,3 +42,10 @@ routes:
   fromUfos:
     inboundQueue: ${ufosadapter.routes.fromUfos.inbound}
     outboundQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound}
+  callback:
+    inbound:
+      inputQueue: ${ufosadapter.routes.fromUfos.callback.inbound}
+      #bpmnQueue: ${}
+    outbound:
+      #bpmnQueue: ${}
+      outboundQueue: ${ufosadapter.routes.fromUfos.callback.outbound}

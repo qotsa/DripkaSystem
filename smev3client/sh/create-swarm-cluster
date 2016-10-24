@@ -26,17 +26,17 @@ log "SWARM_WORKER token is: $SWARM_TOKEN_WORKER"
 log "SWARM_MANAGER token is: $SWARM_TOKEN_MANAGER"
 
 # create Swarm worker1
-log "Creating Swarm worker1"
-docker-machine create -d virtualbox worker1
-eval "$(docker-machine env worker1)"
+#log "Creating Swarm worker1"
+#docker-machine create -d virtualbox worker1
+#eval "$(docker-machine env worker1)"
 #connect to cluster
-eval "($SWARM_TOKEN_WORKER)"
+#eval "($SWARM_TOKEN_WORKER)"
 
 # create Swarm worker2
-log "Creating Swarm worker2"
-docker-machine create -d virtualbox worker2
-eval "$(docker-machine env worker2)"
+#log "Creating Swarm worker2"
+#docker-machine create -d virtualbox worker2
+#eval "$(docker-machine env worker2)"
 #connect to cluster
-eval "($SWARM_TOKEN_WORKER)"
+#eval "($SWARM_TOKEN_WORKER)"
 
 eval "$(docker-machine env master)"

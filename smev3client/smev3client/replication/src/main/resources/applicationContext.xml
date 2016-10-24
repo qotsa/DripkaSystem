@@ -3,6 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="transactionErrorHandlerBuilder" class="org.apache.camel.spring.spi.TransactionErrorHandlerBuilder">
+        <property name="redeliveryPolicy" ref="redeliveryPolicy"/>
+    </bean>
+
+    <bean id="redeliveryPolicy" class="org.apache.camel.processor.RedeliveryPolicy">
+        <property name="maximumRedeliveries" value="3"/>
+        <property name="redeliveryDelay" value="1000"/>
+        <property name="logStackTrace" value="true"/>
+    </bean>
+
     <bean id="camelTracer" class="org.apache.camel.processor.interceptor.Tracer">
         <property name="formatter" ref="traceFormatter"/>
         <property name="enabled" value="true"/>

@@ -8,7 +8,6 @@ import org.apache.camel.processor.idempotent.hazelcast.HazelcastIdempotentReposi
 import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 /**
  * Created by tartanov.mikhail on 23.08.2016.
@@ -16,7 +15,6 @@ import org.springframework.context.annotation.Profile;
 
 
 @Configuration
-//@Profile("dev")
 public class AppConfig {
 
     @Bean

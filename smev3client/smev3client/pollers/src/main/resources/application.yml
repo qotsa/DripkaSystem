@@ -1,3 +1,45 @@
+server:
+  port: ${pollers.http.port}
+
 spring:
-   profiles:
-      active: dev
+  activemq:
+    brokerUrl: ${activemq.url}
+    inMemory: false
+    user: ${activemq.username}
+    password: ${activemq.password}
+    pool:
+      enabled: true
+  devtools:
+    remote:
+      secret: ${devtools.secret}
+  application:
+    name: pollers
+
+camel:
+  springboot:
+    jmxEnabled: true
+    allow-use-original-message: true
+    stream-caching: true
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://eureka:${eureka.http.port}/eureka/
+
+smev3adapter:
+   http:
+     port: ${smev3adapter.http.port}
+
+routes:
+  smev3adapter: http://smev3adapter:${smev3adapter.http.port}/camel/request
+  GetRequestPoller:
+    GetRequestResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetRequestResponseQueue}
+  GetResponsePoller:
+    GetResponseResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetResponseResponseQueue}
+  GetStatusPoller:
+    GetStatusResponseQueue: ${smev3core.routes.Smev2Vis.GetStatusResponseQueue}

@@ -16,11 +16,7 @@ spring:
     name: replication
   jta:
     #narayana:
-    #  default-timeout: 10 #3600000:
-    #bitronix:
-    #  properties:
-    #    warn-about-zero-resource-transaction: false
-    #    default-transaction-timeout: 60
+    #  default-timeout: 10 #3600000
 
 camel:
   springboot:

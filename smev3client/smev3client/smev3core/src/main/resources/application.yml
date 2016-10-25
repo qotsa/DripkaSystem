@@ -34,7 +34,6 @@ eureka:
 routes:
   Smev2Vis:
     preprocessor:
-      inbound: ${smev3core.routes.Smev2Vis.preprocessor.inbound}
       GetRequestResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetRequestResponseQueue}
       GetResponseResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetResponseResponseQueue}
     postprocessor:
@@ -43,7 +42,6 @@ routes:
   Vis2Smev:
     inbound: ${pushers.routes.vis2smev.inbound}
     preprocessor:
-      inbound: ${smev3core.routes.Vis2Smev.preprocessor.inbound}
       SendRequestResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendRequestResponseQueue}
       SendResponseResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendResponseResponseQueue}
     postprocessor:

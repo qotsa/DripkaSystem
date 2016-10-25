@@ -10,10 +10,13 @@ camel:
     allow-use-original-message: true
     stream-caching: false
 
+eureka:
+  client:
+    enabled: false
+
 routes:
   Smev2Vis:
     preprocessor:
-      inbound: seda:queue:Smev2Vis_Smev2Vis_preprocessor_inbound
       GetRequestResponseQueue: seda:queue:Smev2Vis_Smev2Vis_preprocessor_GetRequestResponseQueue
       GetResponseResponseQueue: seda:queue:Smev2Vis_Smev2Vis_preprocessor_GetResponseResponseQueue
     postprocessor:
@@ -22,7 +25,6 @@ routes:
   Vis2Smev:
     inbound: seda:vis2smev.inbound
     preprocessor:
-      inbound: seda:queue:Vis2Smev_preprocessor_inbound
       SendRequestResponseQueue: seda:queue:Vis2Smev_preprocessor_SendRequestResponseQueue
       SendResponseResponseQueue: seda:queue:Vis2Smev_preprocessor_SendResponseResponseQueue
     postprocessor:

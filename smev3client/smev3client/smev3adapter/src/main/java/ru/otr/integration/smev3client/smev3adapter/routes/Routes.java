@@ -12,9 +12,7 @@ public class Routes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("servlet:///request")
-            .routeId("smevProxyService")
-            //.transacted()
+        from("servlet:///request").routeId("smevProxyService")
             .onException(Throwable.class)
                 .handled(true)
                 .setHeader("ERROR_MESSAGE", simple("${exception.message}"))

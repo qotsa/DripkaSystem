@@ -59,7 +59,6 @@ public class Routes extends SpringRouteBuilder {
                         .throwException(new FtpPollFailedException("FTP Poll Failed"))
                     .otherwise()
                         .setHeader("CamelFileName", simple("${headers.breadcrumbid}/${headers.attachmentUuid}/${headers.attachmentFilename}"))
-                        // TODO error check!!!
                         .to("{{routes.ftp}}")
                 .end()
             .end();

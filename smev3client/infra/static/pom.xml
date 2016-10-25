@@ -26,6 +26,7 @@
         <module>ftp</module>
         <module>ftpsmev</module>
         <module>kibana</module>
+        <module>grafana</module>
         <module>logstash</module>
         <module>postgresql</module>
     </modules>

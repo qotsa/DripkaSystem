@@ -21,6 +21,7 @@ public class FtpPollingAggregationStrategy implements AggregationStrategy {
         }
 
         newExchange.getIn().setHeader("originalMessageId", oldExchange.getIn().getHeader("originalMessageId"));
+        newExchange.getIn().setHeader("breadcrumbid", oldExchange.getIn().getHeader("breadcrumbid"));
         newExchange.getIn().setHeader("attachmentUuid", oldExchange.getIn().getHeader("attachmentUuid"));
         newExchange.getIn().setHeader("attachmentFilename", oldExchange.getIn().getHeader("attachmentFilename"));
 

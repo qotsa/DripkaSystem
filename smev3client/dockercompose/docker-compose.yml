@@ -127,20 +127,20 @@ services:
       NODE_OPTIONS: "--max-old-space-size=250"
     ports:
       - 5601:5601
-    links:
-      - elasticsearch
     logging:
       options:
         max-size: "10m"
         max-file: "10"
 
-#  grafana:
-#    image: grafana/grafana:latest
-#    ports:
-#      - 3000:3000
-#    links:
-#      - influxdb:influxdb
-#      - elasticsearch
+  grafana:
+    image: ${docker.image.prefix}/grafana:${docker.image.version}
+    restart: never
+    ports:
+      - 3000:3000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   # smev3client stuff
 

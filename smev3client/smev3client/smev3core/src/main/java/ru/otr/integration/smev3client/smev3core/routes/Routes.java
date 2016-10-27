@@ -2,6 +2,7 @@ package ru.otr.integration.smev3client.smev3core.routes;
 
 import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.spring.SpringRouteBuilder;
+import org.apache.camel.util.toolbox.AggregationStrategies;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,6 +12,8 @@ public class Routes extends SpringRouteBuilder {
     public void configure() throws Exception {
         Namespaces ns = new Namespaces("bas", "http://otr.ru/irs/services/message-exchange/types/basic")
                 .add("typ2", "http://otr.ru/irs/services/message-exchange/types");
+
+        // SMEV => VIS
 
         from("{{routes.Smev2Vis.preprocessor.GetRequestResponseQueue}}").routeId("GetRequestResponse")
             .transacted()
@@ -43,9 +46,15 @@ public class Routes extends SpringRouteBuilder {
                 .when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
                     .to("{{routes.log}}")
                 .otherwise()
-                    // TODO ACK
-                    .dynamicRouter(method(PostprocessorRouter.class, "route"))
+                    .multicast().stopOnException()
+                        .aggregationStrategy(AggregationStrategies.useOriginal()).aggregationStrategyMethodAllowNull()
+                        .to("direct:ack")
+                        .dynamicRouter(method(PostprocessorRouter.class, "route"))
+                    .end()
+                    //.dynamicRouter(method(PostprocessorRouter.class, "route"))
             .end();
+
+        // VIS => SMEV
 
         from("{{routes.Vis2Smev.preprocessor.SendRequestResponseQueue}}").routeId("SendRequestResponse")
             .transacted()
@@ -70,5 +79,13 @@ public class Routes extends SpringRouteBuilder {
             .routeId("Vis2SmevPostprocessor")
             .to("{{routes.log}}")
             .to("{{routes.Vis2Smev.inbound}}");
+
+        // Ack
+
+        from("direct:ack").routeId("ack")
+            .log("ACK")
+            .setHeader("businessMessageId", simple("blahblahblah"))
+            .to("freemarker:templates/AckRequest.ftl")
+            .to("{{routes.log}}");
     }
 }

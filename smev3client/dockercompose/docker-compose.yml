@@ -24,6 +24,10 @@ services:
       - 8161:8161
       - 61616:61616
       - 61613:61613
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   ftp:
     image: ${docker.image.prefix}/ftp:${docker.image.version}
@@ -36,19 +40,26 @@ services:
     ports:
       - 2021:2021
       - 30000-30009:30000-30009
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   ftpsmev:
-      image: ${docker.image.prefix}/ftpsmev:${docker.image.version}
-      restart: never
-      environment:
-        PUBLICHOST: "ftpsmev"
-      volumes:
-        - ftpSmevData:/home/ftpusers
-        - ftpSmevUsers:/etc/pure-ftpd/users
-      ports:
-        - 3333:3333
-        - 30010-30019:30010-30019
-
+    image: ${docker.image.prefix}/ftpsmev:${docker.image.version}
+    restart: never
+    environment:
+      PUBLICHOST: "ftpsmev"
+    volumes:
+      - ftpSmevData:/home/ftpusers
+      - ftpSmevUsers:/etc/pure-ftpd/users
+    ports:
+      - 3333:3333
+      - 30010-30019:30010-30019
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   postgresql:
     image: ${docker.image.prefix}/postgresql:${docker.image.version}
@@ -57,6 +68,10 @@ services:
       - postgresData:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   # ELK-based LOGGING
 
@@ -119,6 +134,10 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
 #    command: "-storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxdb:8086"
     command: "-port=8081"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   kibana:
     image: ${docker.image.prefix}/kibana:${docker.image.version}
@@ -137,6 +156,8 @@ services:
     restart: never
     ports:
       - 3000:3000
+    volumes:
+      - grafanaData:/var/lib/grafana
     logging:
       options:
         max-size: "10m"
@@ -253,3 +274,4 @@ volumes:
   ftpSmevUsers:
   postgresData:
   elasticsearchData:
+  grafanaData:

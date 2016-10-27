@@ -14,9 +14,9 @@ spring:
       secret: ${devtools.secret}
   application:
     name: replication
-  jta:
-    #narayana:
-    #  default-timeout: 10 #3600000
+#  jta:
+#    narayana:
+#      default-timeout: 10 #3600000
 
 camel:
   springboot:

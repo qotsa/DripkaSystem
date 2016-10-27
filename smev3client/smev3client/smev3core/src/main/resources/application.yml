@@ -46,7 +46,7 @@ routes:
       SendResponseResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendResponseResponseQueue}
     postprocessor:
       inbound: ${smev3core.routes.Vis2Smev.postprocessor.inbound}
-  metadata:
+  slipEndpoints:
     STUB: ${ufosadapter.routes.toUfos.inbound}
     UFOS: ${ufosadapter.routes.toUfos.inbound}
   replication: ${replication.routes.replicationService.inbound.queue}

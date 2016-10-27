@@ -1,6 +1,6 @@
 package ru.otr.integration.smev3client.smev3adapter.routes;
 
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 import ru.otr.integration.smev3client.smev3adapter.beans.NamespaceSwapper;
 
@@ -8,7 +8,7 @@ import ru.otr.integration.smev3client.smev3adapter.beans.NamespaceSwapper;
  * Created by tartanov.mikhail on 26.07.2016.
  */
 @Component
-public class Routes extends RouteBuilder {
+public class Routes extends SpringRouteBuilder {
 
     @Override
     public void configure() throws Exception {

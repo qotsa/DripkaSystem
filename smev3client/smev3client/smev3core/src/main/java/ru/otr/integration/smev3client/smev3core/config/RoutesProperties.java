@@ -4,7 +4,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -13,15 +12,15 @@ import java.util.Map;
 @Component
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "routes")
-public class RoutesMetadataProperties {
+public class RoutesProperties {
 
-    private Map<String, String> metadata;
+    private Map<String, String> slipEndpoints;
 
-    public Map<String, String> getMetadata() {
-        return metadata;
+    public Map<String, String> getSlipEndpoints() {
+        return slipEndpoints;
     }
 
-    public void setMetadata(Map<String, String> metadata) {
-        this.metadata = metadata;
+    public void setSlipEndpoints(Map<String, String> slipEndpoints) {
+        this.slipEndpoints = slipEndpoints;
     }
 }

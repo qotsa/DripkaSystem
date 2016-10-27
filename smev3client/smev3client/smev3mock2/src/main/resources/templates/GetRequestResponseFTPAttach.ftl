@@ -103,6 +103,11 @@
                                 <bas:Hash>403f244a3df11c8618b9e5c8b9d48e30</bas:Hash>
                                 <bas:MimeType>application/pdf</bas:MimeType>
                             </bas:RefAttachmentHeader>
+                            <bas:RefAttachmentHeader>
+                                <bas:uuid>fc7ed873-2ee5-4300-b186-dd1976dd52b8</bas:uuid>
+                                <bas:Hash>403f244a3df11c8618b9e5c8b9d48e30</bas:Hash>
+                                <bas:MimeType>application/pdf</bas:MimeType>
+                            </bas:RefAttachmentHeader>
                         </bas:RefAttachmentHeaderList>
                         <typ2:TestMessage/>
                     </typ2:SenderProvidedRequestData>
@@ -126,7 +131,7 @@
                         <typ2:Status>requestIsAcceptedBySmev</typ2:Status>
                     </typ2:MessageMetadata>
                     <bas:FSAttachmentsList xmlns:bas="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1">
-                        <bas:FSAttachment>
+                        <!--<bas:FSAttachment>
                             <bas:uuid>4f706ca2-f860-48ea-8f65-e5a8407fe2a4</bas:uuid>
                             <bas:UserName>${user}</bas:UserName>
                             <bas:Password>${password}</bas:Password>
@@ -137,6 +142,12 @@
                             <bas:UserName>${user}</bas:UserName>
                             <bas:Password>${password}</bas:Password>
                             <bas:FileName>${FileName2}</bas:FileName>
+                        </bas:FSAttachment>-->
+                        <bas:FSAttachment>
+                            <bas:uuid>fc7ed873-2ee5-4300-b186-dd1976dd52b8</bas:uuid>
+                            <bas:UserName>${user}</bas:UserName>
+                            <bas:Password>${password}</bas:Password>
+                            <bas:FileName>big_attachment.raw</bas:FileName>
                         </bas:FSAttachment>
                     </bas:FSAttachmentsList>
                     <typ2:ReplyTo>STUB|${MessageId}|2016-08-26T16:54:20.847+03:00</typ2:ReplyTo>

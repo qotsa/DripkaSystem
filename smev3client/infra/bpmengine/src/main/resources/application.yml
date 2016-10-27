@@ -1,6 +1,7 @@
 server:
   port: ${bpmengine.http.port}
   servlet-path: /*
+
 spring:
   activemq:
     brokerUrl: ${activemq.url}

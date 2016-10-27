@@ -1,8 +1,8 @@
 package ru.otr.integration.smev3client.pollers.routes;
 
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.processor.idempotent.hazelcast.HazelcastIdempotentRepository;
+import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class Routes extends RouteBuilder {
+public class Routes extends SpringRouteBuilder {
 
     @Autowired
     HazelcastIdempotentRepository repository;

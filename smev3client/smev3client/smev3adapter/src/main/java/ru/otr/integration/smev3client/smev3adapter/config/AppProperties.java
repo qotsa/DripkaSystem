@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 @Component
-@ConfigurationProperties//(prefix = "dev")
+@ConfigurationProperties
 public class AppProperties {
     private String smevServiceNamespace;
     private List<String> operations;

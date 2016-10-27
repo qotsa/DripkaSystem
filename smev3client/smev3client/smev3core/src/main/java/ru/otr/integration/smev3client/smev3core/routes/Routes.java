@@ -84,7 +84,7 @@ public class Routes extends SpringRouteBuilder {
 
         from("direct:ack").routeId("ack")
             .log("ACK")
-            .setHeader("businessMessageId", simple("blahblahblah"))
+            .setHeader("businessMessageId", xpath("//*:MessageMetadata/*:MessageId/text()", String.class))
             .to("freemarker:templates/AckRequest.ftl")
             .to("{{routes.log}}");
     }

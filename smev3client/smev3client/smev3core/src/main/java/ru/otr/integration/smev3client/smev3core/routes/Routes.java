@@ -4,6 +4,7 @@ import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.apache.camel.util.toolbox.AggregationStrategies;
 import org.springframework.stereotype.Component;
+import ru.otr.integration.smev3client.smev3core.exception.AckFailedException;
 
 @Component
 public class Routes extends SpringRouteBuilder {
@@ -40,6 +41,10 @@ public class Routes extends SpringRouteBuilder {
         from("direct:Smev2VisPostprocessor").to("{{routes.Smev2Vis.postprocessor.inbound}}");
 
         from("{{routes.Smev2Vis.postprocessor.inbound}}").routeId("Smev2VisPostprocessor")
+            .onException(AckFailedException.class).useOriginalMessage()
+                .handled(true)
+                .to("{{routes.log}}")
+            .end()
             .transacted()
             .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", String.class, ns)
             .choice()
@@ -51,7 +56,6 @@ public class Routes extends SpringRouteBuilder {
                         .to("direct:ack")
                         .dynamicRouter(method(PostprocessorRouter.class, "route"))
                     .end()
-                    //.dynamicRouter(method(PostprocessorRouter.class, "route"))
             .end();
 
         // VIS => SMEV
@@ -83,9 +87,13 @@ public class Routes extends SpringRouteBuilder {
         // Ack
 
         from("direct:ack").routeId("ack")
+            .errorHandler(noErrorHandler())
             .log("ACK")
             .setHeader("businessMessageId", xpath("//*:MessageMetadata/*:MessageId/text()", String.class))
             .to("freemarker:templates/AckRequest.ftl")
-            .to("{{routes.log}}");
+            .to("{{routes.smev3adapter}}")
+            .choice().when(header("ERROR_MESSAGE"))
+                .throwException(new AckFailedException("Ack Failed"))
+            .end();
     }
 }

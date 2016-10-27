@@ -31,10 +31,6 @@ eureka:
     service-url:
       defaultZone: http://eureka:${eureka.http.port}/eureka/
 
-smev3adapter:
-   http:
-     port: ${smev3adapter.http.port}
-
 routes:
   smev3adapter: http://smev3adapter:${smev3adapter.http.port}/camel/request
   GetRequestPoller:

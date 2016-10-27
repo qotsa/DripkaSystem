@@ -36,31 +36,4 @@ public class PostprocessorRouter {
 
         return endpoint != null ? endpoint : log;
     }
-
-    /*public static final String PROCESSING_STEP = "PROCESSING_STEP";
-    public static final String ACK_ROUTE = "direct:ack";
-
-    @Autowired
-    private RoutesProperties routesProperties;
-
-    @Value("${routes.log}")
-    private String log;
-
-    public String route(@Header("recipient") String recipient, @Properties Map<String, Object> properties) {
-        int step = properties.get(PROCESSING_STEP) != null ? (int) properties.get(PROCESSING_STEP) : 0;
-
-        switch(step) {
-            case 0:
-                properties.put(PROCESSING_STEP, 1);
-                return ACK_ROUTE;
-            case 1:
-                properties.put(PROCESSING_STEP, 2);
-                String endpoint = routesProperties.getSlipEndpoints().get(recipient);
-                return endpoint != null ? endpoint : log;
-            case 2:
-            default:
-                properties.remove(PROCESSING_STEP);
-                return null;
-        }
-    }*/
 }

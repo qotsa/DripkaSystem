@@ -32,5 +32,6 @@ routes:
   metadata:
     STUB: mock:seda:queue:STUB
     UFOS: mock:seda:queue:UFOS
+  smev3adapter: mock:smev3adapter
   replication: mock:seda:queue:replication
   log: mock:log

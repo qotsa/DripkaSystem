@@ -49,5 +49,6 @@ routes:
   slipEndpoints:
     STUB: ${ufosadapter.routes.toUfos.inbound}
     UFOS: ${ufosadapter.routes.toUfos.inbound}
+  smev3adapter: http://smev3adapter:${smev3adapter.http.port}/camel/request
   replication: ${replication.routes.replicationService.inbound.queue}
   log: ${smev3core.routes.log}

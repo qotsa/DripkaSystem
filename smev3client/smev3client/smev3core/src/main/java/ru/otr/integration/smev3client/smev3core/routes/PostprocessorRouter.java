@@ -15,6 +15,8 @@ import java.util.Map;
 @Component
 public class PostprocessorRouter {
 
+    public static final String IS_ROUTED = "isRouted";
+
     @Autowired
     private RoutesProperties routesProperties;
 
@@ -22,20 +24,17 @@ public class PostprocessorRouter {
     private String log;
 
     public String route(@Header("recipient") String recipient, @Properties Map<String, Object> properties) {
-        boolean isRouted = null != properties.get("isRouted") && (boolean) properties.get("isRouted");
+        boolean isRouted = properties.get(IS_ROUTED) != null && (boolean) properties.get(IS_ROUTED);
 
-        if (!isRouted) {
-            properties.put("isRouted", true);
-            String endpoint = routesProperties.getSlipEndpoints().get(recipient);
-
-            if (endpoint != null) {
-                return endpoint;
-            } else {
-                return log;
-            }
-        } else {
+        if (isRouted) {
+            properties.remove(IS_ROUTED);
             return null;
         }
+
+        properties.put(IS_ROUTED, true);
+        String endpoint = routesProperties.getSlipEndpoints().get(recipient);
+
+        return endpoint != null ? endpoint : log;
     }
 
     /*public static final String PROCESSING_STEP = "PROCESSING_STEP";

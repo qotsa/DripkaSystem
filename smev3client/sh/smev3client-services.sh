@@ -60,6 +60,7 @@ case $operation in
         docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name curator       172.31.191.101:8123/curator:1.0
         docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name cadvisor      -p 8081:8081 --mount type=bind,source=/../,destination=/rootfs:ro --mount type=bind,source=/var/run,destination=/var/run:rw --mount type=bind,source=/sys,destination=/sys:ro --mount type=bind,source=/var/lib/docker/,destination=/var/lib/docker:ro 172.31.191.101:8123/cadvisor:1.0 -port=8081
         docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name kibana        -p 5601:5601 --env "--max-old-space-size=250" 172.31.191.101:8123/kibana:1.0
+        docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name grafana       -p 3000:3000 172.31.191.101:8123/grafana:1.0
 
         sleep 1
         log1 "END of infrastructure services section"

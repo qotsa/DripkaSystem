@@ -72,6 +72,9 @@
             <build>
                 <filters><filter>${env.path}/test.properties</filter></filters>
             </build>
+            <properties>
+                <docker.image.prefix>172.31.191.101:8123</docker.image.prefix>
+            </properties>
         </profile>
 
         <profile>

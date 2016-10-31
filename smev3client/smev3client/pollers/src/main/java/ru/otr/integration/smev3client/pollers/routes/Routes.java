@@ -1,5 +1,6 @@
 package ru.otr.integration.smev3client.pollers.routes;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.processor.idempotent.hazelcast.HazelcastIdempotentRepository;
 import org.apache.camel.spring.SpringRouteBuilder;
@@ -34,6 +35,11 @@ public class Routes extends SpringRouteBuilder {
                         .when().xpath("//*:GetRequestResponse[not(node())]") // if response is empty then stop
                         .stop()
                     .otherwise()
+                        .idempotentConsumer(xpath("//*:MessageMetadata/*:MessageId").resultType(String.class), repository).skipDuplicate(false)
+                        .filter(exchangeProperty(Exchange.DUPLICATE_MESSAGE).isEqualTo(true))
+                            .to("activemq:queue:DuplicatesQueue")
+                            .stop()
+                        .end()
                         .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}")
                         .log("pong")
                     .end()
@@ -41,6 +47,7 @@ public class Routes extends SpringRouteBuilder {
 
         /*from("scheduler://foo1?initialDelay=60s&delay=60s").routeId("GetResponsePoller")
             .transacted()
+            .log("ping")
             .to("freemarker:templates/GetResponseRequest.ftl")
             .to("{{routes.smev3adapter}}")
             .choice()
@@ -51,12 +58,19 @@ public class Routes extends SpringRouteBuilder {
                         .when().xpath("//*:GetResponseResponse[not(node())]") // if response is empty then stop
                             .stop()
                         .otherwise()
+                            .idempotentConsumer(xpath("//*:MessageMetadata/*:MessageId").resultType(String.class), repository).skipDuplicate(false)
+                            .filter(exchangeProperty(Exchange.DUPLICATE_MESSAGE).isEqualTo(true))
+                                .to("activemq:queue:DuplicatesQueue")
+                                .stop()
+                            .end()
                             .to("{{routes.GetResponsePoller.GetResponseResponseQueue}}")
+                            .log("pong")
                     .end()
             .end();
 
         from("scheduler://foo2?initialDelay=60s&delay=60s").routeId("GetStatusPoller")
             .transacted()
+            .log("ping")
             .to("freemarker:templates/GetStatusRequest.ftl")
             .to("{{routes.smev3adapter}}")
             .choice()
@@ -69,6 +83,7 @@ public class Routes extends SpringRouteBuilder {
                         .stop()
                     .end()
                     .to("{{routes.GetStatusPoller.GetStatusResponseQueue}}")
+                    .log("pong")
             .end();*/
     }
 }

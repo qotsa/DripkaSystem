@@ -25,8 +25,7 @@ routes:
   Vis2Smev:
     inbound: seda:vis2smev.inbound
     preprocessor:
-      SendRequestResponseQueue: seda:queue:Vis2Smev_preprocessor_SendRequestResponseQueue
-      SendResponseResponseQueue: seda:queue:Vis2Smev_preprocessor_SendResponseResponseQueue
+      inboundQueue: seda:queue:Vis2Smev_preprocessor_inboundQueue
     postprocessor:
       inbound: seda:queue:Vis2Smev_postprocessor_inbound
   metadata:

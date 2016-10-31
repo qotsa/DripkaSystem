@@ -42,8 +42,7 @@ routes:
   Vis2Smev:
     inbound: ${pushers.routes.vis2smev.inbound}
     preprocessor:
-      SendRequestResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendRequestResponseQueue}
-      SendResponseResponseQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound.SendResponseResponseQueue}
+      inboundQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound}
     postprocessor:
       inbound: ${smev3core.routes.Vis2Smev.postprocessor.inbound}
   slipEndpoints:

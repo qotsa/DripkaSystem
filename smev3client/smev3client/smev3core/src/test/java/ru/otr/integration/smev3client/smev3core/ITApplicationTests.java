@@ -48,12 +48,6 @@ public class ITApplicationTests {
     @EndpointInject(uri = "{{routes.Vis2Smev.inbound}}")
     protected ProducerTemplate vis2SmevInbound;
 
-    @EndpointInject(uri = "{{routes.Vis2Smev.preprocessor.SendRequestResponseQueue}}")
-    protected ProducerTemplate vis2SmevPreprocessorSendRequestResponseQueue;
-
-    @EndpointInject(uri = "{{routes.Vis2Smev.preprocessor.SendResponseResponseQueue}}")
-    protected ProducerTemplate vis2SmevPreprocessorSendResponseResponseQueue;
-
     @EndpointInject(uri = "{{routes.replication}}")
     protected MockEndpoint replicationMock;
 

@@ -6,6 +6,7 @@ log() {
 
 # create swarm master
 log "Creating Swarm token"
+#--engine-insecure-registry
 docker-machine create -d virtualbox master
 
 eval "$(docker-machine env master)"

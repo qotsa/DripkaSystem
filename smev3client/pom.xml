@@ -23,7 +23,7 @@
     <properties>
         <docker.image.version>1.0</docker.image.version>
         <docker.image.prefix>localhost:5000</docker.image.prefix>
-        <docker.useConfig>false</docker.useConfig>
+        <docker.useConfigFile>false</docker.useConfigFile>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -75,7 +75,7 @@
             </build>
             <properties>
                 <docker.image.prefix>172.31.191.101:8123</docker.image.prefix>
-                <docker.useConfig>true</docker.useConfig>
+                <docker.useConfigFile>true</docker.useConfigFile>
             </properties>
         </profile>
 
@@ -498,7 +498,7 @@
                     <configuration>
                         <dockerDirectory>${project.build.directory}/classes/docker</dockerDirectory>
                         <forceTags>true</forceTags>
-                        <useConfigFile>${docker.useConfig}</useConfigFile>
+                        <useConfigFile>${docker.useConfigFile}</useConfigFile>
                         <imageTags>
                             <imageTag>${docker.image.version}</imageTag>
                             <imageTag>latest</imageTag>

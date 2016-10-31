@@ -119,7 +119,7 @@
 				<configuration>
 					<dockerDirectory>${project.build.directory}/classes/docker</dockerDirectory>
 					<forceTags>true</forceTags>
-					<useConfigFile>${docker.useConfig}</useConfigFile>
+					<useConfigFile>${docker.useConfigFile}</useConfigFile>
 					<imageTags>
 						<imageTag>${docker.image.version}</imageTag>
 						<imageTag>latest</imageTag>

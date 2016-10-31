@@ -129,6 +129,7 @@
                 <configuration>
                     <dockerDirectory>${project.basedir}</dockerDirectory>
                     <forceTags>true</forceTags>
+                    <useConfigFile>${docker.useConfig}</useConfigFile>
                     <imageTags>
                         <imageTag>${docker.image.version}</imageTag>
                         <imageTag>latest</imageTag>

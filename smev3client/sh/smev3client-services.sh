@@ -17,7 +17,7 @@ echoProgress() {
     echo -ne '\n'
 }
 
-SERVICE_PARAMS_COMMON="--network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth"
+SERVICE_PARAMS_COMMON="--network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth --restart-condition none"
 SERVICE_CONSTRAINTS="--constraint node.labels.nodeType==worker"
 
 operation=${1}

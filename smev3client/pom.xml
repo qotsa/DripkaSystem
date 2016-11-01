@@ -23,7 +23,7 @@
     <properties>
         <docker.image.version>1.0</docker.image.version>
         <docker.image.prefix>localhost:5000</docker.image.prefix>
-        <docker.useConfigFile>false</docker.useConfigFile>
+        <docker.useConfigFile>true</docker.useConfigFile>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

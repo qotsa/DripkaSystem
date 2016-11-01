@@ -45,21 +45,21 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  ftpsmev:
-    image: ${docker.image.prefix}/ftpsmev:${docker.image.version}
-    restart: never
-    environment:
-      PUBLICHOST: "ftpsmev"
-    volumes:
-      - ftpSmevData:/home/ftpusers
-      - ftpSmevUsers:/etc/pure-ftpd/users
-    ports:
-      - 3333:3333
-      - 30010-30019:30010-30019
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
+#  ftpsmev:
+#    image: ${docker.image.prefix}/ftpsmev:${docker.image.version}
+#    restart: never
+#    environment:
+#      PUBLICHOST: "ftpsmev"
+#    volumes:
+#      - ftpSmevData:/home/ftpusers
+#      - ftpSmevUsers:/etc/pure-ftpd/users
+#    ports:
+#      - 3333:3333
+#      - 30010-30019:30010-30019
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
 
   postgresql:
     image: ${docker.image.prefix}/postgresql:${docker.image.version}
@@ -255,15 +255,17 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  smev3mock2:
-    image: ${docker.image.prefix}/smev3mock2:${docker.image.version}
-    restart: always
-    ports:
-      ${smev3mock2.docker.compose.ports}
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
+#  smev3mock2:
+#    image: ${docker.image.prefix}/smev3mock2:${docker.image.version}
+#    restart: always
+#    ports:
+#      ${smev3mock2.docker.compose.ports}
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
+
+
 
 # VOLUMES
 

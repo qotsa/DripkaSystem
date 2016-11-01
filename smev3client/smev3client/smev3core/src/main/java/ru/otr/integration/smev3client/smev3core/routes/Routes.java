@@ -1,6 +1,5 @@
 package ru.otr.integration.smev3client.smev3core.routes;
 
-import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.apache.camel.util.toolbox.AggregationStrategies;
 import org.springframework.stereotype.Component;
@@ -11,9 +10,6 @@ public class Routes extends SpringRouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        Namespaces ns = new Namespaces("bas", "http://otr.ru/irs/services/message-exchange/types/basic")
-                .add("typ2", "http://otr.ru/irs/services/message-exchange/types");
-
         // SMEV => VIS
 
         from("{{routes.Smev2Vis.preprocessor.GetRequestResponseQueue}}").routeId("GetRequestResponse")
@@ -26,7 +22,7 @@ public class Routes extends SpringRouteBuilder {
 
         from("direct:Smev2Vis_preprocessor").routeId("Smev2VisPreprocessor")
             .choice()
-                .when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
+                .when(xpath("//*:FSAttachmentsList/*:FSAttachment"))
                     .to("{{routes.replication}}")
                 .otherwise()
                     .setHeader("messageReplicationAndVerification", simple("OK"))
@@ -46,7 +42,7 @@ public class Routes extends SpringRouteBuilder {
                 .to("{{routes.log}}")
             .end()
             .transacted()
-            .setHeader("recipient").xpath("//typ2:MessageMetadata/typ2:Recipient/typ2:Mnemonic/text()", String.class, ns)
+            .setHeader("recipient").xpath("//*:MessageMetadata/*:Recipient/*:Mnemonic/text()", String.class)
             .choice()
                 .when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
                     .to("{{routes.log}}")
@@ -63,19 +59,15 @@ public class Routes extends SpringRouteBuilder {
         from("{{routes.Vis2Smev.preprocessor.inboundQueue}}").routeId("Vis2SmevPreprocessor")
             .transacted()
             .choice()
-                .when(ns.xpath("//bas:FSAttachmentsList/bas:FSAttachment"))
+                .when(xpath("//*:FSAttachmentsList/*:FSAttachment"))
                     .to("{{routes.replication}}")
                 .otherwise()
                     .to("direct:Vis2Smev_postprocessor")
             .end();
 
-        from("direct:Vis2Smev_postprocessor").to("{{routes.Vis2Smev.postprocessor.inbound}}");
-
-        from("{{routes.Vis2Smev.postprocessor.inbound}}")
-            .transacted()
-            .routeId("Vis2SmevPostprocessor")
+        from("direct:Vis2Smev_postprocessor").routeId("Vis2SmevPostprocessor")
             .to("{{routes.log}}")
-            .to("{{routes.Vis2Smev.inbound}}");
+            .to("{{routes.Vis2Smev.pushers}}");
 
         // Ack
 

@@ -39,32 +39,11 @@ public class ITApplicationTests {
     @Value("classpath:RequestBodyNoAttachStub.xml")
     private Resource requestBodyNoAttachStub;
 
-    @EndpointInject(uri = "{{routes.Smev2Vis.preprocessor.GetRequestResponseQueue}}")
-    protected ProducerTemplate smev2VisPreprocessorGetRequestResponseQueue;
-
-    @EndpointInject(uri = "{{routes.Smev2Vis.preprocessor.GetResponseResponseQueue}}")
-    protected ProducerTemplate smev2VisPreprocessorGetResponseResponseQueue;
-
-    @EndpointInject(uri = "{{routes.Vis2Smev.inbound}}")
-    protected ProducerTemplate vis2SmevInbound;
-
     @EndpointInject(uri = "{{routes.replication}}")
     protected MockEndpoint replicationMock;
 
     @EndpointInject(uri = "{{routes.replication}}")
     protected ProducerTemplate replication;
-
-    @EndpointInject(uri = "{{routes.log}}")
-    protected MockEndpoint logMock;
-
-    @EndpointInject(uri = "{{routes.metadata.STUB}}")
-    protected MockEndpoint metadataSTUBMock;
-
-    @EndpointInject(uri = "{{routes.metadata.UFOS}}")
-    protected MockEndpoint metadataUFOSMock;
-
-    //@EndpointInject(uri = "{{routes.Smev2Vis.GetStatusResponseQueue}}")
-    //protected MockEndpoint smev2VisGetStatusResponseQueueMock;
 
     @Test
     public void testRoutes() throws Exception {

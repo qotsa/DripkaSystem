@@ -64,8 +64,8 @@ case $operation in
 
         sleep 1
         log1 "END of infrastructure services section"
-        sleep 1
 
+        sleep 1
         log1 "Spring cloud infrastructure services section"
         echoProgress
 
@@ -92,6 +92,59 @@ case $operation in
         sleep 1
         log1 "THE END"
         ;;
+
+    scale_down)
+        printf "Scaling down services and infrastructure\n"
+
+        docker service scale activemq=0
+        docker service scale ftp=0
+        docker service scale ftpsmev=0
+        docker service scale postgresql=0
+        docker service scale elasticsearch=0
+        docker service scale logstash=0
+        docker service scale curator=0
+        docker service scale cadvisor=0
+        docker service scale kibana=0
+        docker service scale grafana=0
+
+        docker service scale eureka=0
+        docker service scale configserver=0
+        docker service scale smev3core=0
+        docker service scale smev3adapter=0
+        docker service scale ufosadapter=0
+        docker service scale replication=0
+        docker service scale pollers=0
+        docker service scale pushers=0
+        docker service scale smev3mock2=0
+        docker service scale bpmengine=0
+        ;;
+
+    scale_up)
+        printf "Scaling up services and infrastructure\n"
+
+        docker service scale activemq=1
+        docker service scale ftp=1
+        docker service scale ftpsmev=1
+        docker service scale postgresql=1
+        docker service scale elasticsearch=1
+        docker service scale logstash=1
+        docker service scale curator=1
+        docker service scale cadvisor=1
+        docker service scale kibana=1
+        docker service scale grafana=1
+
+        docker service scale eureka=1
+        docker service scale configserver=1
+        docker service scale smev3core=1
+        docker service scale smev3adapter=1
+        docker service scale ufosadapter=1
+        docker service scale replication=1
+        docker service scale pollers=0
+        docker service scale pushers=1
+        docker service scale smev3mock2=1
+        docker service scale bpmengine=1
+        ;;
+
     *)
         printf "Usage: $(basename $BASH_SOURCE) <command> args...\n"
         printf "\n"

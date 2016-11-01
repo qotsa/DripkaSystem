@@ -23,11 +23,9 @@ routes:
       inbound: seda:queue:Smev2Vis_Smev2Vis_postprocessor_inbound
     GetStatusResponseQueue: seda:queue:Smev2Vis_GetStatusResponseQueue
   Vis2Smev:
-    inbound: seda:vis2smev.inbound
+    pushers: seda:vis2smev.inbound
     preprocessor:
       inboundQueue: seda:queue:Vis2Smev_preprocessor_inboundQueue
-    postprocessor:
-      inbound: seda:queue:Vis2Smev_postprocessor_inbound
   metadata:
     STUB: mock:seda:queue:STUB
     UFOS: mock:seda:queue:UFOS

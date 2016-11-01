@@ -22,6 +22,10 @@ IMAGES_VERSION=1.0
 SERVICE_PARAMS_COMMON="--network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth --restart-condition none"
 SERVICE_CONSTRAINTS="--constraint node.labels.nodeType==worker"
 
+SERVICES_INFRA=("activemq" "ftp" "ftpsmev" "postgresql" "elasticsearch" "logstash" "curator" "cadvisor" "kibana" "grafana")
+#SERVICES=("eureka" "configserver" "smev3core" "smev3adapter" "ufosadapter" "replication" "pollers" "pushers" "smev3mock2" "bpmengine")
+SERVICES=("eureka" "configserver" "smev3core" "smev3adapter" "ufosadapter" "replication" "pushers" "smev3mock2" "bpmengine")
+
 operation=${1}
 shift
 
@@ -77,7 +81,7 @@ case $operation in
         docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name smev3adapter -p 8090:8090 ${REGISTRY}/smev3adapter:${IMAGES_VERSION}
         docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name ufosadapter  -p 8094:8094 ${REGISTRY}/ufosadapter:${IMAGES_VERSION}
         docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name replication  -p 8095:8095 ${REGISTRY}/replication:${IMAGES_VERSION}
-        docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name pollers      -p 8092:8092 -p 5701:5701 ${REGISTRY}/pollers:${IMAGES_VERSION}
+        #docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name pollers      -p 8092:8092 -p 5701:5701 ${REGISTRY}/pollers:${IMAGES_VERSION}
         docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name pushers      -p 8096:8096 ${REGISTRY}/pushers:${IMAGES_VERSION}
         docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name smev3mock2   -p 8091:8091 ${REGISTRY}/smev3mock2:${IMAGES_VERSION}
         docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name bpmengine    -p 8098:8098 ${REGISTRY}/bpmengine:${IMAGES_VERSION}
@@ -98,79 +102,109 @@ case $operation in
     pull)
         printf "Pulling images\n"
 
-        docker pull ${REGISTRY}/activemq:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/ftp:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/ftpsmev:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/postgresql:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/elasticsearch:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/logstash:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/curator:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/cadvisor:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/kibana:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/grafana:${IMAGES_VERSION}
+        for service in "${SERVICES_INFRA[@]}"
+        do
+           docker pull ${REGISTRY}/${service}:${IMAGES_VERSION}
+        done
 
-        docker pull ${REGISTRY}/eureka:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/configserver:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/smev3core:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/smev3adapter:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/ufosadapter:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/replication:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/pollers:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/pushers:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/smev3mock2:${IMAGES_VERSION}
-        docker pull ${REGISTRY}/bpmengine:${IMAGES_VERSION}
+        for service in "${SERVICES[@]}"
+        do
+           docker pull ${REGISTRY}/${service}:${IMAGES_VERSION}
+        done
+
+        #docker pull ${REGISTRY}/activemq:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/ftp:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/ftpsmev:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/postgresql:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/elasticsearch:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/logstash:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/curator:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/cadvisor:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/kibana:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/grafana:${IMAGES_VERSION}
+
+        #docker pull ${REGISTRY}/eureka:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/configserver:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/smev3core:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/smev3adapter:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/ufosadapter:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/replication:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/pollers:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/pushers:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/smev3mock2:${IMAGES_VERSION}
+        #docker pull ${REGISTRY}/bpmengine:${IMAGES_VERSION}
         ;;
 
     scale_down)
         printf "Scaling down services and infrastructure\n"
 
-        docker service scale activemq=0
-        docker service scale ftp=0
-        docker service scale ftpsmev=0
-        docker service scale postgresql=0
-        docker service scale elasticsearch=0
-        docker service scale logstash=0
-        docker service scale curator=0
-        docker service scale cadvisor=0
-        docker service scale kibana=0
-        docker service scale grafana=0
+        for service in "${SERVICES_INFRA[@]}"
+        do
+           docker service scale ${service}=0
+        done
 
-        docker service scale eureka=0
-        docker service scale configserver=0
-        docker service scale smev3core=0
-        docker service scale smev3adapter=0
-        docker service scale ufosadapter=0
-        docker service scale replication=0
-        docker service scale pollers=0
-        docker service scale pushers=0
-        docker service scale smev3mock2=0
-        docker service scale bpmengine=0
+        for service in "${SERVICES[@]}"
+        do
+           docker service scale ${service}=0
+        done
+
+        #docker service scale activemq=0
+        #docker service scale ftp=0
+        #docker service scale ftpsmev=0
+        #docker service scale postgresql=0
+        #docker service scale elasticsearch=0
+        #docker service scale logstash=0
+        #docker service scale curator=0
+        #docker service scale cadvisor=0
+        #docker service scale kibana=0
+        #docker service scale grafana=0
+
+        #docker service scale eureka=0
+        #docker service scale configserver=0
+        #docker service scale smev3core=0
+        #docker service scale smev3adapter=0
+        #docker service scale ufosadapter=0
+        #docker service scale replication=0
+        #docker service scale pollers=0
+        #docker service scale pushers=0
+        #docker service scale smev3mock2=0
+        #docker service scale bpmengine=0
         ;;
 
     scale_up)
         printf "Scaling up services and infrastructure\n"
 
-        docker service scale activemq=1
-        docker service scale ftp=1
-        docker service scale ftpsmev=1
-        docker service scale postgresql=1
-        docker service scale elasticsearch=1
-        docker service scale logstash=1
-        docker service scale curator=1
-        docker service scale cadvisor=1
-        docker service scale kibana=1
-        docker service scale grafana=1
+        for service in "${SERVICES_INFRA[@]}"
+        do
+           docker service scale ${service}=1
+        done
 
-        docker service scale eureka=1
-        docker service scale configserver=1
-        docker service scale smev3core=1
-        docker service scale smev3adapter=1
-        docker service scale ufosadapter=1
-        docker service scale replication=1
-        docker service scale pollers=0
-        docker service scale pushers=1
-        docker service scale smev3mock2=1
-        docker service scale bpmengine=1
+        for service in "${SERVICES[@]}"
+        do
+           docker service scale ${service}=1
+        done
+
+        #docker service scale activemq=1
+        #docker service scale ftp=1
+        #docker service scale ftpsmev=1
+        #docker service scale postgresql=1
+        #docker service scale elasticsearch=1
+        #docker service scale logstash=1
+        #docker service scale curator=1
+        #docker service scale cadvisor=1
+        #docker service scale kibana=1
+        #docker service scale grafana=1
+
+        #docker service scale eureka=1
+        #docker service scale configserver=1
+        #docker service scale smev3core=1
+        #docker service scale smev3adapter=1
+        #docker service scale ufosadapter=1
+        #docker service scale replication=1
+        #docker service scale pollers=0
+        #docker service scale pushers=1
+        #docker service scale smev3mock2=1
+        #docker service scale bpmengine=1
         ;;
 
     *)

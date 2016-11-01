@@ -80,7 +80,7 @@ case $operation in
 
         for service in "${!SERVICES_INFRA[@]}"
         do
-           echo docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name ${service} ${SERVICES_INFRA[${service}]} ${REGISTRY}/${service}:${IMAGES_VERSION}
+           docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name ${service} ${SERVICES_INFRA[${service}]} ${REGISTRY}/${service}:${IMAGES_VERSION}
         done
 
         sleep 1
@@ -92,7 +92,7 @@ case $operation in
 
         for service in "${!SERVICES[@]}"
         do
-           echo docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name ${service} ${SERVICES[${service}]} ${REGISTRY}/${service}:${IMAGES_VERSION}
+           docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name ${service} ${SERVICES[${service}]} ${REGISTRY}/${service}:${IMAGES_VERSION}
         done
 
         echoProgress

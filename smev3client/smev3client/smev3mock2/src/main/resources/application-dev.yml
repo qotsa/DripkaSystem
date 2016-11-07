@@ -5,10 +5,19 @@ spring:
       secret: ${devtools.secret}
   application:
     name: smev3mock2
+  activemq:
+    brokerUrl: ${activemq.url}
+    inMemory: false
+    user: ${activemq.username}
+    password: ${activemq.password}
+    pool:
+      enabled: true
+      configuration:
+        max-connections: 100
+        maximum-active-session-per-connection: 10
 
 server:
    port: ${smev3mock2.http.port}
-
 
 camel:
   springboot:

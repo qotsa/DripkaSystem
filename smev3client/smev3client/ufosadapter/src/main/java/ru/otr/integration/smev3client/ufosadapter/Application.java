@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication
 @EnableConfigurationProperties
 //@EnableAspectJAutoProxy
-@EnableEurekaClient
+//@EnableEurekaClient
 public class Application {
 
     public static void main(String[] args) {

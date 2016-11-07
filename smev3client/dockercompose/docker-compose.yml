@@ -4,6 +4,7 @@ services:
   activemq:
     image: ${docker.image.prefix}/activemq:${docker.image.version}
     restart: never
+    mem_limit: 2048m
     environment:
       ACTIVEMQ_MIN_MEMORY: "512"
       ACTIVEMQ_MAX_MEMORY: "2048"
@@ -18,6 +19,7 @@ services:
       ACTIVEMQ_JMX_LOGIN: "jmx"
       ACTIVEMQ_JMX_PASSWORD: "jmx"
       ACTIVEMQ_ENABLED_SCHEDULER: "true"
+      ACTIVEMQ_LOGLEVEL: "DEBUG"
 #      ACTIVEMQ_STATIC_TOPICS: "topic1;topic2;topic3"
 #      ACTIVEMQ_STATIC_QUEUES: "queue1;queue2;queue3"
     ports:
@@ -32,6 +34,7 @@ services:
   ftp:
     image: ${docker.image.prefix}/ftp:${docker.image.version}
     restart: never
+    mem_limit: 256m
     environment:
       PUBLICHOST: "ftp"
     volumes:
@@ -48,6 +51,7 @@ services:
   ftpsmev:
     image: ${docker.image.prefix}/ftpsmev:${docker.image.version}
     restart: never
+    mem_limit: 256m
     environment:
       PUBLICHOST: "ftpsmev"
     volumes:
@@ -64,6 +68,7 @@ services:
   postgresql:
     image: ${docker.image.prefix}/postgresql:${docker.image.version}
     restart: never
+    mem_limit: 256m
     volumes:
       - postgresData:/var/lib/postgresql/data
     ports:
@@ -78,6 +83,7 @@ services:
   elasticsearch:
     image: ${docker.image.prefix}/elasticsearch:${docker.image.version}
     restart: never
+    mem_limit: 512m
     volumes:
       - elasticsearchData:/usr/share/elasticsearch/data
     logging:
@@ -90,6 +96,7 @@ services:
   logstash:
     image: ${docker.image.prefix}/logstash:${docker.image.version}
     restart: never
+    mem_limit: 256m
     logging:
       options:
         max-size: "10m"
@@ -103,6 +110,7 @@ services:
   curator:
     image: ${docker.image.prefix}/curator:${docker.image.version}
     restart: never
+    mem_limit: 256m
     logging:
       options:
         max-size: "10m"
@@ -112,6 +120,8 @@ services:
 
 #  influxdb:
 #    image: tutum/influxdb:latest
+#    restart: never
+#    mem_limit: 256m
 #    ports:
 #      - 8083:8083
 #      - 8086:8086
@@ -124,6 +134,7 @@ services:
   cadvisor:
     image: ${docker.image.prefix}/cadvisor:${docker.image.version}
     restart: never
+    mem_limit: 256m
     ports:
       - 8081:8081
     volumes:
@@ -142,6 +153,7 @@ services:
   kibana:
     image: ${docker.image.prefix}/kibana:${docker.image.version}
     restart: never
+    mem_limit: 256m
     environment:
       NODE_OPTIONS: "--max-old-space-size=250"
     ports:
@@ -154,6 +166,7 @@ services:
   grafana:
     image: ${docker.image.prefix}/grafana:${docker.image.version}
     restart: never
+    mem_limit: 256m
     ports:
       - 3000:3000
     volumes:
@@ -168,6 +181,7 @@ services:
   eureka:
     image: ${docker.image.prefix}/eureka:${docker.image.version}
     restart: ${eureka.docker.compose.restart}
+    mem_limit: 512m
     ports:
       ${eureka.docker.compose.ports}${debug.port.compose}
     logging:
@@ -178,6 +192,7 @@ services:
   configserver:
     image: ${docker.image.prefix}/configserver:${docker.image.version}
     restart: ${configserver.docker.compose.restart}
+    mem_limit: 512m
     ports:
       ${configserver.docker.compose.ports}
     logging:
@@ -188,6 +203,7 @@ services:
   smev3core:
     image: ${docker.image.prefix}/smev3core:${docker.image.version}
     restart: ${smev3core.docker.compose.restart}
+    mem_limit: 1536m
     ports:
       ${smev3core.docker.compose.ports}${debug.port.compose}
     logging:
@@ -198,6 +214,7 @@ services:
   smev3adapter:
     image: ${docker.image.prefix}/smev3adapter:${docker.image.version}
     restart: ${smev3adapter.docker.compose.restart}
+    mem_limit: 1536m
     ports:
       ${smev3adapter.docker.compose.ports}${debug.port.compose}
     logging:
@@ -208,6 +225,7 @@ services:
   ufosadapter:
     image: ${docker.image.prefix}/ufosadapter:${docker.image.version}
     restart: ${ufosadapter.docker.compose.restart}
+    mem_limit: 1024m
     ports:
       ${ufosadapter.docker.compose.ports}${debug.port.compose}
     logging:
@@ -218,6 +236,7 @@ services:
   replication:
     image: ${docker.image.prefix}/replication:${docker.image.version}
     restart: ${replication.docker.compose.restart}
+    mem_limit: 1024m
     ports:
       ${replication.docker.compose.ports}${debug.port.compose}
     logging:
@@ -228,6 +247,7 @@ services:
   pollers:
     image: ${docker.image.prefix}/pollers:${docker.image.version}
     restart: ${pollers.docker.compose.restart}
+    mem_limit: 1536m
     ports:
       ${pollers.docker.compose.ports}${debug.port.compose}
     logging:
@@ -238,6 +258,7 @@ services:
   pushers:
     image: ${docker.image.prefix}/pushers:${docker.image.version}
     restart: ${pushers.docker.compose.restart}
+    mem_limit: 1024m
     ports:
       ${pushers.docker.compose.ports}${debug.port.compose}
     logging:
@@ -248,6 +269,7 @@ services:
   bpmengine:
     image: ${docker.image.prefix}/bpmengine:${docker.image.version}
     restart: ${bpmengine.docker.compose.restart}
+    mem_limit: 1024m
     ports:
       ${bpmengine.docker.compose.ports}${debug.port.compose}
     logging:
@@ -257,7 +279,8 @@ services:
 
   smev3mock2:
     image: ${docker.image.prefix}/smev3mock2:${docker.image.version}
-    restart: always
+    restart: never
+    mem_limit: 1024m
     ports:
       ${smev3mock2.docker.compose.ports}
     logging:

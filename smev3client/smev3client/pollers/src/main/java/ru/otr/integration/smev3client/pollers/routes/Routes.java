@@ -19,10 +19,7 @@ public class Routes extends SpringRouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        Namespaces ns2 = new Namespaces("ns2", "http://otr.ru/irs/services/message-exchange/types");
-
-        from("scheduler://foo?initialDelay=60s&delay=30s").routeId("GetRequestPoller")
-        //from("quartz2://myTimer?trigger.repeatInterval=500&trigger.repeatCount=-1").routeId("GetRequestPoller")
+        from("scheduler://foo?initialDelay=60s&delay=5s").routeId("GetRequestPoller")
             .transacted()
             .log("ping")
             .to("freemarker:templates/GetRequestRequest.ftl")
@@ -35,11 +32,11 @@ public class Routes extends SpringRouteBuilder {
                         .when().xpath("//*:GetRequestResponse[not(node())]") // if response is empty then stop
                         .stop()
                     .otherwise()
-                        .idempotentConsumer(xpath("//*:MessageMetadata/*:MessageId").resultType(String.class), repository).skipDuplicate(false)
+                        /*.idempotentConsumer(xpath("//*:MessageMetadata/*:MessageId").resultType(String.class), repository).skipDuplicate(false)
                         .filter(exchangeProperty(Exchange.DUPLICATE_MESSAGE).isEqualTo(true))
                             .to("activemq:queue:DuplicatesQueue")
                             .stop()
-                        .end()
+                        .end()*/
                         .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}")
                         .log("pong")
                     .end()
@@ -77,7 +74,7 @@ public class Routes extends SpringRouteBuilder {
                 .when().xpath("//*:GetStatusResponse[not(node())]") // if response is empty then stop
                     .stop()
                 .otherwise()
-                    .idempotentConsumer(xpath("//ns2:OriginalMessageId").resultType(String.class).namespaces(ns2), repository).skipDuplicate(false)
+                    .idempotentConsumer(xpath("//*:OriginalMessageId").resultType(String.class), repository).skipDuplicate(false)
                     .filter(exchangeProperty(Exchange.DUPLICATE_MESSAGE).isEqualTo(true))
                         .to("activemq:queue:DuplicatesQueue")
                         .stop()

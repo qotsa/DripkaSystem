@@ -76,7 +76,7 @@ public class Routes extends SpringRouteBuilder {
             .log("ACK")
             .setHeader("businessMessageId", xpath("//*:MessageMetadata/*:MessageId/text()", String.class))
             .to("freemarker:templates/AckRequest.ftl")
-            .to("{{routes.smev3adapter}}")
+            //.to("{{routes.smev3adapter}}")
             .choice().when(header("ERROR_MESSAGE"))
                 .throwException(new AckFailedException("Ack Failed"))
             .end();

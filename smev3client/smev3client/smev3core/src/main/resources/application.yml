@@ -9,6 +9,9 @@ spring:
     password: ${activemq.password}
     pool:
       enabled: true
+      configuration:
+        max-connections: 10
+        maximum-active-session-per-connection: 10
   devtools:
     remote:
       secret: ${devtools.secret}

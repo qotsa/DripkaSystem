@@ -59,7 +59,7 @@ services:
       - ftpSmevUsers:/etc/pure-ftpd/users
     ports:
       - 3333:3333
-      - 30050-30059:30050-30059
+      - 30050-30099:30050-30099
     logging:
       options:
         max-size: "10m"

@@ -20,7 +20,6 @@ public class Routes extends SpringRouteBuilder {
     @Override
     public void configure() throws Exception {
         from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=100").routeId("GetRequestPoller")
-        //from("timer://foo?fixedRate=true&repeatCount=1000&delay=60s&period=100").routeId("GetRequestPoller")
             .transacted()
             .log("ping")
             .to("freemarker:templates/GetRequestRequest.ftl")

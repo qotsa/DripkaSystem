@@ -4,7 +4,7 @@ services:
   activemq:
     image: ${docker.image.prefix}/activemq:${docker.image.version}
     restart: never
-    mem_limit: 2048m
+    mem_limit: 3072m
     environment:
       ACTIVEMQ_MIN_MEMORY: "512"
       ACTIVEMQ_MAX_MEMORY: "2048"
@@ -42,7 +42,7 @@ services:
       - ftpUsers:/etc/pure-ftpd/users
     ports:
       - 2021:2021
-      - 30000-30009:30000-30009
+      - 30000-30049:30000-30049
     logging:
       options:
         max-size: "10m"
@@ -59,7 +59,7 @@ services:
       - ftpSmevUsers:/etc/pure-ftpd/users
     ports:
       - 3333:3333
-      - 30010-30019:30010-30019
+      - 30050-30059:30050-30059
     logging:
       options:
         max-size: "10m"
@@ -68,7 +68,7 @@ services:
   postgresql:
     image: ${docker.image.prefix}/postgresql:${docker.image.version}
     restart: never
-    mem_limit: 256m
+    mem_limit: 512m
     volumes:
       - postgresData:/var/lib/postgresql/data
     ports:
@@ -83,7 +83,7 @@ services:
   elasticsearch:
     image: ${docker.image.prefix}/elasticsearch:${docker.image.version}
     restart: never
-    mem_limit: 512m
+    mem_limit: 1024m
     volumes:
       - elasticsearchData:/usr/share/elasticsearch/data
     logging:
@@ -96,7 +96,7 @@ services:
   logstash:
     image: ${docker.image.prefix}/logstash:${docker.image.version}
     restart: never
-    mem_limit: 256m
+    mem_limit: 512m
     logging:
       options:
         max-size: "10m"
@@ -181,7 +181,7 @@ services:
   eureka:
     image: ${docker.image.prefix}/eureka:${docker.image.version}
     restart: ${eureka.docker.compose.restart}
-    mem_limit: 512m
+    mem_limit: 1024m
     ports:
       ${eureka.docker.compose.ports}${debug.port.compose}
     logging:
@@ -192,7 +192,7 @@ services:
   configserver:
     image: ${docker.image.prefix}/configserver:${docker.image.version}
     restart: ${configserver.docker.compose.restart}
-    mem_limit: 512m
+    mem_limit: 1024m
     ports:
       ${configserver.docker.compose.ports}
     logging:
@@ -203,7 +203,7 @@ services:
   smev3core:
     image: ${docker.image.prefix}/smev3core:${docker.image.version}
     restart: ${smev3core.docker.compose.restart}
-    mem_limit: 1536m
+    mem_limit: 1024m
     ports:
       ${smev3core.docker.compose.ports}${debug.port.compose}
     logging:
@@ -214,7 +214,7 @@ services:
   smev3adapter:
     image: ${docker.image.prefix}/smev3adapter:${docker.image.version}
     restart: ${smev3adapter.docker.compose.restart}
-    mem_limit: 1536m
+    mem_limit: 1024m
     ports:
       ${smev3adapter.docker.compose.ports}${debug.port.compose}
     logging:
@@ -247,7 +247,7 @@ services:
   pollers:
     image: ${docker.image.prefix}/pollers:${docker.image.version}
     restart: ${pollers.docker.compose.restart}
-    mem_limit: 1536m
+    mem_limit: 1024m
     ports:
       ${pollers.docker.compose.ports}${debug.port.compose}
     logging:

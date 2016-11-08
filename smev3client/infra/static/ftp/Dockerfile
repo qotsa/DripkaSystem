@@ -5,4 +5,4 @@ RUN ((echo smev3clientpassword; echo smev3clientpassword) | pure-pw useradd smev
 
 CMD /usr/sbin/pure-ftpd -y 50:0 -c 50 -C 50 -l puredb:/etc/pure-ftpd/users/pureftpd.pdb -E -j -R -P $PUBLICHOST -S 2021 -p 30000:30009
 
-EXPOSE 2021 30000-30009
+EXPOSE 2021 30000-30049

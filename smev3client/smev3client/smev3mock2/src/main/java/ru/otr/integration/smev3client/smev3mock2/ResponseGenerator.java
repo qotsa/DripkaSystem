@@ -8,9 +8,7 @@ import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 
@@ -31,9 +29,9 @@ import java.util.*;
 
 
 @Component
-public class ResponseRandomizer {
+public class ResponseGenerator {
 
-    private final Logger logger = LoggerFactory.getLogger(ResponseRandomizer.class);
+    private final Logger logger = LoggerFactory.getLogger(ResponseGenerator.class);
 
     @Autowired
     Configuration configuration;
@@ -55,6 +53,10 @@ public class ResponseRandomizer {
 
     private RandomCollection<Template> responses;
 
+    Template ackResponse;
+
+
+
     @PostConstruct
     public void postConstructSetup() {
         logger.debug("Entering postConstructSetup()");
@@ -63,6 +65,7 @@ public class ResponseRandomizer {
             responses.add(1, configuration.getTemplate("GetRequestResponseFTPAttach.ftl"));
             responses.add(1, configuration.getTemplate("GetRequestResponseWithoutAttach.ftl"));
             responses.add(1, configuration.getTemplate("GetRequestResponseWithEmbeddedAttach.ftl"));
+            ackResponse = configuration.getTemplate("AckResponse.ftl");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,6 +115,10 @@ public class ResponseRandomizer {
         Template responseTemplate = responses.next();
         responseTemplate.process(modelRandomizer.getRandomizedModel(), sr);
         return sr.toString();
+    }
+
+    public String ackRequest() throws IOException, TemplateException {
+        return ackResponse.toString();
     }
 
     @Component

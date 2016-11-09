@@ -12,7 +12,6 @@ camel:
 
 routes:
   log: mock:log
-  nowhere: mock:nowhere
   smev3adapter: mock:smev3adapter
   GetRequestPoller:
     GetRequestResponseQueue: mock:GetRequestResponseQueue

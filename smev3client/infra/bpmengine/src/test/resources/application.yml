@@ -22,4 +22,3 @@ camel:
 
 routes:
   log: mock:log
-  nowhere: mock:nowhere

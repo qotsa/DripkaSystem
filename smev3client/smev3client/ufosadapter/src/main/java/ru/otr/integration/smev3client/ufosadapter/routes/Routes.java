@@ -12,6 +12,6 @@ public class Routes extends SpringRouteBuilder {
     @Override
     public void configure() throws Exception {
         from("{{routes.toUfos.outboundQueue}}").routeId("UfosEliminator")
-                .to("{{routes.nowhere}}");
+                .stop();
     }
 }

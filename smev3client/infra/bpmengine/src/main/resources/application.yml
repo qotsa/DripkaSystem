@@ -59,4 +59,3 @@ eureka:
 
 routes:
   log: ${camel.endpoint.logging}
-  nowhere: ${camel.endpoint.nowhere}

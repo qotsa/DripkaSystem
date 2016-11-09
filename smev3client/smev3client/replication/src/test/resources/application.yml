@@ -12,7 +12,6 @@ camel:
 
 routes:
   log: mock:log
-  nowhere: mock:nowhere
   replicationService:
     inboundQueue: seda:queue:replicationInboundQueue
     outboundQueue: mock:seda:queue:replicationOutboundQueue

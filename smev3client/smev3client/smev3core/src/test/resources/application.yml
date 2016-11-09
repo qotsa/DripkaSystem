@@ -16,7 +16,6 @@ eureka:
 
 routes:
   log: mock:log
-  nowhere: mock:nowhere
   Smev2Vis:
     preprocessor:
       GetRequestResponseQueue: seda:queue:Smev2Vis_Smev2Vis_preprocessor_GetRequestResponseQueue

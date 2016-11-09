@@ -12,7 +12,6 @@ camel:
 
 routes:
   log: mock:log
-  nowhere: mock:nowhere
   toUfos:
     inboundQueue: seda:toUfos.inbound
     outboundQueue: seda:toUfos.outbound

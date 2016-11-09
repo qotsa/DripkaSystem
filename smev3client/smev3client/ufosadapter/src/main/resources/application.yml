@@ -36,7 +36,6 @@ eureka:
 
 routes:
   log: ${camel.endpoint.logging}
-  nowhere: ${camel.endpoint.nowhere}
   toUfos:
     inboundQueue: ${ufosadapter.routes.toUfos.inbound}
     outboundQueue: ${ufosadapter.routes.toUfos.outbound}

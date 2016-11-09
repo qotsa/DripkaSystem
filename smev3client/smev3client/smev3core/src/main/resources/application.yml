@@ -35,6 +35,8 @@ eureka:
       defaultZone: http://eureka:${eureka.http.port}/eureka/
 
 routes:
+  log: ${camel.endpoint.logging}
+  nowhere: ${camel.endpoint.nowhere}
   Smev2Vis:
     preprocessor:
       GetRequestResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetRequestResponseQueue}
@@ -51,4 +53,3 @@ routes:
     UFOS: ${ufosadapter.routes.toUfos.inbound}
   smev3adapter: http://smev3adapter:${smev3adapter.http.port}/camel/request
   replication: ${replication.routes.replicationService.inbound.queue}
-  log: ${smev3core.routes.log}

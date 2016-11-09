@@ -9,6 +9,7 @@ spring:
     password: ${activemq.password}
     pool:
       enabled: true
+      max-connections: 10
   devtools:
     remote:
       secret: ${devtools.secret}
@@ -35,17 +36,10 @@ eureka:
       defaultZone: http://eureka:${eureka.http.port}/eureka/
 
 routes:
+  log: ${camel.endpoint.logging}
+  nowhere: ${camel.endpoint.nowhere}
   replicationService:
     inboundQueue: ${replication.routes.replicationService.inbound.queue}
     outboundQueue: ${smev3core.routes.Smev2Vis.postprocessor.inbound}
-  log: ${replication.routes.replicationService.log}
   ftp: ftp://ftp:${ftp.port}/replication?username=${ftp.username}&password=${ftp.password}&disconnect=true&passiveMode=true
-  smev:
-    #host: ${smev.ftp.host}
-    #port: ${smev.ftp.port}
-    #username: ${smev.ftp.username}
-    #password: ${smev.ftp.password}
-    host: ${smev3mock2.ftp.host}
-    port: ${smev3mock2.ftp.port}
-    username: ${smev3mock2.ftp.user}
-    password: ${smev3mock2.ftp.password}
+  smev: ftp://${smev3mock2.ftp.host}:${smev3mock2.ftp.port}

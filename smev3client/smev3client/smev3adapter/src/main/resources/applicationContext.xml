@@ -23,8 +23,8 @@
     <bean id="camelTracer" class="org.apache.camel.processor.interceptor.Tracer">
         <property name="formatter" ref="traceFormatter"/>
         <property name="enabled" value="true"/>
-        <property name="logLevel" value="${smev3adapter.logging.level.business}"/>
-        <property name="logName" value="ru.otr.integration.smev3client.tracer.${artifactId}"/>
+        <property name="logLevel" value="DEBUG"/>
+        <property name="logName" value="camel.tracer"/>
         <!--<property name="traceFilter"-->
         <property name="traceInterceptors" value="true"/>
         <property name="traceExceptions" value="true"/>
@@ -35,7 +35,7 @@
     <bean id="traceFormatter" class="org.apache.camel.processor.interceptor.DefaultTraceFormatter">
         <property name="breadCrumbLength" value="0"/>
         <property name="nodeLength" value="0"/>
-        <property name="showBreadCrumb" value="true"/>
+        <property name="showBreadCrumb" value="false"/>
         <property name="showNode" value="true"/>
         <property name="showExchangeId" value="false"/>
         <property name="showShortExchangeId" value="false"/>

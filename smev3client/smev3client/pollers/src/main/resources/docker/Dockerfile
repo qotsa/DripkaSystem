@@ -6,4 +6,4 @@ RUN sh -c 'touch /${artifactId}.jar'
 
 ENTRYPOINT [${jvm.args},"/${artifactId}.jar"]
 
-EXPOSE ${pollers.http.port} ${pollers.hazelcast.port} ${debug.port}
+EXPOSE ${pollers.http.port} ${pollers.hazelcast.port} ${debug.port} ${profile.port}

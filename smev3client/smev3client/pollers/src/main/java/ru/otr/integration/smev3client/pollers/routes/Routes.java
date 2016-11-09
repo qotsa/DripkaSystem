@@ -1,7 +1,7 @@
 package ru.otr.integration.smev3client.pollers.routes;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.builder.xml.Namespaces;
+import org.apache.camel.LoggingLevel;
+import org.apache.camel.component.scheduler.SchedulerComponent;
 import org.apache.camel.processor.idempotent.hazelcast.HazelcastIdempotentRepository;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,9 @@ public class Routes extends SpringRouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=100").routeId("GetRequestPoller")
+        from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=1000&scheduler.concurrentTasks=1").routeId("GetRequestPoller")
             .transacted()
-            .log("ping")
+            .log(LoggingLevel.DEBUG, "metrics", "ping")
             .to("freemarker:templates/GetRequestRequest.ftl")
             .to("{{routes.smev3adapter}}")
             .choice()
@@ -38,13 +38,13 @@ public class Routes extends SpringRouteBuilder {
                             .stop()
                         .end()*/
                         .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}")
-                        .log("pong")
+                        .log(LoggingLevel.DEBUG, "metrics", "pong")
                     .end()
             .end();
 
         /*from("scheduler://foo1?initialDelay=60s&delay=60s").routeId("GetResponsePoller")
             .transacted()
-            .log("ping")
+            .log(LoggingLevel.DEBUG, "metrics", "ping")
             .to("freemarker:templates/GetResponseRequest.ftl")
             .to("{{routes.smev3adapter}}")
             .choice()
@@ -61,13 +61,13 @@ public class Routes extends SpringRouteBuilder {
                                 .stop()
                             .end()
                             .to("{{routes.GetResponsePoller.GetResponseResponseQueue}}")
-                            .log("pong")
+                            .log(LoggingLevel.DEBUG, "metrics", "pong")
                     .end()
             .end();
 
         from("scheduler://foo2?initialDelay=60s&delay=60s").routeId("GetStatusPoller")
             .transacted()
-            .log("ping")
+            .log(LoggingLevel.DEBUG, "metrics", "ping")
             .to("freemarker:templates/GetStatusRequest.ftl")
             .to("{{routes.smev3adapter}}")
             .choice()
@@ -80,7 +80,7 @@ public class Routes extends SpringRouteBuilder {
                         .stop()
                     .end()
                     .to("{{routes.GetStatusPoller.GetStatusResponseQueue}}")
-                    .log("pong")
+                    .log(LoggingLevel.DEBUG, "metrics", "pong")
             .end();*/
     }
 }

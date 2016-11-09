@@ -6,11 +6,13 @@ spring:
 
 camel:
   springboot:
-    jmxEnabled: true
+    jmxEnabled: false
     allow-use-original-message: true
     stream-caching: false
 
 routes:
+  log: mock:log
+  nowhere: mock:nowhere
   smev3adapter: mock:smev3adapter
   GetRequestPoller:
     GetRequestResponseQueue: mock:GetRequestResponseQueue

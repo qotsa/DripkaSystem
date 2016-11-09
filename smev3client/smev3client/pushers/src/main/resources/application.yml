@@ -32,7 +32,8 @@ eureka:
       defaultZone: http://eureka:${eureka.http.port}/eureka/
 
 routes:
-  log: ${pushers.routes.log}
+  log: ${camel.endpoint.logging}
+  nowhere: ${camel.endpoint.nowhere}
   smev3adapter: http://smev3adapter:${smev3adapter.http.port}/camel/request
   vis2smev:
     inbound: ${pushers.routes.vis2smev.inbound}

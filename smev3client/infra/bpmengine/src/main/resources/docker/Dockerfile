@@ -5,4 +5,4 @@ RUN sh -c 'touch /${artifactId}.jar'
 
 ENTRYPOINT [${jvm.args}, "${artifactId}.jar"]
 
-EXPOSE ${bpmengine.http.port} ${debug.port}
+EXPOSE ${bpmengine.http.port} ${debug.port} ${profile.port}

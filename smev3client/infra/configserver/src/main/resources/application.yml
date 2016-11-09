@@ -1,21 +1,18 @@
+server:
+  port: ${configserver.http.port}
+
 spring:
   cloud:
     config:
       server:
         native:
           search-locations: classpath:/shared
-  profiles:
-     active: native
   application:
     name: configserver
-
-server:
-  port: ${configserver.http.port}
 
 security:
   user:
     password: ${configserver.password}
-
 
 eureka:
   instance:

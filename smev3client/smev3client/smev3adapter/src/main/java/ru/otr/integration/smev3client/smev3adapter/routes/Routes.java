@@ -20,12 +20,10 @@ public class Routes extends SpringRouteBuilder {
                 .to("{{routes.log}}")
             .end()
             .setHeader("Direction", simple(NamespaceSwapper.Direction.TO_SMEV))
-            .to("{{routes.log}}")
             .to("bean:namespaceSwapper")
             .to("bean:operationSetter")
             .to("cxf:bean:smevMessageExchangeService")
             .setHeader("Direction", simple(NamespaceSwapper.Direction.FROM_SMEV))
-            .to("bean:namespaceSwapper")
-            .to("{{routes.log}}");
+            .to("bean:namespaceSwapper");
     }
 }

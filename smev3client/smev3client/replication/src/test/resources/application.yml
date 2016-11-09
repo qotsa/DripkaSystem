@@ -6,13 +6,15 @@ spring:
 
 camel:
   springboot:
-    jmxEnabled: true
+    jmxEnabled: false
     allow-use-original-message: true
     stream-caching: false
 
 routes:
+  log: mock:log
+  nowhere: mock:nowhere
   replicationService:
-    inboundQueue:
-        seda:queue:replicationInboundQueue
-    outboundQueue:
-        mock:seda:queue:replicationOutboundQueue
+    inboundQueue: seda:queue:replicationInboundQueue
+    outboundQueue: mock:seda:queue:replicationOutboundQueue
+  ftp: mock:ftp
+  smev: mock:smev

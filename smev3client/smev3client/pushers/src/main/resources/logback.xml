@@ -18,21 +18,20 @@
                 <version/>
                 <logLevel/>
                 <loggerName/>
-
-                <pattern>
-                    <pattern>
-                        {
-                            "appName": "${artifactId}",
-                            "appVersion": "${version}"
-                        }
-                    </pattern>
-                </pattern>
-
                 <threadName/>
                 <message/>
                 <logstashMarkers/>
                 <arguments/>
                 <stackTrace/>
+                <tags/>
+                <pattern>
+                    <pattern>
+                        {
+                        "appName": "${artifactId}",
+                        "appVersion": "${version}"
+                        }
+                    </pattern>
+                </pattern>
             </providers>
         </encoder>
     </appender>
@@ -42,5 +41,18 @@
         <appender-ref ref="LOGSTASH"/>
     </logger>
 
-    <logger name="ru.otr.integration.smev3client" level="${pushers.logging.level.business}" additivity="true"/>
+    <logger name="ru.otr.integration.smev3client" level="${pushers.logging.level.business}" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOGSTASH"/>
+    </logger>
+
+    <logger name="camel.tracer" level="${pushers.logging.level.camel.tracer}" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOGSTASH"/>
+    </logger>
+
+    <logger name="metrics" level="${pushers.logging.level.metrics}" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOGSTASH"/>
+    </logger>
 </configuration>

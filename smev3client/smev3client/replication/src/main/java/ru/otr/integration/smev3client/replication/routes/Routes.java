@@ -1,5 +1,6 @@
 package ru.otr.integration.smev3client.replication.routes;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.apache.camel.spring.spi.TransactionErrorHandlerBuilder;
 import org.apache.camel.util.toolbox.AggregationStrategies;
@@ -26,30 +27,28 @@ public class Routes extends SpringRouteBuilder {
             .onException(FtpPollFailedException.class).useOriginalMessage()
                 .handled(true)
                 .setHeader("messageReplicationAndVerification", simple("FAIL"))
-                .to("{{routes.log}}")
                 .to("{{routes.replicationService.outboundQueue}}")
             .end()
             .transacted()
-            .log("ping")
+            .log(LoggingLevel.DEBUG, "metrics", "ping")
             .multicast().stopOnException()
                 .aggregationStrategy(AggregationStrategies.useOriginal()).aggregationStrategyMethodAllowNull()
                 .to("direct:replicate")
             .end()
             .setHeader("messageReplicationAndVerification", simple("OK"))
             .to("{{routes.replicationService.outboundQueue}}")
-            .log("pong");
+            .log(LoggingLevel.DEBUG, "metrics", "pong");
 
         from("direct:replicate").routeId("ftpReplication")
             .errorHandler(noErrorHandler())
             .setHeader("originalMessageId", simple("${id}"))
             .to("xslt:xslt/extract_attachments.xsl")
-            .to("{{routes.log}}")
             .split(xpath("//Attachments/Attachment")).stopOnException()
                 .setHeader("attachmentUuid", xpath("//uuid/text()", String.class))
                 .setHeader("attachmentFilename", xpath("//filename/text()", String.class))
                 .setHeader("attachmentUsername", xpath("//username/text()", String.class))
                 .setHeader("attachmentPassword", xpath("//password/text()", String.class))
-                .pollEnrich().simple("ftp://{{routes.smev.host}}:{{routes.smev.port}}?username=${headers.attachmentUsername}&password=${headers.attachmentPassword}&disconnect=true&passiveMode=true&fileName=${headers.attachmentFilename}&localWorkDirectory=/replication_cache/${headers.breadcrumbid}")
+                .pollEnrich().simple("{{routes.smev}}?username=${headers.attachmentUsername}&password=${headers.attachmentPassword}&disconnect=true&passiveMode=true&fileName=${headers.attachmentFilename}&localWorkDirectory=/replication_cache/${headers.breadcrumbid}")
                     .timeout(1000 * 60 * 60) // 1h is enough to download large file
                     .aggregationStrategy(new FtpPollingAggregationStrategy())
                     .aggregateOnException(false)

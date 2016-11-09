@@ -16,13 +16,10 @@ spring:
 
 camel:
   springboot:
-    jmxEnabled: true
+    jmxEnabled: false
     allow-use-original-message: true
     stream-caching: false
 
-eureka:
-  client:
-    enabled: false
-
 routes:
   log: mock:log
+  nowhere: mock:nowhere

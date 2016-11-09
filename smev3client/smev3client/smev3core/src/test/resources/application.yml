@@ -15,6 +15,8 @@ eureka:
     enabled: false
 
 routes:
+  log: mock:log
+  nowhere: mock:nowhere
   Smev2Vis:
     preprocessor:
       GetRequestResponseQueue: seda:queue:Smev2Vis_Smev2Vis_preprocessor_GetRequestResponseQueue
@@ -31,4 +33,3 @@ routes:
     UFOS: mock:seda:queue:UFOS
   smev3adapter: mock:smev3adapter
   replication: mock:seda:queue:replication
-  log: mock:log

@@ -39,13 +39,13 @@ public class Routes extends SpringRouteBuilder {
         from("{{routes.Smev2Vis.postprocessor.inbound}}").routeId("Smev2VisPostprocessor")
             .onException(AckFailedException.class).useOriginalMessage()
                 .handled(true)
-                .to("{{routes.log}}")
+                .to("{{routes.nowhere}}")
             .end()
             .transacted()
             .setHeader("recipient").xpath("//*:MessageMetadata/*:Recipient/*:Mnemonic/text()", String.class)
             .choice()
                 .when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
-                    .to("{{routes.log}}")
+                    .to("{{routes.nowhere}}")
                 .otherwise()
                     .multicast().stopOnException()
                         .aggregationStrategy(AggregationStrategies.useOriginal()).aggregationStrategyMethodAllowNull()
@@ -55,7 +55,6 @@ public class Routes extends SpringRouteBuilder {
             .end();
 
         // VIS => SMEV
-
 
         from("{{routes.Vis2Smev.preprocessor.inboundQueue}}").routeId("Vis2SmevPreprocessor")
             .transacted()
@@ -67,14 +66,12 @@ public class Routes extends SpringRouteBuilder {
             .end();
 
         from("direct:Vis2Smev_postprocessor").routeId("Vis2SmevPostprocessor")
-            .to("{{routes.log}}")
             .to("{{routes.Vis2Smev.pushers}}");
 
         // Ack
 
         from("direct:ack").routeId("ack")
             .errorHandler(noErrorHandler())
-            .log("ACK")
             .setHeader("businessMessageId", xpath("//*:MessageMetadata/*:MessageId/text()", String.class))
             .to("freemarker:templates/AckRequest.ftl")
             //.to("{{routes.smev3adapter}}")

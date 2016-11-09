@@ -6,7 +6,7 @@ spring:
 
 camel:
   springboot:
-    jmxEnabled: true
+    jmxEnabled: false
     allow-use-original-message: true
     stream-caching: false
 
@@ -25,8 +25,5 @@ namespaceMappings:
   http://otr.ru/irs/services/message-exchange/types/basic : urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1
 
 routes:
-  log: log:ru.otr.integration.smev3client.smev3adapter?level=DEBUG&showAll=true&multiline=true
-
-eureka:
-  client:
-    enabled: false
+  log: mock:log
+  nowhere: mock:nowhere

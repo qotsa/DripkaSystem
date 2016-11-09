@@ -18,7 +18,12 @@
                 <version/>
                 <logLevel/>
                 <loggerName/>
-
+                <threadName/>
+                <message/>
+                <logstashMarkers/>
+                <arguments/>
+                <stackTrace/>
+                <tags/>
                 <pattern>
                     <pattern>
                         {
@@ -27,12 +32,6 @@
                         }
                     </pattern>
                 </pattern>
-
-                <threadName/>
-                <message/>
-                <logstashMarkers/>
-                <arguments/>
-                <stackTrace/>
             </providers>
         </encoder>
     </appender>
@@ -42,5 +41,18 @@
         <appender-ref ref="LOGSTASH"/>
     </logger>
 
-    <logger name="ru.otr.integration.smev3client" level="${ufosadapter.logging.level.business}" additivity="true"/>
+    <logger name="ru.otr.integration.smev3client" level="${ufosadapter.logging.level.business}" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOGSTASH"/>
+    </logger>
+
+    <logger name="camel.tracer" level="${ufosadapter.logging.level.camel.tracer}" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOGSTASH"/>
+    </logger>
+
+    <logger name="metrics" level="${ufosadapter.logging.level.metrics}" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOGSTASH"/>
+    </logger>
 </configuration>

@@ -4,7 +4,10 @@ import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.scheduler.SchedulerComponent;
 import org.apache.camel.processor.idempotent.hazelcast.HazelcastIdempotentRepository;
+import org.apache.camel.spi.ExecutorServiceManager;
+import org.apache.camel.spi.ThreadPoolProfile;
 import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +28,15 @@ public class AppConfig {
                 context.setUseMDCLogging(true);
                 context.setTracing(true);
                 context.setStreamCaching(true);
+
+                SchedulerComponent scheduler = context.getComponent("scheduler", SchedulerComponent.class);
+                scheduler.setConcurrentTasks(5);
+
+                /*ExecutorServiceManager manager = context.getExecutorServiceManager();
+                ThreadPoolProfile defaultProfile = manager.getDefaultThreadPoolProfile();
+                defaultProfile.setMaxQueueSize(1000);
+                defaultProfile.setMaxPoolSize(20);
+                defaultProfile.setPoolSize(1);*/
             }
 
             @Override

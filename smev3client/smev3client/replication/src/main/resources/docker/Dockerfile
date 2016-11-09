@@ -7,4 +7,4 @@ RUN mkdir /replication_cache
 
 ENTRYPOINT [${jvm.args}, "${artifactId}.jar"]
 
-EXPOSE ${replication.http.port} ${debug.port}
+EXPOSE ${replication.http.port} ${debug.port} ${profile.port}

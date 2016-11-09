@@ -6,4 +6,4 @@ RUN sh -c 'touch /${artifactId}.jar'
 
 ENTRYPOINT [${jvm.args},"/${artifactId}.jar"]
 
-EXPOSE ${eureka.http.port} ${debug.port}
+EXPOSE ${eureka.http.port} ${debug.port} ${profile.port}

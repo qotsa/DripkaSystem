@@ -12,9 +12,10 @@ camel:
 
 routes:
   log: mock:log
+  nowhere: mock:nowhere
   toUfos:
     inboundQueue: seda:toUfos.inbound
-    outboundQueue: mock:toUfos.outbound
+    outboundQueue: seda:toUfos.outbound
   fromUfos:
     inboundQueue: seda:fromUfos.inbound
     outboundQueue: mock:Vis2Smev.preprocessor.inbound

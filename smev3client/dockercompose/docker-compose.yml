@@ -83,7 +83,7 @@ services:
   elasticsearch:
     image: ${docker.image.prefix}/elasticsearch:${docker.image.version}
     restart: never
-    mem_limit: 1024m
+    mem_limit: 2048m
     volumes:
       - elasticsearchData:/usr/share/elasticsearch/data
     logging:

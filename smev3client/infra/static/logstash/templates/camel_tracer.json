@@ -1,0 +1,76 @@
+{
+  "template": "camel_trace-*",
+  "settings": {
+    "number_of_shards": 5
+  },
+  "mappings": {
+    "logback": {
+      "properties": {
+        "@timestamp": {
+          "format": "strict_date_optional_time||epoch_millis",
+          "type": "date"
+        },
+        "@version": {
+          "type": "long"
+        },
+        "appName": {
+          "type": "keyword"
+        },
+        "appVersion": {
+          "type": "keyword"
+        },
+        "btm-gtrid": {
+          "type": "keyword"
+        },
+        "camel_breadcrumbId": {
+          "type": "keyword"
+        },
+        "camel_contextId": {
+          "type": "keyword"
+        },
+        "camel_correlationId": {
+          "type": "keyword"
+        },
+        "camel_exchangeId": {
+          "type": "keyword"
+        },
+        "camel_messageId": {
+          "type": "keyword"
+        },
+        "camel_routeId": {
+          "type": "keyword"
+        },
+        "camel_transactionKey": {
+          "type": "keyword"
+        },
+        "host": {
+          "type": "keyword"
+        },
+        "HOSTNAME": {
+          "type": "keyword"
+        },
+        "level": {
+          "type": "keyword"
+        },
+        "logger_name": {
+          "type": "keyword"
+        },
+        "message": {
+          "type": "text"
+        },
+        "port": {
+          "type": "long"
+        },
+        "stack_trace": {
+          "type": "keyword"
+        },
+        "thread_name": {
+          "type": "keyword"
+        },
+        "type": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

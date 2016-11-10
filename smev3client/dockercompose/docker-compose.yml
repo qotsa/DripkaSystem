@@ -93,6 +93,17 @@ services:
     ports:
       - 9200:9200
 
+  elasticsearch-head:
+    image: localhost:5000/elasticsearch-head:1.0
+    restart: never
+    mem_limit: 256m
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    ports:
+      - 9100:9100
+
   logstash:
     image: ${docker.image.prefix}/logstash:${docker.image.version}
     restart: never

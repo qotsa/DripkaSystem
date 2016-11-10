@@ -1,3 +1,3 @@
-FROM kibana:4.6.1
+FROM kibana:5.0.0
 
 EXPOSE 5601

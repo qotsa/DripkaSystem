@@ -1,0 +1,92 @@
+{
+  "template": "raw-*",
+  "settings": {
+    "number_of_shards": 5
+  },
+  "mappings": {
+    "logback": {
+      "properties": {
+        "@timestamp": {
+          "format": "strict_date_optional_time||epoch_millis",
+          "type": "date"
+        },
+        "@version": {
+          "type": "long"
+        },
+        "appName": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "appVersion": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "btm-gtrid": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "camel_breadcrumbId": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "camel_contextId": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "camel_correlationId": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "camel_exchangeId": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "camel_messageId": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "camel_routeId": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "camel_transactionKey": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "host": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "HOSTNAME": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "level": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "logger_name": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "message": {
+          "type": "text"
+        },
+        "port": {
+          "type": "long"
+        },
+        "stack_trace": {
+          "type": "text"
+        },
+        "thread_name": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        },
+        "type": {
+          "type": "keyword",
+          "index": "not_analyzed"
+        }
+      }
+    }
+  }
+}

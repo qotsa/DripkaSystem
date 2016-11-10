@@ -1,5 +1,7 @@
-FROM elasticsearch:2.4.0
+FROM elasticsearch:5.0.0
 
-RUN /usr/share/elasticsearch/bin/plugin install royrusso/elasticsearch-HQ
+RUN echo "" >> /usr/share/elasticsearch/config/elasticsearch.yml && \
+    echo "http.cors.enabled: true" >> /usr/share/elasticsearch/config/elasticsearch.yml && \
+    echo "http.cors.allow-origin: \"*\"" >> /usr/share/elasticsearch/config/elasticsearch.yml
 
-EXPOSE 9200
+EXPOSE 9200 9300

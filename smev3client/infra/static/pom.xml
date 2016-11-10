@@ -23,6 +23,7 @@
         <module>cadvisor</module>
         <module>curator</module>
         <module>elasticsearch</module>
+        <module>elasticsearch-head</module>
         <module>ftp</module>
         <module>ftpsmev</module>
         <module>kibana</module>

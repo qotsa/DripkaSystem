@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("classpath:/applicationContext.xml")
 @SpringBootApplication
 @EnableConfigurationProperties
-//@EnableEurekaClient
+@EnableEurekaClient
 public class Application {
 
 	public static void main(String[] args) {

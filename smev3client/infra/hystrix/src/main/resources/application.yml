@@ -1,0 +1,24 @@
+server:
+  port: ${hystrix.http.port}
+
+spring:
+  devtools:
+    remote:
+      secret: ${devtools.secret}
+  application:
+    name: hystrix
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://eureka:${eureka.http.port}/eureka/
+
+turbine:
+#  clusterNameExpression: new String("default")
+  clusterNameExpression: "'default'"
+  appConfig: ${hystrix.appConfig}

@@ -62,7 +62,7 @@
           "type": "long"
         },
         "stack_trace": {
-          "type": "keyword"
+          "type": "text"
         },
         "thread_name": {
           "type": "keyword"

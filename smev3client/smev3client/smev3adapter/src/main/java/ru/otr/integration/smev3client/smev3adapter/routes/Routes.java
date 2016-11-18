@@ -22,7 +22,17 @@ public class Routes extends SpringRouteBuilder {
             .setHeader("Direction", simple(NamespaceSwapper.Direction.TO_SMEV))
             .to("bean:namespaceSwapper")
             .to("bean:operationSetter")
-            .to("cxf:bean:smevMessageExchangeService")
+            .hystrix().id("callSmev")
+                .hystrixConfiguration()
+                    //.fallbackEnabled(false)
+                .end()
+                .to("cxf:bean:smevMessageExchangeService")
+                .to("xslt:xslt/remove_smevsignature.xsl")
+            .onFallback()
+                .setHeader("ERROR_MESSAGE", simple("${exception.message}"))
+                .setBody(simple("oh nooooo"))
+                .to("{{routes.log}}")
+            .end()
             .setHeader("Direction", simple(NamespaceSwapper.Direction.FROM_SMEV))
             .to("bean:namespaceSwapper");
     }

@@ -22,6 +22,7 @@
         <module>bpmengine</module>
         <module>configserver</module>
         <module>eureka</module>
+        <module>hystrix</module>
         <module>static</module>
     </modules>
 

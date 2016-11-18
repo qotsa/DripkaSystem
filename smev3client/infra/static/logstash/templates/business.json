@@ -62,12 +62,21 @@
           "type": "long"
         },
         "stack_trace": {
-          "type": "keyword"
+          "type": "text"
         },
         "thread_name": {
           "type": "keyword"
         },
         "type": {
+          "type": "keyword"
+        },
+        "Direction": {
+          "type": "keyword"
+        },
+        "operationName": {
+          "type": "keyword"
+        },
+        "operationNamespace": {
           "type": "keyword"
         }
       }

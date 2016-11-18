@@ -14,60 +14,46 @@
           "type": "long"
         },
         "appName": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "appVersion": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "btm-gtrid": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "camel_breadcrumbId": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "camel_contextId": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "camel_correlationId": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "camel_exchangeId": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "camel_messageId": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "camel_routeId": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "camel_transactionKey": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "host": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "HOSTNAME": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "level": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "logger_name": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "message": {
           "type": "text"
@@ -79,12 +65,10 @@
           "type": "text"
         },
         "thread_name": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         },
         "type": {
-          "type": "keyword",
-          "index": "not_analyzed"
+          "type": "keyword"
         }
       }
     }

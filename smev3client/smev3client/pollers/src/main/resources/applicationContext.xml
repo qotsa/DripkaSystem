@@ -3,6 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="transactionErrorHandlerBuilder" class="org.apache.camel.spring.spi.TransactionErrorHandlerBuilder">
+        <property name="redeliveryPolicy" ref="redeliveryPolicy"/>
+    </bean>
+
+    <bean id="redeliveryPolicy" class="org.apache.camel.processor.RedeliveryPolicy">
+        <property name="maximumRedeliveries" value="3"/>
+        <property name="redeliveryDelay" value="250"/>
+        <property name="logStackTrace" value="true"/>
+    </bean>
+
     <bean id="camelTracer" class="org.apache.camel.processor.interceptor.Tracer">
         <property name="formatter" ref="traceFormatter"/>
         <property name="enabled" value="true"/>
@@ -34,6 +44,36 @@
         <property name="showRouteId" value="false"/>
         <property name="maxChars" value="10000"/>
         <property name="multiline" value="true"/>
+    </bean>
+
+    <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="configuration" ref="jmsConfig"/>
+    </bean>
+
+    <bean id="jmsConfig" class="org.apache.activemq.camel.component.ActiveMQConfiguration">
+        <property name="connectionFactory" ref="jmsPooledConnectionFactory"/>
+        <property name="transacted" value="true"/>
+        <property name="transactionManager" ref="jmsTransactionManager"/>
+        <property name="cacheLevelName" value="CACHE_CONSUMER"/>
+        <property name="concurrentConsumers" value="3"/>
+        <property name="maxConcurrentConsumers" value="10"/>
+    </bean>
+
+    <bean id="jmsTransactionManager" class="org.springframework.jms.connection.JmsTransactionManager">
+        <property name="connectionFactory" ref="jmsPooledConnectionFactory"/>
+    </bean>
+
+    <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${activemq.url}"/>
+        <property name="userName" value="${activemq.username}"/>
+        <property name="password" value="${activemq.password}"/>
+        <property name="watchTopicAdvisories" value="false"/>
+    </bean>
+
+    <bean id="jmsPooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+        <property name="maxConnections" value="4"/>
+        <property name="maximumActiveSessionPerConnection" value="100"/>
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
     </bean>
 
 </beans>

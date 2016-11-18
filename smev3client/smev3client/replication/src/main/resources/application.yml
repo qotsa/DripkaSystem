@@ -2,22 +2,15 @@ server:
   port: ${replication.http.port}
 
 spring:
-  activemq:
-    brokerUrl: ${activemq.url}
-    inMemory: false
-    user: ${activemq.username}
-    password: ${activemq.password}
-    pool:
-      enabled: true
-      max-connections: 10
   devtools:
     remote:
       secret: ${devtools.secret}
   application:
     name: replication
-#  jta:
-#    narayana:
-#      default-timeout: 10 #3600000
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration
+      - org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration
 
 camel:
   springboot:
@@ -27,8 +20,8 @@ camel:
 
 eureka:
   instance:
-    leaseRenewalIntervalInSeconds: 1
-    leaseExpirationDurationInSeconds: 2
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
   client:
     healthcheck:
       enabled: true

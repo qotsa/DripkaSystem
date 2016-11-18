@@ -200,6 +200,17 @@ services:
         max-size: "10m"
         max-file: "10"
 
+  hystrix:
+    image: ${docker.image.prefix}/hystrix:${docker.image.version}
+    restart: ${hystrix.docker.compose.restart}
+    mem_limit: 1024m
+    ports:
+      ${hystrix.docker.compose.ports}${debug.port.compose}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
   configserver:
     image: ${docker.image.prefix}/configserver:${docker.image.version}
     restart: ${configserver.docker.compose.restart}

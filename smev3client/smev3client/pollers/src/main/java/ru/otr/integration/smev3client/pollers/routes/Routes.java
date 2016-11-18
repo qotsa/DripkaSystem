@@ -4,7 +4,9 @@ import org.apache.camel.LoggingLevel;
 import org.apache.camel.component.scheduler.SchedulerComponent;
 import org.apache.camel.processor.idempotent.hazelcast.HazelcastIdempotentRepository;
 import org.apache.camel.spring.SpringRouteBuilder;
+import org.apache.camel.spring.spi.TransactionErrorHandlerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,15 +17,27 @@ import org.springframework.stereotype.Component;
 public class Routes extends SpringRouteBuilder {
 
     @Autowired
+    @Qualifier("transactionErrorHandlerBuilder")
+    private TransactionErrorHandlerBuilder errorHandlerBuilder;
+
+    @Autowired
     HazelcastIdempotentRepository repository;
 
     @Override
     public void configure() throws Exception {
-        from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=1000&scheduler.concurrentTasks=1").routeId("GetRequestPoller")
+        //from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=1000&scheduler.concurrentTasks=1").routeId("GetRequestPoller")
+        from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=1000&scheduler.concurrentTasks=3").routeId("GetRequestPoller") // target load
+        //from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=60s&scheduler.concurrentTasks=1").routeId("GetRequestPoller")
+            .errorHandler(errorHandlerBuilder)
             .transacted()
             .log(LoggingLevel.DEBUG, "metrics", "ping")
             .to("freemarker:templates/GetRequestRequest.ftl")
-            .to("{{routes.smev3adapter}}")
+            .hystrix().id("call_smev3adapter")
+                .hystrixConfiguration()
+                    .fallbackEnabled(false)
+                .end()
+                .to("{{routes.smev3adapter}}")
+            .end()
             .choice()
                 .when(header("ERROR_MESSAGE"))
                     .stop()

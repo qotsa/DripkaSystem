@@ -20,7 +20,8 @@ echoProgress() {
 REGISTRY=172.31.191.101:8123
 IMAGES_VERSION=1.0
 SERVICE_PARAMS_COMMON="--network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth --restart-condition none"
-SERVICE_CONSTRAINTS="--constraint 'node.labels.nodeType==worker' --constraint 'node.labels.appType==business'"
+SERVICE_CONSTRAINTS_INFRA="--constraint 'node.labels.nodeType==worker' --constraint 'node.labels.appType==infra'"
+SERVICE_CONSTRAINTS_BUSINESS="--constraint 'node.labels.nodeType==worker' --constraint 'node.labels.appType==business'"
 
 declare -A SERVICES_INFRA
 SERVICES_INFRA[activemq]="-p 8161:8161 -p 61616:61616 -p 61613:61613 --env \"ACTIVEMQ_MIN_MEMORY=512\" --env \"ACTIVEMQ_MAX_MEMORY=2048\" --env \"ACTIVEMQ_NAME=amqp-srv1\" --env \"ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT=true\" --env \"ACTIVEMQ_ADMIN_LOGIN=admin\" --env \"ACTIVEMQ_ADMIN_PASSWORD=admin\" --env \"ACTIVEMQ_WRITE_LOGIN=producer\" --env \"ACTIVEMQ_WRITE_PASSWORD=producer\" --env \"ACTIVEMQ_READ_LOGIN=consumer\" --env \"ACTIVEMQ_READ_PASSWORD=consumer\" --env \"ACTIVEMQ_JMX_LOGIN=jmx\" --env \"ACTIVEMQ_JMX_PASSWORD=jmx\" --env \"ACTIVEMQ_ENABLED_SCHEDULER=true\" ${REGISTRY}/activemq:${IMAGES_VERSION}"
@@ -80,7 +81,7 @@ case $operation in
 
         for service in "${!SERVICES_INFRA[@]}"
         do
-           docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name ${service} ${SERVICES_INFRA[${service}]}
+           docker service create ${SERVICE_CONSTRAINTS_INFRA} ${SERVICE_PARAMS_COMMON} --name ${service} ${SERVICES_INFRA[${service}]}
         done
 
         sleep 1
@@ -92,7 +93,7 @@ case $operation in
 
         for service in "${!SERVICES[@]}"
         do
-           docker service create ${SERVICE_CONSTRAINTS} ${SERVICE_PARAMS_COMMON} --name ${service} ${SERVICES[${service}]}
+           docker service create ${SERVICE_CONSTRAINTS_BUSINESS} ${SERVICE_PARAMS_COMMON} --name ${service} ${SERVICES[${service}]}
         done
 
         ./swarm-info.sh

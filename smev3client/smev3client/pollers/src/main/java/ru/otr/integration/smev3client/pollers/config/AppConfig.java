@@ -30,7 +30,7 @@ public class AppConfig {
                 context.setStreamCaching(true);
 
                 SchedulerComponent scheduler = context.getComponent("scheduler", SchedulerComponent.class);
-                scheduler.setConcurrentTasks(5);
+                scheduler.setConcurrentTasks(15);
 
                 /*ExecutorServiceManager manager = context.getExecutorServiceManager();
                 ThreadPoolProfile defaultProfile = manager.getDefaultThreadPoolProfile();

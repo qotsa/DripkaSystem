@@ -51,7 +51,7 @@
     </bean>
 
     <bean id="jmsConfig" class="org.apache.activemq.camel.component.ActiveMQConfiguration">
-        <property name="connectionFactory" ref="jmsPooledConnectionFactory"/>
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
         <property name="transacted" value="true"/>
         <property name="transactionManager" ref="jmsTransactionManager"/>
         <property name="cacheLevelName" value="CACHE_CONSUMER"/>
@@ -60,7 +60,7 @@
     </bean>
 
     <bean id="jmsTransactionManager" class="org.springframework.jms.connection.JmsTransactionManager">
-        <property name="connectionFactory" ref="jmsPooledConnectionFactory"/>
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
     </bean>
 
     <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
@@ -70,10 +70,10 @@
         <property name="watchTopicAdvisories" value="false"/>
     </bean>
 
-    <bean id="jmsPooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+    <!--<bean id="jmsPooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
         <property name="maxConnections" value="4"/>
         <property name="maximumActiveSessionPerConnection" value="100"/>
         <property name="connectionFactory" ref="jmsConnectionFactory"/>
-    </bean>
+    </bean>-->
 
 </beans>

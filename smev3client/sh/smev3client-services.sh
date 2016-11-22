@@ -21,7 +21,7 @@ REGISTRY=172.31.191.101:8123
 IMAGES_VERSION=1.0
 SERVICE_PARAMS_COMMON="--network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth --restart-condition none"
 SERVICE_PARAMS_COMMON_SCALABLE="--network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth --restart-condition none"
-SERVICE_CONSTRAINTS_INFRA="--constraint 'node.labels.nodeType==worker' --constraint 'node.labels.appType==infra'"
+SERVICE_CONSTRAINTS_INFRA="--constraint node.labels.nodeType==worker --constraint node.labels.appType==infra"
 SERVICE_CONSTRAINTS_BUSINESS="--constraint 'node.labels.nodeType==worker' --constraint 'node.labels.appType==business'"
 
 declare -A SERVICES_INFRA

@@ -103,11 +103,11 @@
                                 <bas:Hash>403f244a3df11c8618b9e5c8b9d48e30</bas:Hash>
                                 <bas:MimeType>application/pdf</bas:MimeType>
                             </bas:RefAttachmentHeader>
-                            <bas:RefAttachmentHeader>
+                            <!--bas:RefAttachmentHeader>
                                 <bas:uuid>fc7ed873-2ee5-4300-b186-dd1976dd52b8</bas:uuid>
                                 <bas:Hash>403f244a3df11c8618b9e5c8b9d48e30</bas:Hash>
                                 <bas:MimeType>application/pdf</bas:MimeType>
-                            </bas:RefAttachmentHeader>
+                            </bas:RefAttachmentHeader-->
                         </bas:RefAttachmentHeaderList>
                         <typ2:TestMessage/>
                     </typ2:SenderProvidedRequestData>

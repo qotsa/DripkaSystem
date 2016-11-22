@@ -20,7 +20,7 @@ echoProgress() {
 REGISTRY=172.31.191.101:8123
 IMAGES_VERSION=1.0
 SERVICE_PARAMS_COMMON="--network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth --restart-condition none"
-SERVICE_PARAMS_COMMON_SCALABLE="--network smev3client --replicas 2 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth --restart-condition none"
+SERVICE_PARAMS_COMMON_SCALABLE="--network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth --restart-condition none"
 SERVICE_CONSTRAINTS_INFRA="--constraint 'node.labels.nodeType==worker' --constraint 'node.labels.appType==infra'"
 SERVICE_CONSTRAINTS_BUSINESS="--constraint 'node.labels.nodeType==worker' --constraint 'node.labels.appType==business'"
 
@@ -35,18 +35,20 @@ SERVICES_INFRA[curator]="${REGISTRY}/curator:${IMAGES_VERSION}"
 SERVICES_INFRA[cadvisor]="-p 8081:8081 --mount type=bind,source=/../,destination=/rootfs:ro --mount type=bind,source=/var/run,destination=/var/run:rw --mount type=bind,source=/sys,destination=/sys:ro --mount type=bind,source=/var/lib/docker/,destination=/var/lib/docker:ro ${REGISTRY}/cadvisor:${IMAGES_VERSION} -port=8081"
 SERVICES_INFRA[kibana]="-p 5601:5601 --env \"--max-old-space-size=250\" ${REGISTRY}/kibana:${IMAGES_VERSION}"
 SERVICES_INFRA[grafana]="-p 3000:3000 ${REGISTRY}/grafana:${IMAGES_VERSION}"
+SERVICES_INFRA[bpmengine]="-p 8098:8098 ${REGISTRY}/bpmengine:${IMAGES_VERSION}"
+
 
 declare -A SERVICES
-SERVICES_INFRA[eureka]="-p 8097:8097 ${REGISTRY}/eureka:${IMAGES_VERSION}"
-SERVICES_INFRA[configserver]="-p 8888:8888 ${REGISTRY}/configserver:${IMAGES_VERSION}"
-SERVICES_INFRA[smev3core]="-p 8093:8093 ${REGISTRY}/smev3core:${IMAGES_VERSION}"
-SERVICES_INFRA[smev3adapter]="-p 8090:8090 ${REGISTRY}/smev3adapter:${IMAGES_VERSION}"
-SERVICES_INFRA[ufosadapter]="-p 8094:8094 ${REGISTRY}/ufosadapter:${IMAGES_VERSION}"
-SERVICES_INFRA[replication]="-p 8095:8095 ${REGISTRY}/replication:${IMAGES_VERSION}"
-#SERVICES_INFRA[pollers]="-p 8092:8092 -p 5701:5701 ${REGISTRY}/pollers:${IMAGES_VERSION}"
-SERVICES_INFRA[pushers]="-p 8096:8096 ${REGISTRY}/pushers:${IMAGES_VERSION}"
-SERVICES_INFRA[smev3mock2]="-p 8091:8091 ${REGISTRY}/smev3mock2:${IMAGES_VERSION}"
-SERVICES_INFRA[bpmengine]="-p 8098:8098 ${REGISTRY}/bpmengine:${IMAGES_VERSION}"
+SERVICES[eureka]="-p 8097:8097 ${REGISTRY}/eureka:${IMAGES_VERSION}"
+SERVICES[configserver]="-p 8888:8888 ${REGISTRY}/configserver:${IMAGES_VERSION}"
+SERVICES[smev3core]="-p 8093:8093 ${REGISTRY}/smev3core:${IMAGES_VERSION}"
+SERVICES[smev3adapter]="-p 8090:8090 ${REGISTRY}/smev3adapter:${IMAGES_VERSION}"
+SERVICES[ufosadapter]="-p 8094:8094 ${REGISTRY}/ufosadapter:${IMAGES_VERSION}"
+SERVICES[replication]="-p 8095:8095 ${REGISTRY}/replication:${IMAGES_VERSION}"
+SERVICES[pollers]="-p 8092:8092 -p 5701:5701 ${REGISTRY}/pollers:${IMAGES_VERSION}"
+SERVICES[pushers]="-p 8096:8096 ${REGISTRY}/pushers:${IMAGES_VERSION}"
+SERVICES[smev3mock2]="-p 8091:8091 ${REGISTRY}/smev3mock2:${IMAGES_VERSION}"
+
 
 VOLUMES=("ftpData" "ftpUsers" "ftpSmevData" "ftpSmevUsers" "postgresData" "elasticsearchData")
 

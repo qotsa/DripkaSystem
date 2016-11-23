@@ -55,7 +55,9 @@ public class Routes extends SpringRouteBuilder {
                     .otherwise()
                         .choice()
                             .when(xpath("//*:AttachmentHeaderList/*:AttachmentHeader"))
-                                .to("direct:saveAttachments")
+                                .to("seda:saveAttachments")
+                                .log(LoggingLevel.DEBUG, "metrics", "pong")
+                                .stop()
                         .end()
                         .choice()
                             .when(xpath("//*:FSAttachmentsList/*:FSAttachment"))
@@ -69,13 +71,19 @@ public class Routes extends SpringRouteBuilder {
                     .end()
             .end();
 
-        from("direct:saveAttachments").routeId("saveAttachments")
-            .errorHandler(noErrorHandler())
+        from("seda:saveAttachments").routeId("saveAttachments")
+            .errorHandler(errorHandlerBuilder)
+            .transacted()
+            .threads(5, 50)
+            .log(LoggingLevel.DEBUG, "metrics", "ping")
             .multicast().stopOnException()
                 .aggregationStrategy(AggregationStrategies.useOriginal()).aggregationStrategyMethodAllowNull()
                 .to("direct:saveAttachmentsToFtp")
             .end()
-            .to("xslt:xslt/replace_embedded_attachments.xsl");
+            .to("xslt:xslt/replace_embedded_attachments.xsl")
+            .setHeader("messageReplicationAndVerification", simple("OK"))
+            .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}")
+            .log(LoggingLevel.DEBUG, "metrics", "pong");
 
         from("direct:saveAttachmentsToFtp").routeId("saveAttachmentsToFtp")
             .errorHandler(noErrorHandler())

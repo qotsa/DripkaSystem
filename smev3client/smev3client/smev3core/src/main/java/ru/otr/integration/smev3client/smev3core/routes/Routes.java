@@ -14,20 +14,11 @@ public class Routes extends SpringRouteBuilder {
 
         from("{{routes.Smev2Vis.preprocessor.GetRequestResponseQueue}}").routeId("GetRequestResponse")
             .transacted()
-            .to("direct:Smev2Vis_preprocessor");
+            .to("direct:Smev2VisPostprocessor");
 
         from("{{routes.Smev2Vis.preprocessor.GetResponseResponseQueue}}").routeId("GetResponseResponse")
             .transacted()
-            .to("direct:Smev2Vis_preprocessor");
-
-        from("direct:Smev2Vis_preprocessor").routeId("Smev2VisPreprocessor")
-            .choice()
-                .when(xpath("//*:FSAttachmentsList/*:FSAttachment"))
-                    .to("{{routes.replication}}")
-                .otherwise()
-                    .setHeader("messageReplicationAndVerification", simple("OK"))
-                    .to("direct:Smev2VisPostprocessor")
-            .end();
+            .to("direct:Smev2VisPostprocessor");
 
         from("{{routes.Smev2Vis.GetStatusResponseQueue}}").routeId("GetStatusResponse")
             .transacted()
@@ -49,8 +40,8 @@ public class Routes extends SpringRouteBuilder {
                 .otherwise()
                     .multicast().stopOnException()
                         .aggregationStrategy(AggregationStrategies.useOriginal()).aggregationStrategyMethodAllowNull()
-                        .to("direct:ack")
                         .dynamicRouter(method(PostprocessorRouter.class, "route"))
+                        .to("direct:ack")
                     .end()
             .end();
 

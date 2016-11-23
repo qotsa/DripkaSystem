@@ -12,6 +12,7 @@ camel:
 
 routes:
   log: mock:log
+  ftp: mock:ftp
   smev3adapter: mock:smev3adapter
   GetRequestPoller:
     GetRequestResponseQueue: mock:GetRequestResponseQueue
@@ -19,3 +20,4 @@ routes:
     GetResponseResponseQueue: mock:GetResponseResponseQueue
   GetStatusPoller:
     GetStatusResponseQueue: mock:GetStatusResponseQueue
+  replication: mock:seda:queue:replication

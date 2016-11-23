@@ -1114,7 +1114,7 @@ MIII8DCCCJ+gAwIBAgIKNG1JkwACAAEi9zAIBgYqhQMCAgMwggFrMRgwFgYFKoUDZAESDTExMTY2NzMw
                   </ns2:Content>
                </ns2:AttachmentContent>
             </ns2:AttachmentContentList>
-             <typ2:SMEVSignature>
+             <ns2:SMEVSignature>
                  <xd:Signature xmlns:xd="http://www.w3.org/2000/09/xmldsig#">
                      <xd:SignedInfo>
                          <xd:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
@@ -1137,7 +1137,7 @@ MIII8DCCCJ+gAwIBAgIKNG1JkwACAAEi9zAIBgYqhQMCAgMwggFrMRgwFgYFKoUDZAESDTExMTY2NzMw
                          </xd:X509Data>
                      </xd:KeyInfo>
                  </xd:Signature>
-             </typ2:SMEVSignature>
+             </ns2:SMEVSignature>
          </RequestMessage>
       </GetRequestResponse>
    </S:Body>

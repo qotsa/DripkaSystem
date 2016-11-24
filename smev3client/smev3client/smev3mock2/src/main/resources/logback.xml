@@ -9,9 +9,9 @@
 
 
 
-    <logger name="ROOT" level="${pushers.logging.level.raw}" additivity="false">
+    <logger name="ROOT" level="${smev3mock2.logging.level.raw}" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 
-    <logger name="ru.otr.integration.smev3client" level="${pushers.logging.level.business}" additivity="true"/>
+    <logger name="ru.otr.integration.smev3client" level="${smev3mock2.logging.level.business}" additivity="true"/>
 </configuration>

@@ -74,7 +74,7 @@ public class Routes extends SpringRouteBuilder {
         from("seda:saveAttachments").routeId("saveAttachments")
             .errorHandler(errorHandlerBuilder)
             .transacted()
-            .threads(5, 50)
+            .threads(5, 10)
             .log(LoggingLevel.DEBUG, "metrics", "ping")
             .multicast().stopOnException()
                 .aggregationStrategy(AggregationStrategies.useOriginal()).aggregationStrategyMethodAllowNull()

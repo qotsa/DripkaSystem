@@ -71,20 +71,24 @@ public class ResponseGenerator {
         }
 
         try {
+            logger.info("Entering postConstructSetup() first try block : trying to load from /target");
             ftpServer.writeToFtp("target/lib/Enterprise OSGi in Action.zip", "ftp://" + appProperties.getUser() + ":" +
                     appProperties.getPassword() + "@" + appProperties.getHost() + ":" + appProperties.getPort() + "ftpFiles/Enterprise OSGi in Action.zip");
             ftpServer.writeToFtp("target/lib/the-devops.zip", "ftp://" + appProperties.getUser() + ":" +
                     appProperties.getPassword() + "@" + appProperties.getHost() + ":" + appProperties.getPort() + "/ftpFiles/the-devops.zip");
+            logger.info("Leaving postConstructSetup() try block : successfully load files from target");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
+            logger.info("Entering postConstructSetup() second try block : trying to load from /ftpFiles");
             ftpServer.writeToFtp(System.getProperty("user.dir") + "/ftpFiles/Enterprise OSGi in Action.zip", "ftp://" + appProperties.getUser() + ":" +
                     appProperties.getPassword() + "@" + appProperties.getHost() + ":" + appProperties.getPort() + "/Enterprise OSGi in Action.zip");
             ftpServer.writeToFtp(System.getProperty("user.dir") + "/ftpFiles/the-devops.zip", "ftp://" + appProperties.getUser() + ":" +
                     appProperties.getPassword() + "@" + appProperties.getHost() + ":" + appProperties.getPort() + "/the-devops.zip");
+            logger.info("Leaving postConstructSetup() second try block : successfully load files from /ftpFiles");
         } catch (Exception e) {
             e.printStackTrace();
         }

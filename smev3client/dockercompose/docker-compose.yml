@@ -42,7 +42,7 @@ services:
       - ftpUsers:/etc/pure-ftpd/users
     ports:
       - 2021:2021
-      - 30000-30049:30000-30049
+      - 30000-30059:30000-30059
     logging:
       options:
         max-size: "10m"
@@ -59,7 +59,7 @@ services:
       - ftpSmevUsers:/etc/pure-ftpd/users
     ports:
       - 3333:3333
-      - 30050-30099:30050-30099
+      - 30060-30119:30060-30119
     logging:
       options:
         max-size: "10m"

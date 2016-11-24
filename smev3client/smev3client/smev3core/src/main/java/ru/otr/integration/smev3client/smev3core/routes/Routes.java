@@ -47,14 +47,14 @@ public class Routes extends SpringRouteBuilder {
 
         // VIS => SMEV
 
-        from("{{routes.Vis2Smev.preprocessor.inboundQueue}}").routeId("Vis2SmevPreprocessor")
+        /*from("{{routes.Vis2Smev.preprocessor.inboundQueue}}").routeId("Vis2SmevPreprocessor")
             .transacted()
             .choice()
                 .when(xpath("//*:FSAttachmentsList/*:FSAttachment"))
                     .to("{{routes.replication}}")
                 .otherwise()
                     .to("direct:Vis2Smev_postprocessor")
-            .end();
+            .end();*/
 
         from("direct:Vis2Smev_postprocessor").routeId("Vis2SmevPostprocessor")
             .to("{{routes.Vis2Smev.pushers}}");

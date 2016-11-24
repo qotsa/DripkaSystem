@@ -39,11 +39,11 @@ public class ITApplicationTests {
     @Value("classpath:RequestBodyNoAttachStub.xml")
     private Resource requestBodyNoAttachStub;
 
-    @EndpointInject(uri = "{{routes.replication}}")
+    /*@EndpointInject(uri = "{{routes.replication}}")
     protected MockEndpoint replicationMock;
 
     @EndpointInject(uri = "{{routes.replication}}")
-    protected ProducerTemplate replication;
+    protected ProducerTemplate replication;*/
 
     @Test
     public void testRoutes() throws Exception {

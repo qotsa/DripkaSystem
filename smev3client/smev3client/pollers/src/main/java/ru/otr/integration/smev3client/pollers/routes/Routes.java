@@ -55,7 +55,7 @@ public class Routes extends SpringRouteBuilder {
                     .otherwise()
                         .choice()
                             .when(xpath("//*:AttachmentHeaderList/*:AttachmentHeader"))
-                                .to("seda:saveAttachments")
+                                .to("seda:saveAttachments?size=100")
                                 .log(LoggingLevel.DEBUG, "metrics", "pong")
                                 .stop()
                         .end()
@@ -71,7 +71,7 @@ public class Routes extends SpringRouteBuilder {
                     .end()
             .end();
 
-        from("seda:saveAttachments").routeId("saveAttachments")
+        from("seda:saveAttachments?size=100").routeId("saveAttachments")
             .errorHandler(errorHandlerBuilder)
             .transacted()
             .threads(5, 10)

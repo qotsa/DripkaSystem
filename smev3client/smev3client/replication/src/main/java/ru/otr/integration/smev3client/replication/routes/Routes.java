@@ -49,6 +49,7 @@ public class Routes extends SpringRouteBuilder {
                 .setHeader("attachmentUsername", xpath("//username/text()", String.class))
                 .setHeader("attachmentPassword", xpath("//password/text()", String.class))
                 .pollEnrich().simple("{{routes.smev}}?username=${headers.attachmentUsername}&password=${headers.attachmentPassword}&disconnect=true&passiveMode=true&fileName=${headers.attachmentFilename}&localWorkDirectory=/replication_cache/${headers.breadcrumbid}")
+                    .cacheSize(-1)
                     .timeout(1000 * 60 * 60) // 1h is enough to download large file
                     .aggregationStrategy(new FtpPollingAggregationStrategy())
                     .aggregateOnException(false)

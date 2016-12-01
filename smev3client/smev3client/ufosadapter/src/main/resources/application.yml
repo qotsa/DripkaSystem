@@ -30,6 +30,11 @@ eureka:
 
 routes:
   log: ${camel.endpoint.logging}
+  ftp:
+#    server: ftp://ftp:${ftp.port}
+    port: ${ftp.port}
+    user: ${ftp.username}
+    pass: ${ftp.password}
   toUfos:
     inboundQueue: ${ufosadapter.routes.toUfos.inbound}
     outboundQueue: ${ufosadapter.routes.toUfos.outbound}

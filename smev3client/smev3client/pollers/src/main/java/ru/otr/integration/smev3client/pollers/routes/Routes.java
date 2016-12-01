@@ -27,9 +27,6 @@ public class Routes extends SpringRouteBuilder {
     @Override
     public void configure() throws Exception {
         from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=1000&scheduler.concurrentTasks=1").routeId("GetRequestPoller")
-        //from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=1000&scheduler.concurrentTasks=3").routeId("GetRequestPoller") // target load
-        //from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=500&scheduler.concurrentTasks=15").routeId("GetRequestPoller")
-        //from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=60s&scheduler.concurrentTasks=1").routeId("GetRequestPoller")
             .errorHandler(errorHandlerBuilder)
             .transacted()
             .log(LoggingLevel.DEBUG, "metrics", "ping")

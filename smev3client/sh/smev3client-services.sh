@@ -23,6 +23,8 @@ SERVICE_PARAMS_COMMON="--network smev3client --replicas 1 --log-opt max-size=10m
 SERVICE_PARAMS_COMMON_SCALABLE="--network smev3client --replicas 1 --log-opt max-size=10m --log-opt max-file=10 --with-registry-auth --restart-condition none"
 SERVICE_CONSTRAINTS_INFRA="--constraint node.labels.nodeType==worker --constraint node.labels.appType==infra"
 SERVICE_CONSTRAINTS_BUSINESS="--constraint node.labels.nodeType==worker --constraint node.labels.appType==business"
+#SERVICE_CONSTRAINTS_INFRA=""
+#SERVICE_CONSTRAINTS_BUSINESS=""
 
 declare -A SERVICES_INFRA
 SERVICES_INFRA[activemq]="-p 8161:8161 -p 61616:61616 -p 61613:61613 --env \"ACTIVEMQ_MIN_MEMORY=512\" --env \"ACTIVEMQ_MAX_MEMORY=2048\" --env \"ACTIVEMQ_NAME=amqp-srv1\" --env \"ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT=true\" --env \"ACTIVEMQ_ADMIN_LOGIN=admin\" --env \"ACTIVEMQ_ADMIN_PASSWORD=admin\" --env \"ACTIVEMQ_WRITE_LOGIN=producer\" --env \"ACTIVEMQ_WRITE_PASSWORD=producer\" --env \"ACTIVEMQ_READ_LOGIN=consumer\" --env \"ACTIVEMQ_READ_PASSWORD=consumer\" --env \"ACTIVEMQ_JMX_LOGIN=jmx\" --env \"ACTIVEMQ_JMX_PASSWORD=jmx\" --env \"ACTIVEMQ_ENABLED_SCHEDULER=true\" ${REGISTRY}/activemq:${IMAGES_VERSION}"
@@ -37,7 +39,6 @@ SERVICES_INFRA[kibana]="-p 5601:5601 --env \"--max-old-space-size=250\" ${REGIST
 SERVICES_INFRA[grafana]="-p 3000:3000 ${REGISTRY}/grafana:${IMAGES_VERSION}"
 SERVICES_INFRA[bpmengine]="-p 8098:8098 ${REGISTRY}/bpmengine:${IMAGES_VERSION}"
 
-
 declare -A SERVICES
 SERVICES[eureka]="-p 8097:8097 ${REGISTRY}/eureka:${IMAGES_VERSION}"
 SERVICES[configserver]="-p 8888:8888 ${REGISTRY}/configserver:${IMAGES_VERSION}"
@@ -49,7 +50,6 @@ SERVICES[pollers]="-p 8092:8092 -p 5701:5701 ${REGISTRY}/pollers:${IMAGES_VERSIO
 SERVICES[pushers]="-p 8096:8096 ${REGISTRY}/pushers:${IMAGES_VERSION}"
 SERVICES[smev3mock2]="-p 8091:8091 ${REGISTRY}/smev3mock2:${IMAGES_VERSION}"
 
-
 VOLUMES=("ftpData" "ftpUsers" "ftpSmevData" "ftpSmevUsers" "postgresData" "elasticsearchData")
 
 operation=${1}
@@ -60,7 +60,12 @@ case $operation in
         printf "Removing all the services and infrastructure\n"
         docker service rm $(docker service ls -q)
         sleep 2
-        docker volume rm ftpData ftpUsers ftpSmevData ftpSmevUsers postgresData elasticsearchData
+
+        for volume in "${VOLUMES[@]}"
+        do
+           docker volume rm ${volume}
+        done
+
         docker network rm smev3client
         ;;
 

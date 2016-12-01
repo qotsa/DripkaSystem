@@ -30,7 +30,7 @@ eureka:
 
 routes:
   log: ${camel.endpoint.logging}
-  ftp: ftp://ftp:${ftp.port}/replication?username=${ftp.username}&password=${ftp.password}&disconnect=true&passiveMode=true
+  ftp: ftp://ftp:${ftp.port}/replication?username=${ftp.username}&password=${ftp.password}&disconnect=true&passiveMode=true&fastExistsCheck=true
   smev3adapter: http://smev3adapter:${smev3adapter.http.port}/camel/request
   GetRequestPoller:
     GetRequestResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetRequestResponseQueue}

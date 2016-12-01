@@ -76,4 +76,11 @@
         <property name="connectionFactory" ref="jmsConnectionFactory"/>
     </bean>-->
 
+    <bean id="attachmentsTerminator" class="ru.otr.integration.smev3client.ufosadapter.processor.AttachmentsTerminator">
+        <property name="server" value="ftp"/>
+        <property name="port" value="${routes.ftp.port}"/>
+        <property name="user" value="${routes.ftp.user}"/>
+        <property name="pass" value="${routes.ftp.pass}"/>
+    </bean>
+
 </beans>

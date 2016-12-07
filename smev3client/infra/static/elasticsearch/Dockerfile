@@ -1,4 +1,4 @@
-FROM elasticsearch:5.0.0
+FROM elasticsearch:5.0.2
 
 RUN echo "" >> /usr/share/elasticsearch/config/elasticsearch.yml && \
     echo "http.cors.enabled: true" >> /usr/share/elasticsearch/config/elasticsearch.yml && \

@@ -1,5 +1,0 @@
-#!/bin/sh
-
-/usr/bin/curator --host elasticsearch --port 9200 delete indices --older-than 2 --time-unit days --timestring '%Y.%m.%d' --prefix raw
-/usr/bin/curator --host elasticsearch --port 9200 delete indices --older-than 2 --time-unit days --timestring '%Y.%m.%d' --prefix business
-/usr/bin/curator --host elasticsearch --port 9200 delete indices --older-than 2 --time-unit days --timestring '%Y.%m.%d' --prefix camel_trace

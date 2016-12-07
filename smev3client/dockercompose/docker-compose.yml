@@ -118,14 +118,14 @@ services:
       - 12201:12201/udp
       - 4560:4560
 
-#  curator:
-#    image: ${docker.image.prefix}/curator:${docker.image.version}
-#    restart: never
-#    mem_limit: 256m
-#    logging:
-#      options:
-#        max-size: "10m"
-#        max-file: "10"
+  curator:
+    image: ${docker.image.prefix}/curator:${docker.image.version}
+    restart: never
+    mem_limit: 256m
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   # monitoring stuff
 

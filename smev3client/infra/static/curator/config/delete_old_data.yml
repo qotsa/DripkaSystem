@@ -1,0 +1,77 @@
+actions:
+  1:
+    action: delete_indices
+    description: 'delete raw logs'
+    options:
+      continue_if_exception: False
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: 'raw-'
+    - filtertype: space
+      disk_space: 20
+      use_age: True
+      source: creation_date
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 2
+  2:
+    action: delete_indices
+    description: 'delete business logs'
+    options:
+      continue_if_exception: False
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: 'business-'
+    - filtertype: space
+      disk_space: 20
+      use_age: True
+      source: creation_date
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 2
+  3:
+    action: delete_indices
+    description: 'delete metrics logs'
+    options:
+      continue_if_exception: False
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: 'metrics-'
+    - filtertype: space
+      disk_space: 20
+      use_age: True
+      source: creation_date
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 2
+  4:
+    action: delete_indices
+    description: 'delete camel trace logs'
+    options:
+      continue_if_exception: False
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: 'camel_trace-'
+    - filtertype: space
+      disk_space: 20
+      use_age: True
+      source: creation_date
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 2

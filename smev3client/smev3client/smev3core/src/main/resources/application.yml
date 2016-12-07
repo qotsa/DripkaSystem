@@ -41,8 +41,10 @@ routes:
     pushers: ${pushers.routes.vis2smev.inbound}
     preprocessor:
       inboundQueue: ${smev3core.routes.Vis2Smev.preprocessor.inbound}
+    postprocessor:
+      inbound: ${smev3core.routes.Vis2Smev.postprocessor.inbound}
+    replication: ${replication.routes.replicationService.vis2smev.inbound.queue}
   slipEndpoints:
     STUB: ${ufosadapter.routes.toUfos.inbound}
     UFOS: ${ufosadapter.routes.toUfos.inbound}
   smev3adapter: http://smev3adapter:${smev3adapter.http.port}/camel/request
-  replication: ${replication.routes.replicationService.inbound.queue}

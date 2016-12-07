@@ -27,8 +27,10 @@ public class AttachmentsTerminator implements Processor {
             // use local passive mode to pass firewall
             ftpClient.enterLocalPassiveMode();
 
-            String dirPath = "/replication/" + exchange.getIn().getHeader("breadcrumbId");
+            String dirPath = "/replication/fs/" + exchange.getIn().getHeader("breadcrumbId");
+            removeDirectory(ftpClient, dirPath, "");
 
+            dirPath = "/replication/embedded/" + exchange.getIn().getHeader("breadcrumbId");
             removeDirectory(ftpClient, dirPath, "");
 
             ftpClient.logout();

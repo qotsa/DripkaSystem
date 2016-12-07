@@ -30,8 +30,13 @@ eureka:
 
 routes:
   log: ${camel.endpoint.logging}
-  replicationService:
-    inboundQueue: ${replication.routes.replicationService.inbound.queue}
+  smev2vis:
+    inboundQueue: ${replication.routes.replicationService.smev2vis.inbound.queue}
     outboundQueue: ${smev3core.routes.Smev2Vis.postprocessor.inbound}
-  ftp: ftp://ftp:${ftp.port}/replication?username=${ftp.username}&password=${ftp.password}&disconnect=true&passiveMode=true
-  smev: ftp://${smev3mock2.ftp.host}:${smev3mock2.ftp.port}
+    ftpsmev: ftp://${smev.ftp.host}:${smev.ftp.port}
+    ftp: ftp://ftp:${ftp.port}/replication?username=${ftp.username}&password=${ftp.password}&disconnect=true&passiveMode=true
+  vis2smev:
+    inboundQueue: ${replication.routes.replicationService.vis2smev.inbound.queue}
+    outboundQueue: ${smev3core.routes.Vis2Smev.postprocessor.inbound}
+    ftpvis: ftp://${ftp.host}:${ftp.port}/ufos?username=${ftp.username}&password=${ftp.password}&disconnect=true&passiveMode=true
+    ftpsmev: ftp://${smev.ftp.host}:${smev.ftp.port}/inbox?username=${smev.ftp.username}&password=${smev.ftp.password}&disconnect=true&passiveMode=true

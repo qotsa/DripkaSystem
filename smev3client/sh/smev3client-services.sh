@@ -31,7 +31,7 @@ SERVICES_INFRA[ftp]="-p 2021:2021 -p 30000-30059:30000-30059 --mount type=volume
 SERVICES_INFRA[ftpsmev]="-p 3333:3333 -p 30060-30119:30060-30119 --mount type=volume,source=ftpSmevData,destination=/home/ftpusers --mount type=volume,source=ftpSmevUsers,destination=/etc/pure-ftpd/users --env \"PUBLICHOST=ftpsmev\" ${REGISTRY}/ftpsmev:${IMAGES_VERSION}"
 #SERVICES_INFRA[postgresql]="-p 5432:5432 --mount type=volume,source=postgresData,destination=/var/lib/postgresql/data ${REGISTRY}/postgresql:${IMAGES_VERSION}"
 SERVICES_INFRA[elasticsearch]="-p 9200:9200 --mount type=volume,source=elasticsearchData,destination=/usr/share/elasticsearch/data ${REGISTRY}/elasticsearch:${IMAGES_VERSION}"
-SERVICES_INFRA[elasticsearch-head]="-p 9100:9100 ${REGISTRY}/elasticsearch-head:${IMAGES_VERSION}"
+#SERVICES_INFRA[elasticsearch-head]="-p 9100:9100 ${REGISTRY}/elasticsearch-head:${IMAGES_VERSION}"
 SERVICES_INFRA[logstash]="-p 12201:12201 -p 4560:4560 ${REGISTRY}/logstash:${IMAGES_VERSION} logstash -f /config-dir/logstash.conf"
 #SERVICES_INFRA[curator]="${REGISTRY}/curator:${IMAGES_VERSION}"
 SERVICES_INFRA[cadvisor]="-p 8081:8081 --mount type=bind,source=/../,destination=/rootfs:ro --mount type=bind,source=/var/run,destination=/var/run:rw --mount type=bind,source=/sys,destination=/sys:ro --mount type=bind,source=/var/lib/docker/,destination=/var/lib/docker:ro ${REGISTRY}/cadvisor:${IMAGES_VERSION} -port=8081"

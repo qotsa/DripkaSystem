@@ -1,4 +1,4 @@
-package ru.otr.integration.smev3client.smev3adapter.config.camel;
+package ru.otr.integration.smev3client.replication.camel;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.spi.UnitOfWork;

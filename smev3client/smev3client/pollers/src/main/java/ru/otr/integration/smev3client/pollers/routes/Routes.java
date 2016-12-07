@@ -1,7 +1,6 @@
 package ru.otr.integration.smev3client.pollers.routes;
 
 import org.apache.camel.LoggingLevel;
-import org.apache.camel.component.scheduler.SchedulerComponent;
 import org.apache.camel.processor.idempotent.hazelcast.HazelcastIdempotentRepository;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.apache.camel.spring.spi.TransactionErrorHandlerBuilder;
@@ -26,7 +25,7 @@ public class Routes extends SpringRouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=1000&scheduler.concurrentTasks=4").routeId("GetRequestPoller")
+        from("scheduler://foo?useFixedDelay=false&initialDelay=60s&delay=1000&scheduler.concurrentTasks=1").routeId("GetRequestPoller")
             .errorHandler(errorHandlerBuilder)
             .transacted()
             .log(LoggingLevel.DEBUG, "metrics", "ping")
@@ -53,18 +52,18 @@ public class Routes extends SpringRouteBuilder {
                         .choice()
                             .when(xpath("//*:AttachmentHeaderList/*:AttachmentHeader"))
                                 .to("seda:saveAttachments?size=100&concurrentConsumers=10")
-                                .log(LoggingLevel.DEBUG, "metrics", "pong")
+                                .to("{{routes.log}}")
                                 .stop()
                         .end()
                         .choice()
                             .when(xpath("//*:FSAttachmentsList/*:FSAttachment"))
                                 .to("{{routes.replication}}")
-                                .log(LoggingLevel.DEBUG, "metrics", "pong")
+                                .to("{{routes.log}}")
                                 .stop()
                         .end()
                         .setHeader("messageReplicationAndVerification", simple("OK"))
                         .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}")
-                        .log(LoggingLevel.DEBUG, "metrics", "pong")
+                        .to("{{routes.log}}")
                     .end()
             .end();
 
@@ -77,15 +76,14 @@ public class Routes extends SpringRouteBuilder {
             .end()
             .to("xslt:xslt/replace_embedded_attachments.xsl")
             .setHeader("messageReplicationAndVerification", simple("OK"))
-            .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}")
-            .log(LoggingLevel.DEBUG, "metrics", "pong");
+            .to("{{routes.GetRequestPoller.GetRequestResponseQueue}}");
 
         from("direct:saveAttachmentsToFtp").routeId("saveAttachmentsToFtp")
             .errorHandler(noErrorHandler())
             .to("xslt:xslt/extract_embedded_attachments.xsl")
             .split(xpath("//Attachments/Attachment")).stopOnException()
                 .setHeader("contentId", xpath("//contentId/text()", String.class))
-                .setHeader("CamelFileName", simple("${headers.breadcrumbid}/${headers.contentId}.raw"))
+                .setHeader("CamelFileName", simple("embedded/${headers.breadcrumbid}/${headers.contentId}.raw"))
                 .to("{{routes.ftp}}")
             .end();
 

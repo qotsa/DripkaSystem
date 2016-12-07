@@ -5,6 +5,7 @@
         <from uri="{{routes.toUfos.inboundQueue}}"/>
         <transacted/>
         <to uri="{{routes.log}}"/>
+        <log loggingLevel="DEBUG" logName="metrics" message="ping"/>
         <to uri="{{routes.toUfos.outboundQueue}}"/>
     </route>
 
@@ -12,6 +13,7 @@
         <from uri="{{routes.fromUfos.inboundQueue}}"/>
         <transacted/>
         <to uri="{{routes.log}}"/>
+        <log loggingLevel="DEBUG" logName="metrics" message="ping"/>
         <to uri="{{routes.fromUfos.outboundQueue}}"/>
     </route>
 

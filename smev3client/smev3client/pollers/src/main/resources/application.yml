@@ -38,4 +38,4 @@ routes:
     GetResponseResponseQueue: ${smev3core.routes.Smev2Vis.preprocessor.inbound.GetResponseResponseQueue}
   GetStatusPoller:
     GetStatusResponseQueue: ${smev3core.routes.Smev2Vis.GetStatusResponseQueue}
-  replication: ${replication.routes.replicationService.inbound.queue}
+  replication: ${replication.routes.replicationService.smev2vis.inbound.queue}

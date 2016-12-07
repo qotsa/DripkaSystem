@@ -65,18 +65,18 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  postgresql:
-    image: ${docker.image.prefix}/postgresql:${docker.image.version}
-    restart: never
-    mem_limit: 512m
-    volumes:
-      - postgresData:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
+#  postgresql:
+#    image: ${docker.image.prefix}/postgresql:${docker.image.version}
+#    restart: never
+#    mem_limit: 512m
+#    volumes:
+#      - postgresData:/var/lib/postgresql/data
+#    ports:
+#      - 5432:5432
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
 
   # ELK-based LOGGING
 
@@ -118,14 +118,14 @@ services:
       - 12201:12201/udp
       - 4560:4560
 
-  curator:
-    image: ${docker.image.prefix}/curator:${docker.image.version}
-    restart: never
-    mem_limit: 256m
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
+#  curator:
+#    image: ${docker.image.prefix}/curator:${docker.image.version}
+#    restart: never
+#    mem_limit: 256m
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
 
   # monitoring stuff
 
@@ -174,18 +174,18 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  grafana:
-    image: ${docker.image.prefix}/grafana:${docker.image.version}
-    restart: never
-    mem_limit: 256m
-    ports:
-      - 3000:3000
-    volumes:
-      - grafanaData:/var/lib/grafana
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
+#  grafana:
+#    image: ${docker.image.prefix}/grafana:${docker.image.version}
+#    restart: never
+#    mem_limit: 256m
+#    ports:
+#      - 3000:3000
+#    volumes:
+#      - grafanaData:/var/lib/grafana
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
 
   # smev3client stuff
 
@@ -200,27 +200,27 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  hystrix:
-    image: ${docker.image.prefix}/hystrix:${docker.image.version}
-    restart: ${hystrix.docker.compose.restart}
-    mem_limit: 1024m
-    ports:
-      ${hystrix.docker.compose.ports}${debug.port.compose}
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
+#  hystrix:
+#    image: ${docker.image.prefix}/hystrix:${docker.image.version}
+#    restart: ${hystrix.docker.compose.restart}
+#    mem_limit: 1024m
+#    ports:
+#      ${hystrix.docker.compose.ports}${debug.port.compose}
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
 
-  configserver:
-    image: ${docker.image.prefix}/configserver:${docker.image.version}
-    restart: ${configserver.docker.compose.restart}
-    mem_limit: 1024m
-    ports:
-      ${configserver.docker.compose.ports}
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
+#  configserver:
+#    image: ${docker.image.prefix}/configserver:${docker.image.version}
+#    restart: ${configserver.docker.compose.restart}
+#    mem_limit: 1024m
+#    ports:
+#      ${configserver.docker.compose.ports}
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
 
   smev3core:
     image: ${docker.image.prefix}/smev3core:${docker.image.version}
@@ -288,16 +288,16 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  bpmengine:
-    image: ${docker.image.prefix}/bpmengine:${docker.image.version}
-    restart: ${bpmengine.docker.compose.restart}
-    mem_limit: 1024m
-    ports:
-      ${bpmengine.docker.compose.ports}${debug.port.compose}
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
+#  bpmengine:
+#    image: ${docker.image.prefix}/bpmengine:${docker.image.version}
+#    restart: ${bpmengine.docker.compose.restart}
+#    mem_limit: 1024m
+#    ports:
+#      ${bpmengine.docker.compose.ports}${debug.port.compose}
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
 
   smev3mock2:
     image: ${docker.image.prefix}/smev3mock2:${docker.image.version}

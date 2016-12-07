@@ -5,6 +5,7 @@ import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+import ru.otr.integration.smev3client.replication.camel.CustomMDCUnitOfWorkFactory;
 
 /**
  * Created by nikitin.maksim on 29.08.2016.
@@ -21,6 +22,8 @@ public class AppConfig {
                 context.setUseMDCLogging(true);
                 context.setTracing(true);
                 context.setStreamCaching(true);
+
+                context.setUnitOfWorkFactory(new CustomMDCUnitOfWorkFactory());
 
                 //ExecutorServiceManager manager = context.getExecutorServiceManager();
                 //ThreadPoolProfile defaultProfile = manager.getDefaultThreadPoolProfile();

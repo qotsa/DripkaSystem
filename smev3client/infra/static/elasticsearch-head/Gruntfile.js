@@ -90,7 +90,6 @@ module.exports = function(grunt) {
 		connect: {
 			server: {
 				options: {
-					hostname: 'elasticsearch-head',
 					port: 9100,
 					base: '.',
 					keepalive: true

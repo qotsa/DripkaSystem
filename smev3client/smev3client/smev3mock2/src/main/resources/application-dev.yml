@@ -26,7 +26,7 @@ camel:
     stream-caching: false
 
 ftp:
-   host: ${smev3mock2.ftp.host}
-   user: ${smev3mock2.ftp.user}
-   password: ${smev3mock2.ftp.password}
-   port: ${smev3mock2.ftp.port}
+   host: ${smev.ftp.host}
+   port: ${smev.ftp.port}
+   user: ${smev.ftp.username}
+   password: ${smev.ftp.password}

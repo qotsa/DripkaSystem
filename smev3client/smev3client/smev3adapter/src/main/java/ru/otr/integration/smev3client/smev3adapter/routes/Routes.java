@@ -1,5 +1,6 @@
 package ru.otr.integration.smev3client.smev3adapter.routes;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 import ru.otr.integration.smev3client.smev3adapter.beans.NamespaceSwapper;
@@ -19,6 +20,7 @@ public class Routes extends SpringRouteBuilder {
                 .setBody(simple("${exception.stacktrace}"))
                 .to("{{routes.log}}")
             .end()
+            .log(LoggingLevel.DEBUG, "metrics", "ping")
             .setHeader("Direction", simple(NamespaceSwapper.Direction.TO_SMEV))
             .to("bean:namespaceSwapper")
             .to("bean:operationSetter")
@@ -32,8 +34,12 @@ public class Routes extends SpringRouteBuilder {
 //                .setHeader("ERROR_MESSAGE", simple("${exception.message}"))
 //                .setBody(simple("oh nooooo"))
 //                .to("{{routes.log}}")
-            .end()
+//            .end()
+            .setHeader("PayloadReferenceMessageID", xpath("//*:SenderProvidedRequestData/*:ReferenceMessageID/text()", String.class))
+            .setHeader("PayloadMessageID", xpath("//*:SenderProvidedRequestData/*:MessageID/text()", String.class))
             .setHeader("Direction", simple(NamespaceSwapper.Direction.FROM_SMEV))
-            .to("bean:namespaceSwapper");
+            .to("bean:namespaceSwapper")
+            .to("{{routes.log}}")
+            .log(LoggingLevel.DEBUG, "metrics", "pong");
     }
 }

@@ -78,6 +78,12 @@
         },
         "operationNamespace": {
           "type": "keyword"
+        },
+        "PayloadReferenceMessageID": {
+          "type": "keyword"
+        },
+        "PayloadMessageID": {
+          "type": "keyword"
         }
       }
     }

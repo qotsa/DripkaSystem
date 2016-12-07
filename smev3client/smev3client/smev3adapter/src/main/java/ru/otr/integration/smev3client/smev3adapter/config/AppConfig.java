@@ -20,7 +20,6 @@ public class AppConfig {
                 context.setUseMDCLogging(true);
                 context.setTracing(true);
                 context.setStreamCaching(true);
-                //context.setUnitOfWorkFactory(new CustomMDCUnitOfWorkFactory());
             }
 
             @Override

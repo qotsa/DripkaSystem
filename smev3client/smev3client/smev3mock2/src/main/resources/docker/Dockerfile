@@ -8,4 +8,4 @@ RUN sh -c 'touch /${artifactId}.jar'
 
 ENTRYPOINT [${jvm.args}, "${artifactId}.jar"]
 
-EXPOSE ${smev3mock2.http.port} ${smev3mock2.ftp.port} ${debug.port} ${profile.port}
+EXPOSE ${smev3mock2.http.port} ${smev.ftp.port} ${debug.port} ${profile.port}

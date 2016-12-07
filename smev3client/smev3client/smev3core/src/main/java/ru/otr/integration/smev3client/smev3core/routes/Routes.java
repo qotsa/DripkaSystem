@@ -1,5 +1,6 @@
 package ru.otr.integration.smev3client.smev3core.routes;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.apache.camel.util.toolbox.AggregationStrategies;
 import org.springframework.stereotype.Component;
@@ -14,18 +15,16 @@ public class Routes extends SpringRouteBuilder {
 
         from("{{routes.Smev2Vis.preprocessor.GetRequestResponseQueue}}").routeId("GetRequestResponse")
             .transacted()
-            .to("direct:Smev2VisPostprocessor");
+            .to("{{routes.Smev2Vis.postprocessor.inbound}}");
 
         from("{{routes.Smev2Vis.preprocessor.GetResponseResponseQueue}}").routeId("GetResponseResponse")
             .transacted()
-            .to("direct:Smev2VisPostprocessor");
+            .to("{{routes.Smev2Vis.postprocessor.inbound}}");
 
         from("{{routes.Smev2Vis.GetStatusResponseQueue}}").routeId("GetStatusResponse")
             .transacted()
             .setHeader("messageReplicationAndVerification", simple("OK"))
-            .to("direct:Smev2VisPostprocessor");
-
-        from("direct:Smev2VisPostprocessor").to("{{routes.Smev2Vis.postprocessor.inbound}}");
+            .to("{{routes.Smev2Vis.postprocessor.inbound}}");
 
         from("{{routes.Smev2Vis.postprocessor.inbound}}").routeId("Smev2VisPostprocessor")
             .onException(AckFailedException.class).useOriginalMessage()
@@ -33,31 +32,18 @@ public class Routes extends SpringRouteBuilder {
                 .to("{{routes.log}}")
             .end()
             .transacted()
+            .log(LoggingLevel.DEBUG, "metrics", "ping")
             .setHeader("recipient").xpath("//*:MessageMetadata/*:Recipient/*:Mnemonic/text()", String.class)
             .choice()
                 .when(header("messageReplicationAndVerification").isNotEqualTo("OK"))
-                    .to("{{routes.log}}")
                 .otherwise()
                     .multicast().stopOnException()
                         .aggregationStrategy(AggregationStrategies.useOriginal()).aggregationStrategyMethodAllowNull()
                         .dynamicRouter(method(PostprocessorRouter.class, "route"))
                         .to("direct:ack")
                     .end()
-            .end();
-
-        // VIS => SMEV
-
-        /*from("{{routes.Vis2Smev.preprocessor.inboundQueue}}").routeId("Vis2SmevPreprocessor")
-            .transacted()
-            .choice()
-                .when(xpath("//*:FSAttachmentsList/*:FSAttachment"))
-                    .to("{{routes.replication}}")
-                .otherwise()
-                    .to("direct:Vis2Smev_postprocessor")
-            .end();*/
-
-        from("direct:Vis2Smev_postprocessor").routeId("Vis2SmevPostprocessor")
-            .to("{{routes.Vis2Smev.pushers}}");
+            .end()
+            .to("{{routes.log}}");
 
         // Ack
 
@@ -68,6 +54,29 @@ public class Routes extends SpringRouteBuilder {
             //.to("{{routes.smev3adapter}}")
             .choice().when(header("ERROR_MESSAGE"))
                 .throwException(new AckFailedException("Ack Failed"))
+            .end();
+
+        // VIS => SMEV
+
+        from("{{routes.Vis2Smev.preprocessor.inboundQueue}}").routeId("Vis2SmevPreprocessor")
+            .transacted()
+            .log(LoggingLevel.DEBUG, "metrics", "ping")
+            .choice()
+                .when(xpath("//*:FSAttachmentsList/*:FSAttachment"))
+                    .to("{{routes.Vis2Smev.replication}}")
+                    .setHeader("messageCopy", simple("OK"))
+                .otherwise()
+                    .to("{{routes.Vis2Smev.postprocessor.inbound}}")
+            .end()
+            .to("{{routes.log}}");
+
+        from("{{routes.Vis2Smev.postprocessor.inbound}}").routeId("Vis2SmevPostprocessor")
+            .transacted()
+            .choice()
+                .when(header("messageCopy").isNotEqualTo("OK"))
+                    .to("{{routes.log}}")
+                .otherwise()
+                    .to("{{routes.Vis2Smev.pushers}}")
             .end();
     }
 }

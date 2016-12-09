@@ -3,7 +3,7 @@ actions:
     action: delete_indices
     description: 'delete raw logs'
     options:
-      continue_if_exception: False
+      continue_if_exception: True
       disable_action: False
     filters:
     - filtertype: pattern
@@ -18,7 +18,7 @@ actions:
     action: delete_indices
     description: 'delete business logs'
     options:
-      continue_if_exception: False
+      continue_if_exception: True
       disable_action: False
     filters:
     - filtertype: pattern
@@ -33,7 +33,7 @@ actions:
     action: delete_indices
     description: 'delete metrics logs'
     options:
-      continue_if_exception: False
+      continue_if_exception: True
       disable_action: False
     filters:
     - filtertype: pattern
@@ -48,7 +48,7 @@ actions:
     action: delete_indices
     description: 'delete camel trace logs'
     options:
-      continue_if_exception: False
+      continue_if_exception: True
       disable_action: False
     filters:
     - filtertype: pattern

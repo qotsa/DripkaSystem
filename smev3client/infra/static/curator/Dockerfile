@@ -12,7 +12,7 @@ COPY config ./config
 RUN chmod +x /entrypoint.sh
 
 #run every minute
-ENV CRON */1  *  *  * *
+ENV CRON 0 23 * * *
 ENV ES_HOST elasticsearch
 ENV CONFIG_FILE /usr/share/curator/config/curator.yml
 ENV COMMAND /usr/share/curator/config/delete_old_data.yml

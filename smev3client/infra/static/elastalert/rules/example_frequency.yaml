@@ -1,0 +1,15 @@
+es_host: elasticsearch
+es_port: 9200
+name: Example rule
+type: frequency
+index: raw-*
+num_events: 5
+timeframe:
+  hours: 1
+filter:
+  - term:
+      some_field: "some_value"
+alert:
+  - "email"
+email:
+  - "maxim.nikitin.work@gmail.com"

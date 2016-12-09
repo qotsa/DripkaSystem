@@ -17,5 +17,5 @@ client:
 
 logging:
   loglevel: INFO
-  logfile:  /usr/share/curator/curator.log
+  logfile:
   logformat: default

@@ -9,10 +9,6 @@ actions:
     - filtertype: pattern
       kind: prefix
       value: 'raw-'
-    - filtertype: space
-      disk_space: 20
-      use_age: True
-      source: creation_date
     - filtertype: age
       source: creation_date
       direction: older
@@ -28,10 +24,6 @@ actions:
     - filtertype: pattern
       kind: prefix
       value: 'business-'
-    - filtertype: space
-      disk_space: 20
-      use_age: True
-      source: creation_date
     - filtertype: age
       source: creation_date
       direction: older
@@ -47,10 +39,6 @@ actions:
     - filtertype: pattern
       kind: prefix
       value: 'metrics-'
-    - filtertype: space
-      disk_space: 20
-      use_age: True
-      source: creation_date
     - filtertype: age
       source: creation_date
       direction: older
@@ -66,10 +54,6 @@ actions:
     - filtertype: pattern
       kind: prefix
       value: 'camel_trace-'
-    - filtertype: space
-      disk_space: 20
-      use_age: True
-      source: creation_date
     - filtertype: age
       source: creation_date
       direction: older

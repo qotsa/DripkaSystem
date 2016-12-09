@@ -129,6 +129,15 @@ services:
 
   # monitoring stuff
 
+#  elastalert:
+#    image: ${docker.image.prefix}/elastalert:${docker.image.version}
+#    restart: never
+#    mem_limit: 256m
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
+
 #  influxdb:
 #    image: tutum/influxdb:latest
 #    restart: never

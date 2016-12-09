@@ -34,6 +34,7 @@ SERVICES_INFRA[elasticsearch]="-p 9200:9200 --mount type=volume,source=elasticse
 #SERVICES_INFRA[elasticsearch-head]="-p 9100:9100 ${REGISTRY}/elasticsearch-head:${IMAGES_VERSION}"
 SERVICES_INFRA[logstash]="-p 12201:12201 -p 4560:4560 ${REGISTRY}/logstash:${IMAGES_VERSION} logstash -f /config-dir/logstash.conf"
 SERVICES_INFRA[curator]="${REGISTRY}/curator:${IMAGES_VERSION}"
+#SERVICES_INFRA[elastalert]="${REGISTRY}/elastalert:${IMAGES_VERSION}"
 SERVICES_INFRA[cadvisor]="-p 8081:8081 --mount type=bind,source=/../,destination=/rootfs:ro --mount type=bind,source=/var/run,destination=/var/run:rw --mount type=bind,source=/sys,destination=/sys:ro --mount type=bind,source=/var/lib/docker/,destination=/var/lib/docker:ro ${REGISTRY}/cadvisor:${IMAGES_VERSION} -port=8081"
 SERVICES_INFRA[kibana]="-p 5601:5601 --env \"--max-old-space-size=250\" ${REGISTRY}/kibana:${IMAGES_VERSION}"
 #SERVICES_INFRA[grafana]="-p 3000:3000 ${REGISTRY}/grafana:${IMAGES_VERSION}"

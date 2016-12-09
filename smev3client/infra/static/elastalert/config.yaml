@@ -1,6 +1,6 @@
 rules_folder: rules
 run_every:
-  minutes: 1
+  minutes: 10
 
 # ElastAlert will buffer results from the most recent
 # period of time, in case some log sources are not in real time
@@ -9,8 +9,8 @@ buffer_time:
 
 # The elasticsearch hostname for metadata writeback
 # Note that every rule can have it's own elasticsearch host
-es_host: elasticsearch.example.com
-es_port: 14900
+es_host: elasticsearch
+es_port: 9200
 aws_region: eu-west-1
 #es_url_prefix: elasticsearch
 use_ssl: False

@@ -7,7 +7,6 @@
             <Request Id="ID_99d4fef2-4d5c-49d5-94b3-37728cb5e11e">
                <SenderProvidedRequestData Id="ID_SREQD">
                   <MessageID>${MessageId}</MessageID>
-                  <ReferenceMessageID>${MessageID}</ReferenceMessageID>
                   <TransactionCode>c51d382a-d5c9-477b-9fd5-1e7d09467e79</TransactionCode>
                   <ns2:MessagePrimaryContent>
                      <ns2:ZadorgRequest ИдЗапрос="c51d382a-d5c9-477b-9fd5-1e7d09467e79" xmlns:ns="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1" xmlns:ns1="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1" xmlns:ns2="urn://x-artefacts-fns-zadorg/root/548-04/4.0.4" xmlns:ns4="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1" xmlns:ns5="http://www.otr.com/sufd/smev30SupportService/xml/faultMessage" xmlns:ns6="http://www.otr.com/sufd/smev30SupportService" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
